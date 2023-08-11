@@ -31,32 +31,65 @@
         <h2>Lanches</h2>
     </div>
 
-
-    <?php 
-    
-    ?>
-
     <div class="row container position-relative margem-produtos justify-content-center">
+
         <div class="col-md-auto justify-content-start d-flex align-items-center">
-            <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Logo Loja"></td>
+
+            <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
+
             <h3>X-burguer</h3>
+
         </div>
+
         <div class="col-sm-auto ">
-            
+
             <p>Descrição: Pão, Hamburguer 80g, Queijo Prado, Molho da Casa </p>
             <p>R$ 15,00</p>
+
         </div>
+
         <div class="col-sm-auto justify-content-end d-flex align-items-center">
+
             <div class="borda-comprar margem-produtos">COMPRAR</div>
+
         </div>
+
         <hr>
+
+        <?php ?>
+
+        <div class="col-md-auto justify-content-start d-flex align-items-center">
+
+            <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
+
+            <h3>X-burguer</h3>
+
+        </div>
+
+        <div class="col-sm-auto ">
+
+            <p>Descrição: Pão, Hamburguer 80g, Queijo Prado, Molho da Casa </p>
+            <p>R$ 15,00</p>
+
+        </div>
+
+        <div class="col-sm-auto justify-content-end d-flex align-items-center">
+
+            <div class="borda-comprar margem-produtos">COMPRAR</div>
+
+        </div>
+
+        <hr>
+
+        <?php ?>
+
     </div>
-    
-    <?php 
-    
+
+    <?php
+
     ?>
 
-    
+
     <div class="container position-relative d-flex align-items-center borda-carrinho">
         <h2> Carrinho </h2>
 
@@ -67,8 +100,8 @@
     </div>
 
 
-    <?php 
-    
+    <?php
+
     ?>
 
 </body>

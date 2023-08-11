@@ -18,10 +18,11 @@ class Comandos
     public function inserir() 
     {
 
-        $query = "insert into itens_cardapio(categoria, produto, valor) values (:categoria, :produto, :valor)"; //descobrir como reduzir codigo para chamar todos os itens
+        $query = "insert into itens_cardapio(categoria, produto, descricao, valor) values (:categoria, :produto,:descricao, :valor)";
         $stmt = $this->conexao->prepare($query);
         $stmt->bindValue(':categoria', $this->cardapio->__get('categoria'));
         $stmt->bindValue(':produto', $this->cardapio->__get('produto'));
+        $stmt->bindValue(':descricao', $this->cardapio->__get('descricao'));
         $stmt->bindValue(':valor', $this->cardapio->__get('valor'));
         $stmt->execute();
 

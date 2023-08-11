@@ -14,7 +14,25 @@
     <div class="faixa-top">
         <h1 class="text-light d-flex justify-content-center"><strong>Administrativo</strong></h1>
     </div>
+    
+    <?php if(isset($_GET['inclusao']) && $_GET['inclusao'] == 1) {?>
+
+        <div class="bg-success pt-2 text-white d-flex justify-content-center">
+            <h3>Incluido no Cardapio com Sucesso</h3>
+        </div>
+
+    <?php }?>
+
+    <?php if(isset($_GET['erro']) && $_GET['erro'] == 1) {?>
+        
+        <div class="bg-danger pt-2 text-white d-flex justify-content-center">
+            <h3>Erro, preencher todos os dados obrigatorios (com *)</h3>
+        </div>
+
+    <?php }?>
+
     <br>
+
     <div class="container">
 
         <form method="post" action="">
@@ -35,13 +53,13 @@
     </div>
     <div class="container">
 
-        <form method="post" action="ponteInfo.php">
+        <form method="post" action="ponteInfo.php?acao=inserir">
             <div class="form-group ">
                 <h2>Adicionar itens no menu</h2>
-                <input name="categoria" type="text" class="form-control" placeholder="CATEGORIA, Exemplo: Lanches, Pizzas, etc">
-                <input name="produto" type="text" class="form-control" placeholder="Nome do produto, Exemplo: X-tudo, Hot-dog">
+                <input name="categoria" type="text" required class="form-control" placeholder="CATEGORIA*, Exemplo: Lanches, Pizzas, etc">
+                <input name="produto" type="text" required class="form-control" placeholder="NOME DO PRODUTO*, Exemplo: X-tudo, Hot-dog">
                 <input name="descricao" type="text" class="form-control" placeholder="Descrição, Exemplo: hamburguer 180g, queijo prado">
-                <input name="valor" type="text" class="form-control" placeholder="Valor, Exemplo: 15,00">
+                <input name="valor" required type="text" class="form-control" placeholder="VALOR*, Exemplo: 15,00">
             </div>
             <br>
             <button class="btn btn-success">Cadastrar</button>

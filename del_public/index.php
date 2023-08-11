@@ -10,10 +10,12 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
-<body class="margin">
+<body class="margin body">
 <div class="container">
-    <div class="col">
-        <img src="imagens/fachada-index.jpg" class="img-fluid rounded borda-img" alt="Imagem Background">
+    <div class="col d-flex justify-content-center">
+        
+        <img src="imagens/fachada-index.jpg" class="img-fluid rounded borda-img img" alt="Imagem Background">
+        
     </div>
 </div>
 
@@ -22,7 +24,7 @@
         <div class="row justify-content-center align-items-center">
 
             <div class="col-md-4 col-lg-2">
-                <img src="imagens/logo-index.png" class="position-relative img-thumbnail" alt="Logo Loja">
+                <img src="imagens/logo-index.png" class="position-relative img-thumbnail borda-img" alt="Logo Loja">
             </div>
             <div class="col-md-8 col-lg-4">
                 <h1 class="text-primary position-relative"> MC Donalds </h1>
@@ -37,7 +39,7 @@
 
 
 
-    <div class="sticky-md-bottom position-absolute bottom-0 start-50 translate-middle-x">
+    <div class="sticky-md-bottom position-relative bottom-0 start-50 translate-middle-x">
         <div class="text-center" style="height:140px">
             <p class="text-primary"> Funcionamento: Terça a Sabado - 18:00 as 00:00</p>
             <h2 class="text-success" > ABERTO </h2>

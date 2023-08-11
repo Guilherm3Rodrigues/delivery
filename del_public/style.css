@@ -1,6 +1,13 @@
 .body {
-    background-color:rgb(36, 33, 33);
+    /*background-color:rgb(36, 33, 33);*/
+    background-color: bisque;
     color: white;
+}
+
+.img {
+    width: 50%;
+    height: auto;
+
 }
 
 .faixa-top {
@@ -37,6 +44,7 @@
     background-color: antiquewhite;
     border-radius:20px 20px 20px 20px;
     border: solid 2px black;
+    
 
 }
 

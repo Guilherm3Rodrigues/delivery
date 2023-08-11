@@ -6,24 +6,23 @@
 
     
 
+    if (isset($_GET['inclusao'] && $_GET['insclusao'] == 1)) {
     $admCardapio = new AdmCardapio();
 
     $admCardapio->__set('categoria', $_POST['categoria']);
     $admCardapio->__set('produto', $_POST['produto']);
     $admCardapio->__set('descricao', $_POST['descricao']);
     $admCardapio->__set('valor', $_POST['valor']);
-    
+
     $conexao = new Conexao();
 
     $comandos = new Comandos($conexao, $admCardapio);
 
-    print "<pre>";
-    print_r($comandos);
-    print "</pre>";
-    
     $comandos->inserir();
-   
 
+    header('Location: admControl.php?inclusao=1');
+   
+    }
 
     
 
