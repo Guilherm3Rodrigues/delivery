@@ -6,7 +6,7 @@
 
     
 
-    if (isset($_GET['inclusao'] && $_GET['insclusao'] == 1)) {
+    if (isset($_GET['acao'])) {
     $admCardapio = new AdmCardapio();
 
     $admCardapio->__set('categoria', $_POST['categoria']);
