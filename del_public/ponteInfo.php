@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($categoria) || empty($produto) || empty($valor)) {
         header('location: admControl.php?erro=1');
     } else {
-        require_once "../private_delivery/dados.php?inclusao=1";
+        require_once "../private_delivery/dados.php";
     }
 
 }
