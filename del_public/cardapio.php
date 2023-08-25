@@ -1,3 +1,10 @@
+<?php 
+    $acao = 'recuperar';
+    require 'ponteinfo.php';
+
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,30 +42,14 @@
 
         <div class="col-md-auto justify-content-start d-flex align-items-center">
 
-            <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
-
-            <h3>X-burguer</h3>
-
-        </div>
-
-        <div class="col-sm-auto ">
-
-            <p>Descrição: Pão, Hamburguer 80g, Queijo Prado, Molho da Casa </p>
-            <p>R$ 15,00</p>
-
-        </div>
-
-        <div class="col-sm-auto justify-content-end d-flex align-items-center">
-
-            <div class="borda-comprar margem-produtos">COMPRAR</div>
-
-        </div>
-
-        <hr>
-
-        <?php ?>
-
-        <div class="col-md-auto justify-content-start d-flex align-items-center">
+            <?php
+                if (isset($_GET['acao']) && $_GET['acao'] == 'remover') 
+                {
+                    ?>
+                        <button class="btn borda-comprar">DEL</button>
+                    <?php
+                };
+            ?>
 
             <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
 
@@ -75,13 +66,42 @@
 
         <div class="col-sm-auto justify-content-end d-flex align-items-center">
 
-            <div class="borda-comprar margem-produtos">COMPRAR</div>
+            <div class=" margem-produtos">
+                <button class="btn btn-danger">COMPRAR</button>
+
+
+            </div>
 
         </div>
 
-        <hr>
+        <hr> <!-- fim de um produto, inicio de outro -->
 
-        <?php ?>
+        <?php foreach($listaCardapio as $indice => $produto) { ?>
+
+            <div class="col-md-auto justify-content-start d-flex align-items-center">
+
+                <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
+
+                <h3><?php print $produto->produto?></h3>
+
+            </div>
+
+            <div class="col-sm-auto ">
+
+                <p><?php print $produto->descricao?> </p>
+                <p><?php print $produto->valor?></p>
+
+            </div>
+
+            <div class="col-sm-auto justify-content-end d-flex align-items-center">
+
+                <div class="borda-comprar margem-produtos">COMPRAR</div>
+
+            </div>
+
+            <hr>
+
+        <?php };?>
 
     </div>
 

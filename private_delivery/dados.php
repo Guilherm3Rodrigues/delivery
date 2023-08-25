@@ -4,9 +4,9 @@
     require_once "../private_delivery/conexao.php";
     require_once "../private_delivery/admCardapio.php";
 
-    
+    $acao = isset($_GET['acao']) ? $_GET['acao'] : $acao;
 
-    if (isset($_GET['acao'])) {
+    if ($acao == 'inserir') {
     $admCardapio = new AdmCardapio();
 
     $admCardapio->__set('categoria', $_POST['categoria']);
@@ -22,6 +22,13 @@
 
     header('Location: admControl.php?inclusao=1');
    
+    } else if ($acao == 'recuperar') {
+
+        $admCardapio = new AdmCardapio();
+        $conexao = new Conexao();
+
+        $comandos = new Comandos($conexao, $admCardapio);
+        $listaCardapio = $comandos->buscar();
     }
 
     
