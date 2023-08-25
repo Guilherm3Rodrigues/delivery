@@ -1,3 +1,11 @@
+<?php 
+    $acao = 'recuperar';
+    require 'ponteinfo.php';
+    print '<pre>';
+    print_r($listaCardapio);
+    print '</pre>';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,6 +43,15 @@
 
         <div class="col-md-auto justify-content-start d-flex align-items-center">
 
+            <?php
+                if (isset($_GET['acao']) && $_GET['acao'] == 'remover') 
+                {
+                    ?>
+                        <button class="btn borda-comprar">DEL</button>
+                    <?php
+                };
+            ?>
+
             <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
 
             <h3>X-burguer</h3>
@@ -50,11 +67,15 @@
 
         <div class="col-sm-auto justify-content-end d-flex align-items-center">
 
-            <div class="borda-comprar margem-produtos">COMPRAR</div>
+            <div class=" margem-produtos">
+                <button class="btn btn-danger">COMPRAR</button>
+
+
+            </div>
 
         </div>
 
-        <hr>
+        <hr> <!-- fim de um produto, inicio de outro -->
 
         <?php ?>
 

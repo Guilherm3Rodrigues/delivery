@@ -11,13 +11,24 @@
 </head>
 
 <body class="margin body">
-<div class="container">
-    <div class="col d-flex justify-content-center">
+
+    <?php if(isset($_GET['erro']) && $_GET['erro'] == 1) {?>
         
-        <img src="imagens/fachada-index.jpg" class="img-fluid rounded borda-img img" alt="Imagem Background">
-        
+        <div class="bg-danger pt-2 text-white d-flex justify-content-center">
+            <h3>Erro, preencher todos os dados obrigatorios (com *)</h3>
+        </div>
+
+    <?php                                                }?>
+
+
+
+    <div class="container">
+        <div class="col d-flex justify-content-center">
+            
+            <img src="imagens/fachada-index.jpg" class="img-fluid rounded borda-img img" alt="Imagem Background">
+            
+        </div>
     </div>
-</div>
 
 
     <div class="container">
@@ -26,34 +37,35 @@
             <div class="col-md-4 col-lg-2">
                 <img src="imagens/logo-index.png" class="position-relative img-thumbnail borda-img" alt="Logo Loja">
             </div>
+
             <div class="col-md-8 col-lg-4">
                 <h1 class="text-primary position-relative"> MC Donalds </h1>
                 <h3 class="text-primary position-relative">(35) 98899-9749 </h3>
                 <p class="text-danger position-relative"> Rua Maria Lourdes de Andrade, 185</p>
                 <p class="text-danger"> Bairro Sossego - Piranguinho</p>
             </div>
+
         </div>
+
     </div>
 
-
-
-
-
     <div class="sticky-md-bottom position-relative bottom-0 start-50 translate-middle-x">
+
         <div class="text-center" style="height:140px">
             <p class="text-primary"> Funcionamento: Terça a Sabado - 18:00 as 00:00</p>
             <h2 class="text-success" > ABERTO </h2>
 
         </div>
+
         <div>
+
             <a class="borda-carrinho fs-3 fw-bolder btn btn-danger position-relative bottom-0 start-50 translate-middle btn btn-lg btn-primary rounded-pill"
                 href="cardapio.php" >
-          Cardapio</a>
+            Cardapio</a>
+
       </div>
+
     </div>
-
-
-    
     
 </body>
 </html>
