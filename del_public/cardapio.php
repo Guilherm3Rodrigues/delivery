@@ -51,6 +51,15 @@
                 };
             ?>
 
+            <?php
+                if (isset($_GET['acao']) && $_GET['acao'] == 'remover') 
+                {
+                    ?>
+                        <button class="btn borda-comprar">DEL</button>
+                    <?php
+                };
+            ?>
+
             <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
 
             <h3>X-burguer</h3>
@@ -66,6 +75,11 @@
 
         <div class="col-sm-auto justify-content-end d-flex align-items-center">
 
+            <div class=" margem-produtos">
+                <button class="btn btn-danger">COMPRAR</button>
+
+
+            </div>
             <div class=" margem-produtos">
                 <button class="btn btn-danger">COMPRAR</button>
 
