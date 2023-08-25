@@ -1,6 +1,6 @@
 <?php 
-//if desnecessario, apenas require esta em uso
-//Mas é uma segunda segurança para formularios em branco
+//Segurança 2º caso require fails
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $categoria = $_POST['categoria'];
@@ -8,11 +8,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $valor = $_POST['valor'];
 
     if (empty($categoria) || empty($produto) || empty($valor)) {
-        header('location: admControl.php?erro=1');
+        header('location: index.php?erro=1');
     } else {
         require_once "../private_delivery/dados.php";
     }
 
+} else {
+    require_once "../private_delivery/dados.php";
 }
 
 
