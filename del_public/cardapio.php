@@ -15,6 +15,29 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Cardapio</title>
+
+    <script>
+        function editar() 
+        {
+            alert('deu certo');
+
+            let form = document.createElement('form')
+            form.action = '#'
+            form.method = 'post'
+
+            let input = document.createElement('input')
+            input.type = 'text'
+            input.name = 'descricao'
+            input.className = 'form-control'
+
+            let button = document.createElement('button')
+            button.type = 'submit'
+            button.className = 'btn btn-info'
+            button.innerHTML = 'Atualizar'
+        }
+    </script>
+
+
 </head>
 
 <body>
@@ -43,22 +66,16 @@
         <div class="col-md-auto justify-content-start d-flex align-items-center">
 
             <?php
-                if (isset($_GET['acao']) && $_GET['acao'] == 'remover') 
+                if (isset($_GET['acao']) && $_GET['acao'] == 'removerEdit') 
                 {
                     ?>
-                        <button class="btn borda-comprar">DEL</button>
+                        <button class="btn borda-comprar margem-varTotal">DEL</button>
+                        <button class="btn borda-comprar">Edit</button>
                     <?php
                 };
             ?>
 
-            <?php
-                if (isset($_GET['acao']) && $_GET['acao'] == 'remover') 
-                {
-                    ?>
-                        <button class="btn borda-comprar">DEL</button>
-                    <?php
-                };
-            ?>
+            
 
             <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
 
@@ -80,11 +97,7 @@
 
 
             </div>
-            <div class=" margem-produtos">
-                <button class="btn btn-danger">COMPRAR</button>
-
-
-            </div>
+           
 
         </div>
 
@@ -94,7 +107,17 @@
 
             <div class="col-md-auto justify-content-start d-flex align-items-center">
 
-                <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
+                    <?php
+                        if (isset($_GET['acao']) && $_GET['acao'] == 'removerEdit') 
+                        {
+                            ?>
+                                <button class="btn borda-comprar margem-varTotal">DEL</button>
+                                <button class="btn borda-comprar" onclick="editar()">Edit</button>
+                            <?php
+                        };
+                    ?>
+
+                    <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
 
                 <h3><?php print $produto->produto?></h3>
 

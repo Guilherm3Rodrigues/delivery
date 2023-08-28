@@ -22,7 +22,7 @@
 
     header('Location: admControl.php?inclusao=1');
    
-    } else if ($acao == 'recuperar') {
+    } else if ($acao == 'recuperar' || $acao == 'removerEdit') {
 
         $admCardapio = new AdmCardapio();
         $conexao = new Conexao();
