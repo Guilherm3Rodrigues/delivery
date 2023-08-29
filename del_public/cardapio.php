@@ -34,6 +34,12 @@
             button.type = 'submit'
             button.className = 'btn btn-info'
             button.innerHTML = 'Atualizar'
+
+            form.appendChild(input)
+
+            form.appendChild(button)
+
+            console.log(form)
         }
     </script>
 
@@ -70,7 +76,7 @@
                 {
                     ?>
                         <button class="btn borda-comprar margem-varTotal">DEL</button>
-                        <button class="btn borda-comprar">Edit</button>
+                        <button class="btn borda-comprar" onclick="editar()">Edit</button>
                     <?php
                 };
             ?>
