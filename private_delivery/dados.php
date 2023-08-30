@@ -6,23 +6,29 @@
 
     $acao = isset($_GET['acao']) ? $_GET['acao'] : $acao;
 
-    if ($acao == 'inserir') {
-    $admCardapio = new AdmCardapio();
+    if ($acao == 'inserir') 
+    {
 
-    $admCardapio->__set('categoria', $_POST['categoria']);
-    $admCardapio->__set('produto', $_POST['produto']);
-    $admCardapio->__set('descricao', $_POST['descricao']);
-    $admCardapio->__set('valor', $_POST['valor']);
+        $admCardapio = new AdmCardapio();
 
-    $conexao = new Conexao();
+        $admCardapio->__set('categoria', $_POST['categoria']);
+        $admCardapio->__set('produto', $_POST['produto']);
+        $admCardapio->__set('descricao', $_POST['descricao']);
+        $admCardapio->__set('valor', $_POST['valor']);
 
-    $comandos = new Comandos($conexao, $admCardapio);
+        $conexao = new Conexao();
 
-    $comandos->inserir();
+        $comandos = new Comandos($conexao, $admCardapio);
 
-    header('Location: admControl.php?inclusao=1');
-   
-    } else if ($acao == 'recuperar' || $acao == 'removerEdit') {
+        $comandos->inserir();
+
+        header('Location: admControl.php?inclusao=1');
+    
+    } 
+    
+    else if ($acao == 'recuperar' || $acao == 'removerEdit') 
+    
+    {
 
         $admCardapio = new AdmCardapio();
         $conexao = new Conexao();

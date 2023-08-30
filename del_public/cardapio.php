@@ -17,30 +17,57 @@
     <title>Cardapio</title>
 
     <script>
-        function editar() 
+        
+        function editar(id, txt_descricao) 
         {
-            alert('deu certo');
-
+            // =================== criando form para edição
             let form = document.createElement('form')
             form.action = '#'
             form.method = 'post'
+            //Estetica
+            form.className = 'row'
 
+            // =================== criando input para entrada de dados
             let input = document.createElement('input')
             input.type = 'text'
             input.name = 'descricao'
-            input.className = 'form-control'
+            //col-9 é estetica
+            input.className = 'col-9 form-control'
+            input.value = txt_descricao
 
+            // =================== criando input hidden para o ID
+            let inputId = document.createElement('input')
+            inputId.type = 'hidden'
+            inputId.name = 'id'
+            inputId.value = id
+
+            // =================== criando um button para enviar o form
             let button = document.createElement('button')
             button.type = 'submit'
-            button.className = 'btn btn-info'
+            //col-3 é estetica
+            button.className = 'col-3 btn btn-info'
             button.innerHTML = 'Atualizar'
 
+            // =================== incluindo input no form
             form.appendChild(input)
 
+            // =================== incluindo inputId no form
+            form.appendChild(inputId)
+
+            // =================== incluindo button no form
             form.appendChild(button)
 
             console.log(form)
+            
+            // =================== incluindo ID dinamico
+            let produto = document.getElementById('produto_'+ id)
+
+            // =================== limpando as informaçoes antigas
+            produto.innerHTML = ''
+
+            produto.insertBefore(form, produto[0])
         }
+
     </script>
 
 
@@ -118,21 +145,21 @@
                         {
                             ?>
                                 <button class="btn borda-comprar margem-varTotal">DEL</button>
-                                <button class="btn borda-comprar" onclick="editar()">Edit</button>
+                                <button class="btn borda-comprar" onclick="editar(<?php print $produto->id ?>, '<?php print $produto->descricao ?>')">Edit</button>
                             <?php
                         };
                     ?>
 
                     <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
 
-                <h3><?php print $produto->produto?></h3>
+                <h3><?php print $produto->produto ?></h3>
 
             </div>
 
-            <div class="col-sm-auto ">
+            <div class="col-sm-auto " id="produto_<?php print $produto->id ?>">
 
-                <p><?php print $produto->descricao?> </p>
-                <p><?php print $produto->valor?></p>
+                <p><?php print $produto->descricao ?> </p>
+                <p><?php print $produto->valor ?></p>
 
             </div>
 
