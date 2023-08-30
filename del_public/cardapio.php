@@ -1,8 +1,6 @@
 <?php 
     $acao = 'recuperar';
     require 'ponteinfo.php';
-
-    
 ?>
 
 <!DOCTYPE html>
@@ -17,12 +15,12 @@
     <title>Cardapio</title>
 
     <script>
-        
+
         function editar(id, txt_descricao) 
         {
             // =================== criando form para edição
             let form = document.createElement('form')
-            form.action = '#'
+            form.action = 'ponteInfo.php?acao=removerEdit'
             form.method = 'post'
             //Estetica
             form.className = 'row'

@@ -26,16 +26,30 @@
     
     } 
     
-    else if ($acao == 'recuperar' || $acao == 'removerEdit') 
+    else  if ($acao == 'recuperar' || $acao == 'removerEdit') 
     
-    {
+        {
 
-        $admCardapio = new AdmCardapio();
-        $conexao = new Conexao();
+            $admCardapio = new AdmCardapio();
+            $conexao = new Conexao();
 
-        $comandos = new Comandos($conexao, $admCardapio);
-        $listaCardapio = $comandos->buscar();
-    }
+            $comandos = new Comandos($conexao, $admCardapio);
+            $listaCardapio = $comandos->buscar();
+        }
+
+    if ($acao == 'removerEdit') 
+    
+        {            
+            $admCardapio = new AdmCardapio();
+
+            $admCardapio->__set('id', $_POST['id']);
+            $admCardapio->__set('descricao', $_POST['descricao']);
+            
+            $conexao = new Conexao();
+            $comandos = new Comandos($conexao, $admCardapio);
+            $listaCardapio = $comandos->editar();
+            
+        }
 
     
 

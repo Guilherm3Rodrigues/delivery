@@ -37,9 +37,15 @@ class Comandos
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function atualizar() 
+    public function editar() 
     {
-
+            //rever esses passos
+        print_r($this->cardapio);
+        $query = 'update itens_cardapio set descricao = :descricao where id = :id';
+        $stmt = $this->conexao->prepare($query);
+        $stmt->bindValue(':descricao', $this->cardapio->__get('descricao'));
+        $stmt->bindValue(':id', $this->cardapio->__get('id'));
+        return $stmt->execute();
     }
 
     public function remover() 
