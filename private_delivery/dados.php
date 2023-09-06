@@ -26,7 +26,7 @@
     
     } 
     
-    else  if ($acao == 'recuperar' || $acao == 'removerEdit') 
+    else  if ($acao == 'recuperar') 
     
         {
 
@@ -35,19 +35,27 @@
 
             $comandos = new Comandos($conexao, $admCardapio);
             $listaCardapio = $comandos->buscar();
+            
         }
 
-    if ($acao == 'removerEdit') 
+    else if ($acao == 'Atualizar') 
     
         {            
             $admCardapio = new AdmCardapio();
 
-            $admCardapio->__set('id', $_POST['id']);
             $admCardapio->__set('descricao', $_POST['descricao']);
+            $admCardapio->__set('id', $_POST['id']);
+            
+            print $admCardapio->__get('id');
+            print $admCardapio->__get('descricao');
             
             $conexao = new Conexao();
+
             $comandos = new Comandos($conexao, $admCardapio);
-            $listaCardapio = $comandos->editar();
+
+            $listaCardapio = $comandos->buscar();
+            
+            $comandos->editar();
             
         }
 

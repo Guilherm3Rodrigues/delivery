@@ -65,7 +65,7 @@
             <button class="btn btn-success">Cadastrar</button>
         </form>
         <hr>
-        <form method="post" action="ponteInfo.php?acao=removerEdit">
+        <form method="post" action="ponteInfo.php?acao=Atualizar">
             <div class="form-group ">
                 <h2>Remover itens no menu</h2>
                 <input name="categoria" type="text" required class="form-control" placeholder="CATEGORIA*, Exemplo: Lanches, Pizzas, etc">
@@ -73,7 +73,7 @@
             </div>
             <br>
             <button class="btn btn-warning">REMOVER CATEGORIA TODA</button>
-            <a class="btn btn-primary" href="cardapio.php?acao=removerEdit">Remover / Editar Cardapio</a>
+            <a class="btn btn-primary" href="cardapio.php?acao=Atualizar">Editar Cardapio</a>
         </form>
     </div>
     <br>

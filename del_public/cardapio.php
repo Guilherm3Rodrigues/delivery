@@ -20,7 +20,7 @@
         {
             // =================== criando form para edição
             let form = document.createElement('form')
-            form.action = 'ponteInfo.php?acao=removerEdit'
+            form.action = 'ponteInfo.php?acao=Atualizar'
             form.method = 'post'
             //Estetica
             form.className = 'row'
@@ -97,7 +97,7 @@
         <div class="col-md-auto justify-content-start d-flex align-items-center">
 
             <?php
-                if (isset($_GET['acao']) && $_GET['acao'] == 'removerEdit') 
+                if (isset($_GET['acao']) && $_GET['acao'] == 'Atualizar') 
                 {
                     ?>
                         <button class="btn borda-comprar margem-varTotal">DEL</button>
@@ -139,7 +139,7 @@
             <div class="col-md-auto justify-content-start d-flex align-items-center">
 
                     <?php
-                        if (isset($_GET['acao']) && $_GET['acao'] == 'removerEdit') 
+                        if (isset($_GET['acao']) && $_GET['acao'] == 'Atualizar') 
                         {
                             ?>
                                 <button class="btn borda-comprar margem-varTotal">DEL</button>
