@@ -43,21 +43,32 @@
         {            
             $admCardapio = new AdmCardapio();
 
-            $admCardapio->__set('descricao', $_POST['descricao']);
-            $admCardapio->__set('id', $_POST['id']);
-            
-            print $admCardapio->__get('id');
-            print $admCardapio->__get('descricao');
-            
             $conexao = new Conexao();
 
             $comandos = new Comandos($conexao, $admCardapio);
 
             $listaCardapio = $comandos->buscar();
-            
-            $comandos->editar();
 
-            header('Location: cardapio.php?acao=Atualizar'); //qual o problema?
+            if(isset($_POST['descricao']) && $_POST['id'])
+            {
+
+                $admCardapio->__set('descricao', $_POST['descricao']);
+                $admCardapio->__set('id', $_POST['id']);
+                
+                print $admCardapio->__get('id');
+                print $admCardapio->__get('descricao');
+                
+                    
+                $comandos->editar();
+
+                header('location: cardapio.php?acao=Atualizar');
+            }
+             
+            
+            
+            
+            
+            
             
         }
 

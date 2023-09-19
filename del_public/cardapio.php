@@ -66,6 +66,8 @@
             produto.insertBefore(form, produto[0])
         }
 
+        
+
     </script>
 
 
@@ -94,6 +96,9 @@
 
     <div class="row container position-relative margem-produtos justify-content-center">
 
+
+              
+
         <div class="col-md-auto justify-content-start d-flex align-items-center">
 
             <?php
@@ -114,25 +119,33 @@
 
         </div>
 
-        <div class="col-sm-auto ">
+        
 
-            <p>Descrição: Pão, Hamburguer 80g, Queijo Prado, Molho da Casa </p>
-            <p>R$ 15,00</p>
+            <div class="col-sm-auto ">
 
-        </div>
-
-        <div class="col-sm-auto justify-content-end d-flex align-items-center">
-
-            <div class=" margem-produtos">
-                <button class="btn btn-danger">COMPRAR</button>
-
+                <p>Descrição: Pão, Hamburguer 80g, Queijo Prado, Molho da Casa </p>
+                <p>R$ 15,00</p>
 
             </div>
-           
 
-        </div>
+         
+        
+            <div class="col-sm-auto justify-content-end d-flex align-items-center">
+
+                <div class=" margem-produtos">
+                    <button class="btn btn-danger">COMPRAR</button>
+
+
+                </div>
+            
+
+            </div>
+
+         
 
         <hr> <!-- fim de um produto, inicio de outro -->
+
+        
 
         <?php foreach($listaCardapio as $indice => $produto) { ?>
 
@@ -170,6 +183,8 @@
             <hr>
 
         <?php };?>
+
+        
 
     </div>
 

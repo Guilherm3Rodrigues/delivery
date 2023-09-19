@@ -44,6 +44,7 @@ class Comandos
         $stmt->bindValue(':descricao', $this->cardapio->__get('descricao'));
         $stmt->bindValue(':id', $this->cardapio->__get('id'));
         return $stmt->execute(); 
+        
     }
 
     public function remover() 
