@@ -56,6 +56,8 @@
             $listaCardapio = $comandos->buscar();
             
             $comandos->editar();
+
+            header('Location: cardapio.php?acao=Atualizar'); //qual o problema?
             
         }
 
