@@ -63,13 +63,25 @@
 
                 header('location: cardapio.php?acao=Atualizar');
             }
-             
             
+        }
+
+        else  if ($acao == 'remover') 
+    
+        {
+
+            $admCardapio = new AdmCardapio();
+            $conexao = new Conexao();
+
+            $admCardapio->__set('id', $_GET['id']);
+
+            $comandos = new Comandos($conexao, $admCardapio);
             
-            
-            
-            
-            
+            $comandos->remover();
+
+            header('location: cardapio.php?acao=Atualizar');
+
+
         }
 
     

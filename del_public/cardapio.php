@@ -66,7 +66,10 @@
             produto.insertBefore(form, produto[0])
         }
 
-        
+        function remover (id) 
+        {
+            location.href = 'cardapio.php?acao=remover&&id='+id;
+        }
 
     </script>
 
@@ -152,14 +155,15 @@
             <div class="col-md-auto justify-content-start d-flex align-items-center">
 
                     <?php
-                        if (isset($_GET['acao']) && $_GET['acao'] == 'Atualizar') 
+                        if (isset($_GET['acao']) && $_GET['acao'] == 'Atualizar' || $_GET['acao'] == 'remover') 
                         {
                             ?>
-                                <button class="btn borda-comprar margem-varTotal">DEL</button>
+                                <button class="btn borda-comprar margem-varTotal" onclick="remover(<?php print $produto->id ?>)">DEL</button>
                                 <button class="btn borda-comprar" onclick="editar(<?php print $produto->id ?>, '<?php print $produto->descricao ?>')">Edit</button>
                             <?php
                         };
                     ?>
+                    
 
                     <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
 

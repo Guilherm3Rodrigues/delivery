@@ -49,6 +49,10 @@ class Comandos
 
     public function remover() 
     {
+        $query = 'delete from itens_cardapio where id = :id';
+        $stmt = $this->conexao->prepare($query);
+        $stmt->bindvalue(':id', $this->cardapio->__get('id'));
+        $stmt->execute();
 
     }
 
