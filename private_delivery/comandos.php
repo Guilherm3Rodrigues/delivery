@@ -56,6 +56,12 @@ class Comandos
 
     }
 
+    public function add_carrinho()
+    {
+        $querySelect = 'select id, img, produto, descricao, valor from itens_cardapio where id = :id';
+        $query = 'update pedidos set produto, descricao, valor = :produto, :descricao, valor where id = :id';
+
+    }
 
 
 }

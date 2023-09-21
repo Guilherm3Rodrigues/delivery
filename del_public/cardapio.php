@@ -71,6 +71,12 @@
             location.href = 'cardapio.php?acao=remover&&id='+id;
         }
 
+        function add (id)
+
+        {
+            location.href = 'cardapio.php?acao=comprar&&id='+id;
+        }
+
     </script>
 
 
@@ -155,13 +161,14 @@
             <div class="col-md-auto justify-content-start d-flex align-items-center">
 
                     <?php
-                        if (isset($_GET['acao']) && $_GET['acao'] == 'Atualizar' || $_GET['acao'] == 'remover') 
+                        if (isset($_GET['acao']) && $_GET['acao'] == 'Atualizar') 
                         {
                             ?>
                                 <button class="btn borda-comprar margem-varTotal" onclick="remover(<?php print $produto->id ?>)">DEL</button>
                                 <button class="btn borda-comprar" onclick="editar(<?php print $produto->id ?>, '<?php print $produto->descricao ?>')">Edit</button>
                             <?php
-                        };
+                        } 
+                      
                     ?>
                     
 
@@ -180,7 +187,7 @@
 
             <div class="col-sm-auto justify-content-end d-flex align-items-center">
 
-                <div class="borda-comprar margem-produtos">COMPRAR</div>
+            <button class="btn btn-danger" onclick="add(<?php print $produto->id ?>)">COMPRAR</button>
 
             </div>
 

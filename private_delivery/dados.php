@@ -26,7 +26,7 @@
     
     } 
     
-    else  if ($acao == 'recuperar') 
+    else  if ($acao == 'recuperar' || $acao == 'comprar') 
     
         {
 
@@ -82,6 +82,19 @@
             header('location: cardapio.php?acao=Atualizar');
 
 
+        }
+
+        else if (isset($_GET['comprar']) && $_GET['id'])
+
+        {
+            $admCardapio = new AdmCardapio();
+            $conexao = new Conexao();
+
+            $admCardapio->__set('id', $_GET['id']);
+
+            $comandos = new Comandos($conexao, $admCardapio);
+
+            $comandos->add_carrinho();
         }
 
     
