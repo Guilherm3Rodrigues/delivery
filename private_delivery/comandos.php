@@ -26,7 +26,6 @@ class Comandos
         $stmt->bindValue(':valor', $this->cardapio->__get('valor'));
         $stmt->execute();
 
-
     }
     
     public function buscar() 
@@ -35,6 +34,7 @@ class Comandos
         $stmt = $this->conexao->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
+
     }
 
     public function editar() 
@@ -58,9 +58,12 @@ class Comandos
 
     public function add_carrinho()
     {
-        $querySelect = 'select id, img, produto, descricao, valor from itens_cardapio where id = :id';
-        $query = 'update pedidos set produto, descricao, valor = :produto, :descricao, valor where id = :id';
-
+        $query = 'insert into pedidos  select * from itens_cardapio where id = :id';
+        $stmt = $this->conexao->prepare($query);
+        $stmt->bindvalue(':id', $this->cardapio->__get('id'));
+        $stmt->execute();
+        
+        
     }
 
 

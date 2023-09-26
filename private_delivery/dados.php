@@ -69,7 +69,7 @@
         else  if ($acao == 'remover') 
     
         {
-
+            
             $admCardapio = new AdmCardapio();
             $conexao = new Conexao();
 
@@ -84,9 +84,11 @@
 
         }
 
-        else if (isset($_GET['comprar']) && $_GET['id'])
+        else if ($acao == 'comprar')
 
         {
+           
+           /* 
             $admCardapio = new AdmCardapio();
             $conexao = new Conexao();
 
@@ -95,6 +97,9 @@
             $comandos = new Comandos($conexao, $admCardapio);
 
             $comandos->add_carrinho();
+            */
+
+            header('location: carrinho.php');
         }
 
     

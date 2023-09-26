@@ -69,6 +69,7 @@
         function remover (id) 
         {
             location.href = 'cardapio.php?acao=remover&&id='+id;
+            
         }
 
         function add (id)
