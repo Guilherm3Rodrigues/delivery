@@ -72,11 +72,11 @@
             
         }
 
-        function add (id)
+         function add (id)
 
         {
-            location.href = 'cardapio.php?acao=comprar&&id='+id;
-        }
+            location.href = 'cardapio.php?acao=recuperar&&id='+id;
+        } 
 
     </script>
 
@@ -105,8 +105,6 @@
     </div>
 
     <div class="row container position-relative margem-produtos justify-content-center">
-
-
               
 
         <div class="col-md-auto justify-content-start d-flex align-items-center">
@@ -120,7 +118,6 @@
                     <?php
                 };
             ?>
-
             
 
             <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
@@ -150,14 +147,14 @@
             
 
             </div>
-
          
 
-        <hr> <!-- fim de um produto, inicio de outro -->
-
+        <hr> <!-- fim de um produto, inicio de outro ================================================================ -->
         
 
-        <?php foreach($listaCardapio as $indice => $produto) { ?>
+        <?php foreach($listaCardapio as $indice => $produto) 
+        
+        { ?>
 
             <div class="col-md-auto justify-content-start d-flex align-items-center">
 
@@ -188,22 +185,18 @@
 
             <div class="col-sm-auto justify-content-end d-flex align-items-center">
 
-            <button class="btn btn-danger" onclick="add(<?php print $produto->id ?>)">COMPRAR</button>
+                <button class="btn btn-danger" onclick="add(<?php print $produto->id ?>)">COMPRAR</button>
 
             </div>
 
             <hr>
 
-        <?php };?>
+            <?php 
+        };?>
 
         
 
     </div>
-
-    <?php
-
-    ?>
-
 
     <div class="container position-relative d-flex align-items-center borda-carrinho">
         <h2> Carrinho </h2>
@@ -212,13 +205,10 @@
             <h3 class="margem-varTotal">$varValorTotal</h3>
             <a type="buttom" class="borda-comprar" href="carrinho.php">Finalizar</a>
         </div>
+
     </div>
 
-
-    <?php
-
-    ?>
-
+    
 </body>
 
 </html>

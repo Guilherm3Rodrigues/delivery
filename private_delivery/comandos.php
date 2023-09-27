@@ -53,18 +53,40 @@ class Comandos
         $stmt = $this->conexao->prepare($query);
         $stmt->bindvalue(':id', $this->cardapio->__get('id'));
         $stmt->execute();
-
+              
     }
 
     public function add_carrinho()
     {
-        $query = 'insert into pedidos  select * from itens_cardapio where id = :id';
-        $stmt = $this->conexao->prepare($query);
-        $stmt->bindvalue(':id', $this->cardapio->__get('id'));
+        $verificar = 'select numero_pedido from pedidos where id = :id';
+        $stmt = $this->conexao->prepare($verificar);
+        $stmt->bindValue(':id', $this->cardapio->__get('id'));
         $stmt->execute();
         
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$resultado) 
+        {
+
+            $query = 'INSERT INTO pedidos SELECT * FROM itens_cardapio WHERE id = :id';
+            $stmt = $this->conexao->prepare($query);
+            $stmt->bindValue(':id', $this->cardapio->__get('id'));
+            $stmt->execute();
+
+        }
+        
+        else 
+
+        {
+            // Se o ID já existe na tabela 'pedidos', incrementa o valor existente
+            $cont = intval($resultado['numero_pedido']) + 1;
+            $query = 'update pedidos set numero_pedido = :cont where id = :id';
+            $stmt = $this->conexao->prepare($query);
+            $stmt->bindValue(':cont', $cont);
+            $stmt->bindValue(':id', $this->cardapio->__get('id'));
+            $stmt->execute();
+        }
         
     }
-
 
 }

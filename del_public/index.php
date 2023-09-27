@@ -60,7 +60,7 @@
         <div>
 
             <a class="borda-carrinho fs-3 fw-bolder btn btn-danger position-relative bottom-0 start-50 translate-middle btn btn-lg btn-primary rounded-pill"
-                href="cardapio.php?acao=comprar" >
+                href="cardapio.php" >
             Cardapio</a>
 
       </div>

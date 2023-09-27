@@ -26,7 +26,7 @@
     
     } 
     
-    else  if ($acao == 'recuperar' || $acao == 'comprar') 
+    else  if ($acao == 'recuperar') 
     
         {
 
@@ -35,6 +35,14 @@
 
             $comandos = new Comandos($conexao, $admCardapio);
             $listaCardapio = $comandos->buscar();
+
+            if (isset($_GET['id'])) 
+            {
+                $admCardapio->__set('id', $_GET['id']);
+                $comandos->add_carrinho();
+
+                header('location: cardapio.php?recuperar');
+            }
             
         }
 
@@ -84,24 +92,7 @@
 
         }
 
-        else if ($acao == 'comprar')
-
-        {
-           
-           /* 
-            $admCardapio = new AdmCardapio();
-            $conexao = new Conexao();
-
-            $admCardapio->__set('id', $_GET['id']);
-
-            $comandos = new Comandos($conexao, $admCardapio);
-
-            $comandos->add_carrinho();
-            */
-
-            header('location: carrinho.php');
-        }
-
+        
     
 
 ?>
