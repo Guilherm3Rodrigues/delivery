@@ -1,4 +1,6 @@
 <?php 
+    session_start();
+
     $acao = 'recuperar';
     require 'ponteinfo.php';
 ?>
@@ -199,16 +201,35 @@
     </div>
 
     <div class="container position-relative d-flex align-items-center borda-carrinho">
-        <h2> Carrinho </h2>
+        <h2>Total: R$ </h2>
+
+        <h3 class="margem-varTotal">
+        
+            <?php 
+                
+                if (isset($_SESSION['valorTotal'])) 
+                {
+                    print $valorTotal = $_SESSION['valorTotal'];
+                } 
+                
+                else 
+                
+                {
+                   print $valorTotal = 0;
+                } 
+                
+            ?>
+                
+        </h3>
 
         <div class="col justify-content-end d-flex align-items-center">
-            <h3 class="margem-varTotal">$varValorTotal</h3>
-            <a type="buttom" class="borda-comprar" href="carrinho.php">Finalizar</a>
+            
+            <a type="buttom" class="borda-comprar" href="carrinho.php">Carrinho</a>
         </div>
 
     </div>
 
-    
+        
 </body>
 
 </html>

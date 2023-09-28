@@ -1,4 +1,5 @@
 <?php 
+    
 
     require_once "comandos.php";
     require_once "../private_delivery/conexao.php";
@@ -39,9 +40,13 @@
             if (isset($_GET['id'])) 
             {
                 $admCardapio->__set('id', $_GET['id']);
-                $comandos->add_carrinho();
+                $objetoProduto = $comandos->add_carrinho();
+                
+                $valorTotal = $objetoProduto['valor'];
+                $_SESSION['valorTotal'] = $valorTotal;
 
-                header('location: cardapio.php?recuperar');
+
+               header('location: cardapio.php?recuperar');
             }
             
         }
@@ -57,6 +62,7 @@
 
             $listaCardapio = $comandos->buscar();
 
+
             if(isset($_POST['descricao']) && $_POST['id'])
             {
 
@@ -66,7 +72,6 @@
                 print $admCardapio->__get('id');
                 print $admCardapio->__get('descricao');
                 
-                    
                 $comandos->editar();
 
                 header('location: cardapio.php?acao=Atualizar');

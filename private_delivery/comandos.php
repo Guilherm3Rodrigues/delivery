@@ -58,21 +58,19 @@ class Comandos
 
     public function add_carrinho()
     {
-        $verificar = 'select numero_pedido from pedidos where id = :id';
+        $verificar = 'select * from pedidos where id = :id';
         $stmt = $this->conexao->prepare($verificar);
         $stmt->bindValue(':id', $this->cardapio->__get('id'));
         $stmt->execute();
         
         $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (!$resultado) 
+        if (!$resultado['numero_pedido']) 
         {
-
-            $query = 'INSERT INTO pedidos SELECT * FROM itens_cardapio WHERE id = :id';
+            $query = 'insert into pedidos select * from itens_cardapio where id = :id';
             $stmt = $this->conexao->prepare($query);
             $stmt->bindValue(':id', $this->cardapio->__get('id'));
-            $stmt->execute();
-
+            
         }
         
         else 
@@ -84,9 +82,10 @@ class Comandos
             $stmt = $this->conexao->prepare($query);
             $stmt->bindValue(':cont', $cont);
             $stmt->bindValue(':id', $this->cardapio->__get('id'));
-            $stmt->execute();
+            
         }
-        
+        $stmt->execute();
+        return $resultado;
     }
 
 }
