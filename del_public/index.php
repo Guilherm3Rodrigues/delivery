@@ -1,3 +1,10 @@
+<?php 
+
+    $acao = 'recuperar';
+    require 'ponteinfo.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <?php $nomeRestaurante = "McDonalds" ?>
@@ -60,8 +67,14 @@
         <div>
 
             <a class="borda-carrinho fs-3 fw-bolder btn btn-danger position-relative bottom-0 start-50 translate-middle btn btn-lg btn-primary rounded-pill"
-                href="cardapio.php" >
-            Cardapio</a>
+                href="cardapio.php" >Cardapio
+            </a>
+            <br>
+            <br>
+            <a class="borda-carrinho fs-3 fw-bolder btn btn-danger position-relative bottom-0 start-50 translate-middle btn btn-lg btn-primary rounded-pill"
+                href="admControl.php" >Administrador
+            </a>
+            
 
       </div>
 

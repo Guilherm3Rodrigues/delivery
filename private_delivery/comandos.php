@@ -28,6 +28,7 @@ class Comandos
 
     }
     
+    
     public function buscar() 
     {
         $query = 'select id, img, produto, descricao, valor from itens_cardapio';
@@ -36,6 +37,7 @@ class Comandos
         return $stmt->fetchAll(PDO::FETCH_OBJ);
 
     }
+
 
     public function editar() 
     {
@@ -47,6 +49,7 @@ class Comandos
         
     }
 
+
     public function remover() 
     {
         $query = 'delete from itens_cardapio where id = :id';
@@ -55,6 +58,7 @@ class Comandos
         $stmt->execute();
               
     }
+
 
     public function add_carrinho()
     {

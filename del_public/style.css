@@ -40,6 +40,14 @@
     padding: 1%;
 }
 
+.borda-index {
+    border: solid 1px black;
+    background-color:rgb(18, 1, 58);
+    color: white;
+    border-radius: 20px 20px 20px 20px;
+    padding: 1%;
+}
+
 .borda-img {
     background-color: antiquewhite;
     border-radius:20px 20px 20px 20px;

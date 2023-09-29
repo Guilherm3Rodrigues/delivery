@@ -88,16 +88,23 @@
 <body>
 
     <div class="row faixa-top margem-cabeçalho">
+        
+        <div class="col">
+            <a href="index.php" class=" btn btn-info borda-index">Voltar ao Inicio</a>
+        </div>
+
         <div class="container position-relative">
+
             <div>
                 <img src="imagens/logo-index.png" id="position-logo" class=" col-sm-auto borda-img position-relative margem-img img-thumbnail" alt="Logo Loja">
             </div>
-
+            
             <div class=" col-sm-auto margem-info" id="position-info">
                 <h3 class="margin-h3 text-primary position-relative">(35) 98899-9749 </h3>
                 <p class="margin-p text-danger position-relative"> Rua Maria Lourdes de Andrade, 185</p>
                 <p class="margin-p text-danger"> Bairro Sossego - Piranguinho</p>
             </div>
+            
         </div>
 
     </div>
