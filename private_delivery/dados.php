@@ -97,6 +97,29 @@
 
         }
 
+        else if ($acao == 'logar')
+
+        {
+            if(isset($_POST['usuario']) && $_POST['usuario'] !== null )
+                {
+
+                    if($_POST['usuario'] == 'admin') 
+                    {
+                        if(isset($_POST['senha']) && $_POST['senha'] == 'admin') 
+                        {
+                            header('Location: admControl.php');
+                        }
+                        
+                    } 
+                    else 
+                    { 
+                        header('Location: index.php?erro=1');
+                    };
+                    
+                } 
+
+        }
+
         
     
 
