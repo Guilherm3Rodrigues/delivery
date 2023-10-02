@@ -185,7 +185,7 @@
 
             </div>
 
-            <div class="col-sm-auto " id="produto_<?php print $produto->id ?>">
+            <div class="col-sm-auto " id="produto_<?php print $produto->id?> ">
 
                 <p><?php print $produto->descricao ?> </p>
                 <p><?php print $produto->valor ?></p>
@@ -231,7 +231,8 @@
 
         <div class="col justify-content-end d-flex align-items-center">
             
-            <a type="buttom" class="borda-comprar" href="carrinho.php">Carrinho</a>
+            <a type="buttom" class="borda-comprar" href="carrinho.php?acao=recuperarPedidos">Carrinho</a>
+
         </div>
 
     </div>

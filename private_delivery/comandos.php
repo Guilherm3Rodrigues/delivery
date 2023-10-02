@@ -38,6 +38,15 @@ class Comandos
 
     }
 
+    public function buscarPedidos() 
+    {
+        $query = 'select id, produto, valor, numero_pedido from pedidos';
+        $stmt = $this->conexao->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+
+    }
+
 
     public function editar() 
     {
@@ -72,23 +81,22 @@ class Comandos
         if (!$resultado['numero_pedido']) 
         {
             $query = 'insert into pedidos select * from itens_cardapio where id = :id';
-            $stmt = $this->conexao->prepare($query);
-            $stmt->bindValue(':id', $this->cardapio->__get('id'));
-            
+            $stmt2 = $this->conexao->prepare($query);
+            $stmt2->bindValue(':id', $this->cardapio->__get('id'));
+            $stmt2->execute();
         }
         
         else 
 
         {
-            // Se o ID já existe na tabela 'pedidos', incrementa o valor existente
             $cont = intval($resultado['numero_pedido']) + 1;
             $query = 'update pedidos set numero_pedido = :cont where id = :id';
-            $stmt = $this->conexao->prepare($query);
-            $stmt->bindValue(':cont', $cont);
-            $stmt->bindValue(':id', $this->cardapio->__get('id'));
-            
+            $stmt2 = $this->conexao->prepare($query);
+            $stmt2->bindValue(':cont', $cont);
+            $stmt2->bindValue(':id', $this->cardapio->__get('id'));
+            $stmt2->execute();    
         }
-        $stmt->execute();
+        
         return $resultado;
     }
 

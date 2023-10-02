@@ -120,6 +120,20 @@
 
         }
 
+        else  if ($acao == 'recuperarPedidos') 
+    
+        {
+            
+            $admCardapio = new AdmCardapio();
+            $conexao = new Conexao();
+
+            $comandos = new Comandos($conexao, $admCardapio);
+            $listaPedidos = $comandos->buscarPedidos();
+            
+            
+        }
+
+
         
     
 

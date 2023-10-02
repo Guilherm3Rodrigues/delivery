@@ -1,3 +1,10 @@
+<?php 
+    
+
+    $acao = 'recuperar';
+    require 'ponteinfo.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +22,8 @@
         <h1 class="text-light d-flex justify-content-center">Revisao Pedido</h1>
     </div>
     
-    <?php if(isset($_GET['acao']) && $_GET['acao'] == 'pedido_enviado') {?>
+    <?php if(isset($_GET['acao']) && $_GET['acao'] == 'pedido_enviado') 
+    {?>
 
         <div class="bg-success pt-2 text-white d-flex justify-content-center">
 
@@ -23,27 +31,37 @@
 
         </div>
 
-    <?php }?>
+    <?php 
+    }?>
     
     <br>
+    
+        <div class="container">
 
-    <div class="container">
+            <div class="d-flex"> 
 
-        <div class="d-flex">  <? //necessario cadastrar foreach e variavel dinamica ?>
-            <ul class="list-group mr-3">
-                <li class="list-group-item">$item12 x2</li>
-                <li class="list-group-item">$item07</li>
-                <li class="list-group-item">$item08</li>
-                <li class="list-group-item">$item07</li>
-            </ul>
+                <ul class="list-group mr-3">
 
-            <ul class="list-group">
-                <li class="list-group-item">$item12 x2</li>
-                <li class="list-group-item">$item077</li>
-                <li class="list-group-item">$item077</li>
-            </ul>
+                    <?php 
+                    $valor = 0;
+                    $qtd = 0;
+                    foreach($listaPedidos as $indice => $produto) 
+                    {?>
+                        <li class="list-group-item"><?php print $produto->produto ?> / 
+                            R$ <?php print $produto->valor ?> 
+                            x <?php print $produto->numero_pedido; 
+                            $valor = $produto->valor + $valor;
+                            $qtd = $produto->numero_pedido + $qtd;
+                     ?>
+                        </li>
+                    <?php 
+                    };?>
+                        <strong><li>Total: R$ <?php print $valor?></li></strong> <!-- VALOR TOTAL ESTA ERRADO!-->
+                </ul>
+
+            </div>
+
         </div>
-    </div>
 
     <div class="container">
         <hr>
