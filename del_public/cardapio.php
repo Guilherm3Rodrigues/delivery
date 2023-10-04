@@ -29,14 +29,7 @@
             location.href = 'cardapio.php?acao=recuperar&&id='+id;
         } 
 
-        function teste(id)
-
-        {
-            location.href = 'cardapio.php?acao=Atualizar&&id='+id;
-        }
-
     </script>
-
 
 </head>
 
@@ -67,8 +60,6 @@
         <div class="container position-relative borda-categoria">
             <h2>Lanches</h2>
         </div>
-
-
     
         <div class="row container position-relative margem-produtos justify-content-center">
 
@@ -84,14 +75,11 @@
                     };
                 ?>
                 
-
                 <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
 
                 <h3>X-burguer</h3>
 
             </div>
-
-        
 
             <div class="col-sm-auto ">
 
@@ -100,8 +88,6 @@
 
             </div>
 
-         
-        
             <div class="col-sm-auto justify-content-end d-flex align-items-center">
 
                 <div class=" margem-produtos">
@@ -113,10 +99,18 @@
 
             <hr> <!-- INICIO OUTRO PRODUTO ================================================================ -->
         
-
             <?php foreach($listaCardapio as $indice => $produto) 
             { ?>
-                <div class="row">
+                <div class="row container position-relative margem-produtos justify-content-center">
+                                    <?php  if(!isset($_GET['acao']))  // é necessario resolver a forma de lidar com as categorias na edição
+                                    { 
+                                    ?>
+                                    <div class="container position-relative borda-categoria">
+                                        <h2><?php print $produto->categoria?></h2>
+                                    </div>
+                                    <?php 
+                                    };?>
+                                    
                     <div class="col-md-auto justify-content-start d-flex align-items-center">
 
                                 <?php
@@ -150,13 +144,12 @@
                                                 <input type="hidden" id="id" name="id" value="<?php print $produto->id ?>" >
                                                     <button class="btn btn-success">Atualizar</button>
                                             </form>
-                                            
-                             
                                 <?php  
                                 } 
                                 
                                 else 
                                 {?>
+
                                     <div class="col-md-auto justify-content-start d-flex align-items-center">
                                         <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
 
@@ -176,11 +169,8 @@
                                         <button class="btn btn-danger" onclick="add(<?php print $produto->id ?>)">COMPRAR</button>
 
                                     </div>
-
-                                    
-
                     </div>
-                    
+                                    <hr>
                 </div>
 
             <?php               }
@@ -188,35 +178,32 @@
             <!-- Fim do ciclo produto ======================================================================= !-->
         </div>
 
-    <div class="container position-relative d-flex align-items-center borda-carrinho">
-        <h2>Total: R$ </h2>
+        <?php  if(!isset($_GET['acao'])) 
+        { 
+        ?>
+            <div class="container position-relative d-flex align-items-center borda-carrinho">
+                    <h2>Total: R$ </h2>
+                    <h3 class="margem-varTotal">
+                        <?php 
+                            if (isset($_SESSION['valorTotal'])) 
+                            {
+                                print $valorTotal = $_SESSION['valorTotal'];
+                            } 
+                            else 
+                            {
+                                print $valorTotal = 0;
+                            } 
+                        ?>
+                    </h3>
+                    <div class="col justify-content-end d-flex align-items-center">
+                        
+                        <a type="buttom" class="borda-comprar" href="carrinho.php?acao=recuperarPedidos">Carrinho</a>
 
-        <h3 class="margem-varTotal">
-        
-            <?php 
-                
-                if (isset($_SESSION['valorTotal'])) 
-                {
-                    print $valorTotal = $_SESSION['valorTotal'];
-                } 
-                
-                else 
-                
-                {
-                   print $valorTotal = 0;
-                } 
-                
-            ?>
-                
-        </h3>
+                    </div>
+        <?php 
+        };?>
 
-        <div class="col justify-content-end d-flex align-items-center">
-            
-            <a type="buttom" class="borda-comprar" href="carrinho.php?acao=recuperarPedidos">Carrinho</a>
-
-        </div>
-
-    </div>
+            </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    
 <script src="script.js"></script>    

@@ -1,5 +1,9 @@
 # Delivery
 
+=================== Senha Administrador ===================
+Usuario: admin
+Senha: admin
+
 =================== Tabelas SQL para o projeto funcionar corretamente ===================
 
 CREATE TABLE `itens_cardapio` (

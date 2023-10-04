@@ -80,13 +80,7 @@
                     $admCardapio->__set('produto', $_POST['produto']);
                 }
                 
-                
-                //print $admCardapio->__get('id');
-                //print $admCardapio->__get('descricao');
-                
                 $comandos->editar();
-                
-                
                 
                 header('location: cardapio.php?acao=Atualizar');
             }

@@ -31,7 +31,7 @@ class Comandos
     
     public function buscar() 
     {
-        $query = 'select id, img, produto, descricao, valor from itens_cardapio';
+        $query = 'select id, img, produto, descricao, categoria, valor from itens_cardapio';
         $stmt = $this->conexao->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
