@@ -50,9 +50,11 @@ class Comandos
 
     public function editar() 
     {
-        $query = 'update itens_cardapio set descricao = :descricao where id = :id';
+        $query = 'update itens_cardapio set descricao = :descricao, produto = :produto, valor = :valor where id = :id';
         $stmt = $this->conexao->prepare($query);
         $stmt->bindValue(':descricao', $this->cardapio->__get('descricao'));
+        $stmt->bindValue(':produto', $this->cardapio->__get('produto'));
+        $stmt->bindValue(':valor', $this->cardapio->__get('valor'));
         $stmt->bindValue(':id', $this->cardapio->__get('id'));
         return $stmt->execute(); 
         

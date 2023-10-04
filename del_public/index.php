@@ -74,7 +74,7 @@
             </a>
             <br>
             <br>
-            <button id="adm" class="borda-carrinho fs-3 fw-bolder btn btn-danger position-relative bottom-0 start-50 translate-middle btn btn-lg btn-primary rounded-pill">
+            <button id="open" class="borda-carrinho fs-3 fw-bolder btn btn-danger position-relative bottom-0 start-50 translate-middle btn btn-lg btn-primary rounded-pill">
                 Administrador
             </button>
 

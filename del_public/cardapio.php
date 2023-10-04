@@ -12,61 +12,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Cardapio</title>
 
     <script>
-
-        function editar(id, txt_descricao) 
-        {
-            // =================== criando form para edição
-            let form = document.createElement('form')
-            form.action = 'ponteInfo.php?acao=Atualizar'
-            form.method = 'post'
-            //Estetica
-            form.className = 'row'
-
-            // =================== criando input para entrada de dados
-            let input = document.createElement('input')
-            input.type = 'text'
-            input.name = 'descricao'
-            //col-9 é estetica
-            input.className = 'col-9 form-control'
-            input.value = txt_descricao
-
-            // =================== criando input hidden para o ID
-            let inputId = document.createElement('input')
-            inputId.type = 'hidden'
-            inputId.name = 'id'
-            inputId.value = id
-
-            // =================== criando um button para enviar o form
-            let button = document.createElement('button')
-            button.type = 'submit'
-            //col-3 é estetica
-            button.className = 'col-3 btn btn-info'
-            button.innerHTML = 'Atualizar'
-
-            // =================== incluindo input no form
-            form.appendChild(input)
-
-            // =================== incluindo inputId no form
-            form.appendChild(inputId)
-
-            // =================== incluindo button no form
-            form.appendChild(button)
-
-            console.log(form)
-            
-            // =================== incluindo ID dinamico
-            let produto = document.getElementById('produto_'+ id)
-
-            // =================== limpando as informaçoes antigas
-            produto.innerHTML = ''
-
-            produto.insertBefore(form, produto[0])
-        }
 
         function remover (id) 
         {
@@ -79,6 +28,12 @@
         {
             location.href = 'cardapio.php?acao=recuperar&&id='+id;
         } 
+
+        function teste(id)
+
+        {
+            location.href = 'cardapio.php?acao=Atualizar&&id='+id;
+        }
 
     </script>
 
@@ -109,31 +64,32 @@
 
     </div>
 
-    <div class="container position-relative borda-categoria">
-        <h2>Lanches</h2>
-    </div>
-
-    <div class="row container position-relative margem-produtos justify-content-center">
-              
-
-        <div class="col-md-auto justify-content-start d-flex align-items-center">
-
-            <?php
-                if (isset($_GET['acao']) && $_GET['acao'] == 'Atualizar') 
-                {
-                    ?>
-                        <button class="btn borda-comprar margem-varTotal">DEL</button>
-                        <button class="btn borda-comprar" onclick="editar()">Edit</button>
-                    <?php
-                };
-            ?>
-            
-
-            <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
-
-            <h3>X-burguer</h3>
-
+        <div class="container position-relative borda-categoria">
+            <h2>Lanches</h2>
         </div>
+
+
+    
+        <div class="row container position-relative margem-produtos justify-content-center">
+
+            <div class="col-md-auto justify-content-start d-flex align-items-center">
+
+                <?php
+                    if (isset($_GET['acao']) && $_GET['acao'] == 'Atualizar') 
+                    {
+                        ?>
+                            <button class="btn borda-comprar margem-varTotal">DEL</button>
+                            <button class="btn borda-comprar" id="open">Edit</button>
+                        <?php
+                    };
+                ?>
+                
+
+                <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
+
+                <h3>X-burguer</h3>
+
+            </div>
 
         
 
@@ -151,61 +107,86 @@
                 <div class=" margem-produtos">
                     <button class="btn btn-danger">COMPRAR</button>
 
-
                 </div>
             
-
             </div>
-         
 
-        <hr> <!-- fim de um produto, inicio de outro ================================================================ -->
+            <hr> <!-- INICIO OUTRO PRODUTO ================================================================ -->
         
 
-        <?php foreach($listaCardapio as $indice => $produto) 
-        
-        { ?>
+            <?php foreach($listaCardapio as $indice => $produto) 
+            { ?>
+                <div class="row">
+                    <div class="col-md-auto justify-content-start d-flex align-items-center">
 
-            <div class="col-md-auto justify-content-start d-flex align-items-center">
+                                <?php
+                                if (isset($_GET['acao']) && $_GET['acao'] == 'Atualizar') 
+                                {?>
+                                    <button class="btn borda-comprar margem-varTotal" 
+                                    onclick="remover(<?php print $produto->id ?>)">DEL</button>
 
-                    <?php
-                        if (isset($_GET['acao']) && $_GET['acao'] == 'Atualizar') 
-                        {
-                            ?>
-                                <button class="btn borda-comprar margem-varTotal" onclick="remover(<?php print $produto->id ?>)">DEL</button>
-                                <button class="btn borda-comprar" onclick="editar(<?php print $produto->id ?>, '<?php print $produto->descricao ?>')">Edit</button>
-                            <?php
-                        } 
-                      
-                    ?>
+                                            <form method="post">
+
+                                                <img src="imagens/logo-index.png" 
+                                                class="img-produtos2 position-relative borda-img img-thumbnail" 
+                                                alt="Imagem Produto">
+
+                                                <label for="produto">Produto:</label>
+
+                                                <input type="text" id="produto" name="produto" 
+                                                value="<?php print $produto->produto?>">
                     
+                                                
+                                                <label for="descricao">Descrição:</label>
+                    
+                                                <input type="text" id="descricao" name="descricao" 
+                                                    value="<?php print $produto->descricao?>">
+                                                    
+                                                <label for="valor">Valor:</label>
+                        
+                                                <input type="text" id="valor" name="valor" 
+                                                    value="<?php print $produto->valor?>">
 
-                    <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
+                                                <input type="hidden" id="id" name="id" value="<?php print $produto->id ?>" >
+                                                    <button class="btn btn-success">Atualizar</button>
+                                            </form>
+                                            
+                             
+                                <?php  
+                                } 
+                                
+                                else 
+                                {?>
+                                    <div class="col-md-auto justify-content-start d-flex align-items-center">
+                                        <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
 
-                <h3><?php print $produto->produto ?></h3>
+                                        <h3><?php print $produto->produto ?></h3>
 
-            </div>
+                                    </div>
 
-            <div class="col-sm-auto " id="produto_<?php print $produto->id?> ">
+                                    <div class="col-sm-auto " id="produto_<?php print $produto->id?> ">
 
-                <p><?php print $produto->descricao ?> </p>
-                <p><?php print $produto->valor ?></p>
+                                        <p><?php print $produto->descricao ?> </p>
+                                        <p><?php print $produto->valor ?></p>
 
-            </div>
+                                    </div>
 
-            <div class="col-sm-auto justify-content-end d-flex align-items-center">
+                                    <div class="col-sm-auto justify-content-end d-flex align-items-center">
 
-                <button class="btn btn-danger" onclick="add(<?php print $produto->id ?>)">COMPRAR</button>
+                                        <button class="btn btn-danger" onclick="add(<?php print $produto->id ?>)">COMPRAR</button>
 
-            </div>
+                                    </div>
 
-            <hr>
+                                    
 
-            <?php 
-        };?>
+                    </div>
+                    
+                </div>
 
-        
-
-    </div>
+            <?php               }
+            };?>
+            <!-- Fim do ciclo produto ======================================================================= !-->
+        </div>
 
     <div class="container position-relative d-flex align-items-center borda-carrinho">
         <h2>Total: R$ </h2>
@@ -237,7 +218,8 @@
 
     </div>
 
-        
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    
+<script src="script.js"></script>    
 </body>
 
 </html>

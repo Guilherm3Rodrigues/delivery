@@ -4,6 +4,12 @@ function abrirDialog()
     dialog.showModal();
 }
 
+function abrirDialogEditar() 
+{
+    const dialog = document.getElementById('dialog');
+    dialog.showModal();
+}
+
 function fecharDialog() 
 {
     const dialog = document.getElementById('dialog');
@@ -11,10 +17,13 @@ function fecharDialog()
 }
 
 
-const botaoAdministrador = document.getElementById('adm');
+const botaoAdministrador = document.getElementById('open');
 botaoAdministrador.addEventListener('click', abrirDialog);
 
 const botaoFechar = document.getElementById('fecharDialog');
 botaoFechar.addEventListener('click', fecharDialog);
+
+const botãoEditar = document.getElementById('editar');
+botaoAdministrador.addEventListener('click', abrirDialog);
 
   

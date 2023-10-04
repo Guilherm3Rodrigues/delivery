@@ -62,21 +62,36 @@
 
             $listaCardapio = $comandos->buscar();
 
-
-            if(isset($_POST['descricao']) && $_POST['id'])
+            
+            if(isset($_POST['id']))
             {
-
-                $admCardapio->__set('descricao', $_POST['descricao']);
                 $admCardapio->__set('id', $_POST['id']);
+
+                if (isset($_POST['descricao']))
+                {
+                    $admCardapio->__set('descricao', $_POST['descricao']);
+                }
+                if (isset($_POST['valor']))
+                {
+                    $admCardapio->__set('valor', $_POST['valor']);
+                }
+                if (isset($_POST['produto']))
+                {
+                    $admCardapio->__set('produto', $_POST['produto']);
+                }
                 
-                print $admCardapio->__get('id');
-                print $admCardapio->__get('descricao');
+                
+                //print $admCardapio->__get('id');
+                //print $admCardapio->__get('descricao');
                 
                 $comandos->editar();
-
+                
+                
+                
                 header('location: cardapio.php?acao=Atualizar');
             }
             
+                
         }
 
         else  if ($acao == 'remover') 
