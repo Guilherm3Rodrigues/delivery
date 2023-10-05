@@ -1,6 +1,4 @@
 <?php 
-    
-
     $acao = 'recuperar';
     require 'ponteinfo.php';
 ?>

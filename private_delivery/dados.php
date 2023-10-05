@@ -9,7 +9,7 @@
     
     $index = $_SERVER['PHP_SELF'];
 
-    if (strpos($index, 'index.php') !== false) 
+    if (strpos($index, 'index.php') !== false || strpos($index, 'cardapio.php') !== false ) 
 
     {
         $admInfo = new AdmInfo();

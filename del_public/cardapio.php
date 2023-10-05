@@ -36,6 +36,16 @@
             <a href="index.php" class=" btn btn-info borda-index">Voltar ao Inicio</a>
         </div>
 
+        <?php  // PHP =============================================
+            if (isset($_GET['acao']) && $_GET['acao'] == 'Atualizar') 
+        {?>
+                <div class="col">
+                    <a href="admControl.php" class=" btn btn-info borda-index">Voltar ao ADM</a>
+                </div>
+        <?php 
+        };
+        ?>
+
         <div class="container position-relative">
 
             <div>
@@ -43,9 +53,9 @@
             </div>
             
             <div class=" col-sm-auto margem-info" id="position-info">
-                <h3 class="margin-h3 text-primary position-relative">(35) 98899-9749 </h3>
-                <p class="margin-p text-danger position-relative"> Rua Maria Lourdes de Andrade, 185</p>
-                <p class="margin-p text-danger"> Bairro Sossego - Piranguinho</p>
+                <h3 class="margin-h3 text-primary position-relative"><?php print $_SESSION['telefone']?></h3>
+                <p class="margin-p text-danger position-relative"><?php print $_SESSION['rua']?></p>
+                <p class="margin-p text-danger"><?php print $_SESSION['bairro']?></p>
             </div>
             
         </div>
@@ -60,7 +70,7 @@
 
             <div class="col-md-auto justify-content-start d-flex align-items-center">
 
-                <?php
+                <?php // PHP =============================================
                     if (isset($_GET['acao']) && $_GET['acao'] == 'Atualizar') 
                     {
                         ?>
@@ -94,107 +104,110 @@
 
             <hr> <!-- INICIO OUTRO PRODUTO ================================================================ -->
         
-            <?php foreach($listaCardapio as $indice => $produto) 
+            <?php foreach($listaCardapio as $indice => $produto)  // PHP =============================================
             { ?>
                 <div class="row container position-relative margem-produtos justify-content-center">
-                                    <?php  if(!isset($_GET['acao']))  // é necessario resolver a forma de lidar com as categorias na edição
-                                    { 
-                                    ?>
-                                    <div class="container position-relative borda-categoria">
-                                        <h2><?php print $produto->categoria?></h2>
-                                    </div>
-                                    <?php 
-                                    };?>
+                        <?php  if(!isset($_GET['acao']))  // é necessario resolver a forma de lidar com as categorias na edição
+                        { 
+                        ?>
+                        <div class="container position-relative borda-categoria">
+                            <h2><?php print $produto->categoria?></h2>
+                        </div>
+                        <?php 
+                        };?>
                                     
-                    <div class="col-md-auto justify-content-start d-flex align-items-center">
-
-                                <?php
-                                if (isset($_GET['acao']) && $_GET['acao'] == 'Atualizar') 
-                                {?>
-                                    <button class="btn borda-comprar margem-varTotal" 
-                                    onclick="remover(<?php print $produto->id ?>)">DEL</button>
-
-                                            <form method="post">
-
-                                                <img src="imagens/logo-index.png" 
-                                                class="img-produtos2 position-relative borda-img img-thumbnail" 
-                                                alt="Imagem Produto">
-
-                                                <label for="produto">Produto:</label>
-
-                                                <input type="text" id="produto" name="produto" 
-                                                value="<?php print $produto->produto?>">
-                    
-                                                
-                                                <label for="descricao">Descrição:</label>
-                    
-                                                <input type="text" id="descricao" name="descricao" 
-                                                    value="<?php print $produto->descricao?>">
-                                                    
-                                                <label for="valor">Valor:</label>
+                    <div class="col-md-auto justify-content-start d-flex align-items-center"> <!-- essa linha esta atrapalhando a visualização quando se esta editando o cardapio !-->
+                                    
+                        <?php // PHP =============================================
                         
-                                                <input type="text" id="valor" name="valor" 
-                                                    value="<?php print $produto->valor?>">
+                        if (isset($_GET['acao']) && $_GET['acao'] == 'Atualizar')  
+                        {?>
+                        
+                            <button class="btn borda-comprar margem-varTotal" 
+                            onclick="remover(<?php print $produto->id ?>)">DEL</button>
+                                    
+                            <form method="post">
 
-                                                <input type="hidden" id="id" name="id" value="<?php print $produto->id ?>" >
-                                                    <button class="btn btn-success">Atualizar</button>
-                                            </form>
-                                <?php  
-                                } 
+                                <img src="imagens/logo-index.png" 
+                                class="img-produtos2 position-relative borda-img img-thumbnail" 
+                                alt="Imagem Produto">
+
+                                <label for="produto">Produto:</label>
+
+                                <input type="text" id="produto" name="produto" 
+                                value="<?php print $produto->produto?>">
+    
                                 
-                                else 
-                                {?>
+                                <label for="descricao">Descrição:</label>
+    
+                                <input type="text" id="descricao" name="descricao" 
+                                    value="<?php print $produto->descricao?>">
+                                    
+                                <label for="valor">Valor:</label>
+        
+                                <input type="text" id="valor" name="valor" 
+                                    value="<?php print $produto->valor?>">
 
-                                    <div class="col-md-auto justify-content-start d-flex align-items-center">
-                                        <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
+                                <input type="hidden" id="id" name="id" value="<?php print $produto->id ?>" >
+                                    <button class="btn btn-success">Atualizar</button>
+                            </form>
+                            
+                                    
+                        <?php  // PHP ============================================= 
+                        } 
+                        else 
+                        {?>
 
-                                        <h3><?php print $produto->produto ?></h3>
+                            <div class="col-md-auto justify-content-start d-flex align-items-center">
+                                <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
 
-                                    </div>
+                                <h3><?php print $produto->produto ?></h3>
 
-                                    <div class="col-sm-auto " id="produto_<?php print $produto->id?> ">
+                            </div>
 
-                                        <p><?php print $produto->descricao ?> </p>
-                                        <p><?php print $produto->valor ?></p>
+                            <div class="col-sm-auto " id="produto_<?php print $produto->id?> ">
 
-                                    </div>
+                                <p><?php print $produto->descricao ?> </p>
+                                <p><?php print $produto->valor ?></p>
 
-                                    <div class="col-sm-auto justify-content-end d-flex align-items-center">
+                            </div>
 
-                                        <button class="btn btn-danger" onclick="add(<?php print $produto->id ?>)">COMPRAR</button>
+                            <div class="col-sm-auto justify-content-end d-flex align-items-center">
 
-                                    </div>
+                                <button class="btn btn-danger" onclick="add(<?php print $produto->id ?>)">COMPRAR</button>
+
+                            </div>
                     </div>
                                     <hr>
                 </div>
 
-            <?php               }
+            <?php               } // PHP =============================================
             };?>
             <!-- Fim do ciclo produto ======================================================================= !-->
         </div>
-        <?php  if(!isset($_GET['acao'])) 
+        <?php  if(!isset($_GET['acao']))  // PHP =============================================
         { 
         ?>
             <div class="container position-relative d-flex align-items-center borda-carrinho">
-                    <h2>Total: R$ </h2>
-                    <h3 class="margem-varTotal">
-                        <?php 
-                            if (isset($_SESSION['valorTotal'])) 
-                            {
-                                print $valorTotal = $_SESSION['valorTotal'];
-                            } 
-                            else 
-                            {
-                                print $valorTotal = 0;
-                            } 
-                        ?>
-                    </h3>
-                    <div class="col justify-content-end d-flex align-items-center">
-                        
-                        <a type="buttom" class="borda-comprar" href="carrinho.php?acao=recuperarPedidos">Carrinho</a>
+                <h2>Total: R$ </h2>
+                <h3 class="margem-varTotal">
+                    <?php  // PHP =============================================
+                        if (isset($_SESSION['valorTotal'])) 
+                        {
+                            print $valorTotal = $_SESSION['valorTotal'];
+                        } 
+                        else 
+                        {
+                            print $valorTotal = 0;
+                        } 
+                    ?>
+                </h3>
+                <div class="col justify-content-end d-flex align-items-center">
+                    
+                    <a type="buttom" class="borda-comprar" href="carrinho.php?acao=recuperarPedidos">Carrinho</a>
 
-                    </div>
-        <?php 
+                </div>
+        <?php  // PHP =============================================
         };?>
             </div>
 
