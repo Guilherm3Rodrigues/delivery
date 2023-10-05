@@ -21,6 +21,27 @@ class AdmCardapio
     }
 }
 
+class AdmInfo 
+{
+    private $id;
+    private $nome;
+    private $telefone;
+    private $rua;
+    private $bairro;
+    private $data_funcionamento;
+    
+    public function __set($atributo, $valor) 
+    {
+        $this->$atributo = $valor;
+    }
+
+    
+    public function __get($atributo) 
+    {
+        return $this->$atributo;
+    }
+}
+
 
 
 

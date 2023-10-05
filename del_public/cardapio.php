@@ -16,19 +16,14 @@
     <title>Cardapio</title>
 
     <script>
-
         function remover (id) 
         {
             location.href = 'cardapio.php?acao=remover&&id='+id;
-            
         }
-
          function add (id)
-
         {
             location.href = 'cardapio.php?acao=recuperar&&id='+id;
         } 
-
     </script>
 
 </head>
@@ -36,7 +31,7 @@
 <body>
 
     <div class="row faixa-top margem-cabeçalho">
-        
+
         <div class="col">
             <a href="index.php" class=" btn btn-info borda-index">Voltar ao Inicio</a>
         </div>
@@ -177,7 +172,6 @@
             };?>
             <!-- Fim do ciclo produto ======================================================================= !-->
         </div>
-
         <?php  if(!isset($_GET['acao'])) 
         { 
         ?>
@@ -202,7 +196,6 @@
                     </div>
         <?php 
         };?>
-
             </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    

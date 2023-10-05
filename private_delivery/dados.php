@@ -6,6 +6,20 @@
     require_once "../private_delivery/admCardapio.php";
 
     $acao = isset($_GET['acao']) ? $_GET['acao'] : $acao;
+    
+    $index = $_SERVER['PHP_SELF'];
+
+    if (strpos($index, 'index.php') !== false) 
+
+    {
+        $admInfo = new AdmInfo();
+        $conexao = new Conexao();
+
+        $comandos = new Comandos($conexao, $admInfo);
+
+        $info = $comandos->carregarInfo();
+        $_SESSION = $info;
+    }
 
     if ($acao == 'inserir') 
     {
@@ -25,7 +39,26 @@
 
         header('Location: admControl.php?inclusao=1');
     
-    } 
+    }
+        else if ($acao == 'inserirInfo') 
+
+        {
+            $admInfo = new AdmInfo();
+
+            $admInfo->__set('nome', $_POST['nome']);
+            $admInfo->__set('telefone', $_POST['telefone']);
+            $admInfo->__set('rua', $_POST['rua']);
+            $admInfo->__set('bairro', $_POST['bairro']);
+            $admInfo->__set('data_funcionamento', $_POST['data_funcionamento']);
+
+            $conexao = new Conexao();
+
+            $comandos = new Comandos($conexao, $admInfo);
+
+            $comandos->inserirInfo();
+
+            header('Location: admControl.php?inclusao=2');
+        } 
     
     else  if ($acao == 'recuperar') 
     

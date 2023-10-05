@@ -1,8 +1,8 @@
 <?php 
+    session_start();
 
     $acao = 'recuperar';
     require 'ponteinfo.php';
-
 ?>
 
 <!DOCTYPE html>
@@ -48,10 +48,10 @@
             </div>
 
             <div class="col-md-8 col-lg-4">
-                <h1 class="text-primary position-relative"> MC Donalds </h1>
-                <h3 class="text-primary position-relative">(35) 98899-9749 </h3>
-                <p class="text-danger position-relative"> Rua Maria Lourdes de Andrade, 185</p>
-                <p class="text-danger"> Bairro Sossego - Piranguinho</p>
+                <h1 class="text-primary position-relative"><?php print $_SESSION['nome']?></h1>
+                <h3 class="text-primary position-relative"><?php print $_SESSION['telefone']?></h3>
+                <p class="text-danger position-relative"> <?php print $_SESSION['rua']?></p>
+                <p class="text-danger"> <?php print $_SESSION['bairro']?></p>
             </div>
 
         </div>
@@ -62,7 +62,7 @@
 
         <div class="text-center" style="height:140px">
 
-            <p class="text-primary"> Funcionamento: Terça a Sabado - 18:00 as 00:00</p>
+            <p class="text-primary"> <?php print $_SESSION['data_funcionamento']?></p>
             <h2 class="text-success" > ABERTO </h2>
 
         </div>

@@ -30,24 +30,31 @@
         </div>
 
     <?php }?>
+    
+    <?php if(isset($_GET['inclusao']) && $_GET['inclusao'] == 2) {?>
+
+        <div class="bg-success pt-2 text-white d-flex justify-content-center">
+            <h3>Informações do Estabelecimento Atualizadas</h3>
+        </div>
+
+    <?php }?>
 
     <br>
 
     <div class="container">
 
-        <form method="post" action="">
+        <form method="post" action="ponteInfo.php?acao=inserirInfo">
             <div class="form-group ">
                 <h2>Informações do Estabelecimento</h2>
                 <p><strong>Estas informações irão aparecer na pagina inicial e no começo do cardapio</strong></p>
-                <input name="nome" type="text" class="form-control" placeholder="NOME, Exemplo: MC Donalds">
-                <input name="telefone" type="text" class="form-control" placeholder="TELEFONE, Exemplo: (35) 98899-9749">
+                <input required name="nome" type="text" class="form-control" placeholder="NOME, Exemplo: MC Donalds">
+                <input required name="telefone" type="text" class="form-control" placeholder="TELEFONE, Exemplo: (35) 98899-9749">
                 <input name="rua" type="text" class="form-control" placeholder="RUA, Exemplo: Maria Lourdes de Andrade, 185">
-                <input name="bairro-cidade" type="text" class="form-control" placeholder="BAIRRO - CIDADE, Exemplo: Sossego - Piranguinho">
-                <input name="funcionamento" type="text" class="form-control" placeholder="Data Funcionamento, Exemplo: Terça a Sabado">
-                <input name="horario" type="text" class="form-control" placeholder="HORARIO, Exemplo: 18:00 as 00:00">
+                <input name="bairro" type="text" class="form-control" placeholder="BAIRRO - CIDADE, Exemplo: Sossego - Piranguinho">
+                <input required name="data_funcionamento" type="text" class="form-control" placeholder="Data Funcionamento, Exemplo: Terça a Sabado, 18:00 as 00:00">
             </div>
             <br>
-            <button class="btn btn-success">Cadastrar</button>
+            <button class="btn btn-success">Atualizar Info</button>
         </form>
         <hr>
     </div>
@@ -62,7 +69,7 @@
                 <input name="valor" required type="text" class="form-control" placeholder="VALOR*, Exemplo: 15,00">
             </div>
             <br>
-            <button class="btn btn-success">Cadastrar</button>
+            <button class="btn btn-success">Cadastrar Itens</button>
         </form>
         <hr>
         <form method="post" action="ponteInfo.php?acao=Atualizar">

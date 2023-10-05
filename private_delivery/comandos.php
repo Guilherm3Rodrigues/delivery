@@ -8,7 +8,7 @@ class Comandos
     private $cardapio;
     
 
-    public function __construct(Conexao $conexao, AdmCardapio $cardapio)
+    public function __construct(Conexao $conexao, $cardapio)
     {
         $this->conexao = $conexao->conectar();
         $this->cardapio = $cardapio;
@@ -27,6 +27,52 @@ class Comandos
         $stmt->execute();
 
     }
+
+
+    public function inserirInfo() 
+    {
+        $verificar = 'select * from info_estabelecimento';
+        $stmt = $this->conexao->prepare($verificar);
+        $stmt->execute();
+        
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if(!$resultado)
+        {
+            $query = "insert into info_estabelecimento(nome, telefone, rua, bairro, data_funcionamento) values (:nome, :telefone,:rua, :bairro, :data_funcionamento)";
+            $stmt = $this->conexao->prepare($query);
+            $stmt->bindValue(':nome', $this->cardapio->__get('nome'));
+            $stmt->bindValue(':telefone', $this->cardapio->__get('telefone'));
+            $stmt->bindValue(':rua', $this->cardapio->__get('rua'));
+            $stmt->bindValue(':bairro', $this->cardapio->__get('bairro'));
+            $stmt->bindValue(':data_funcionamento', $this->cardapio->__get('data_funcionamento'));
+            $stmt->execute();
+        }
+        else
+        {
+            $query = "update info_estabelecimento set nome = :nome, telefone = :telefone, rua = :rua, bairro = :bairro, data_funcionamento = :rua";
+            $stmt = $this->conexao->prepare($query);
+            $stmt->bindValue(':nome', $this->cardapio->__get('nome'));
+            $stmt->bindValue(':telefone', $this->cardapio->__get('telefone'));
+            $stmt->bindValue(':rua', $this->cardapio->__get('rua'));
+            $stmt->bindValue(':bairro', $this->cardapio->__get('bairro'));
+            $stmt->bindValue(':data_funcionamento', $this->cardapio->__get('data_funcionamento'));
+            $stmt->execute();
+        }
+
+        return $resultado;
+
+    }
+
+
+    public function carregarInfo() 
+    {
+        $verificar = 'select * from info_estabelecimento';
+        $stmt = $this->conexao->prepare($verificar);
+        $stmt->execute();
+        
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }  
     
     
     public function buscar() 
