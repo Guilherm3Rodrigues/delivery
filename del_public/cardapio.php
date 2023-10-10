@@ -28,7 +28,7 @@
 
 </head>
 
-<body>
+<body class="body">
 
     <div class="row faixa-top margem-cabeçalho">
 
@@ -62,51 +62,11 @@
 
     </div>
 
-        <div class="container position-relative borda-categoria">
-            <h2>Lanches</h2>
-        </div>
-    
-        <div class="row container position-relative margem-produtos justify-content-center">
-
-            <div class="col-md-auto justify-content-start d-flex align-items-center">
-
-                <?php // PHP =============================================
-                    if (isset($_GET['acao']) && $_GET['acao'] == 'Atualizar') 
-                    {
-                        ?>
-                            <button class="btn borda-comprar margem-varTotal">DEL</button>
-                            <button class="btn borda-comprar" id="open">Edit</button>
-                        <?php
-                    };
-                ?>
-                
-                <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
-
-                <h3>X-burguer</h3>
-
-            </div>
-
-            <div class="col-sm-auto ">
-
-                <p>Descrição: Pão, Hamburguer 80g, Queijo Prado, Molho da Casa </p>
-                <p>R$ 15,00</p>
-
-            </div>
-
-            <div class="col-sm-auto justify-content-end d-flex align-items-center">
-
-                <div class=" margem-produtos">
-                    <button class="btn btn-danger">COMPRAR</button>
-
-                </div>
-            
-            </div>
-
-            <hr> <!-- INICIO OUTRO PRODUTO ================================================================ -->
+            <!-- INICIO PRODUTOS ================================================================ -->
         
             <?php foreach($listaCardapio as $indice => $produto)  // PHP =============================================
             { ?>
-                <div class="row container position-relative margem-produtos justify-content-center">
+                <!-- <div>  layout dos produtos  !--> 
                         <?php  if(!isset($_GET['acao']))  // é necessario resolver a forma de lidar com as categorias na edição
                         { 
                         ?>
@@ -116,16 +76,13 @@
                         <?php 
                         };?>
                                     
-                    <div class="col-md-auto justify-content-start d-flex align-items-center"> <!-- essa linha esta atrapalhando a visualização quando se esta editando o cardapio !-->
-                                    
                         <?php // PHP =============================================
                         
                         if (isset($_GET['acao']) && $_GET['acao'] == 'Atualizar')  
                         {?>
+
+                            <div class="container position-relative margem-produtos mx-auto text-center">
                         
-                            <button class="btn borda-comprar margem-varTotal" 
-                            onclick="remover(<?php print $produto->id ?>)">DEL</button>
-                                    
                             <form method="post">
 
                                 <img src="imagens/logo-index.png" 
@@ -150,14 +107,19 @@
 
                                 <input type="hidden" id="id" name="id" value="<?php print $produto->id ?>" >
                                     <button class="btn btn-success">Atualizar</button>
+                                
+                                <button class="btn btn-danger" 
+                                    onclick="remover(<?php print $produto->id ?>)">DEL</button>
                             </form>
+                            <hr>
+                            </div>
                             
                                     
                         <?php  // PHP ============================================= 
                         } 
                         else 
                         {?>
-
+                        <div class="container row mx-auto">
                             <div class="col-md-auto justify-content-start d-flex align-items-center">
                                 <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
 
@@ -165,21 +127,22 @@
 
                             </div>
 
-                            <div class="col-sm-auto " id="produto_<?php print $produto->id?> ">
+                            <div class="col-sm text-end" id="produto_<?php print $produto->id?> ">
 
                                 <p><?php print $produto->descricao ?> </p>
                                 <p><?php print $produto->valor ?></p>
 
                             </div>
 
-                            <div class="col-sm-auto justify-content-end d-flex align-items-center">
+                            <div class="col-sm justify-content-end d-flex align-items-center">
 
                                 <button class="btn btn-danger" onclick="add(<?php print $produto->id ?>)">COMPRAR</button>
 
                             </div>
-                    </div>
-                                    <hr>
-                </div>
+                            <hr>
+                        </div>    
+                                    
+                <!-- </div> !-->
 
             <?php               } // PHP =============================================
             };?>
@@ -204,7 +167,7 @@
                 </h3>
                 <div class="col justify-content-end d-flex align-items-center">
                     
-                    <a type="buttom" class="borda-comprar" href="carrinho.php?acao=recuperarPedidos">Carrinho</a>
+                    <a type="buttom" class="btn btn-dark" href="carrinho.php?acao=recuperarPedidos">Carrinho</a>
 
                 </div>
         <?php  // PHP =============================================

@@ -15,7 +15,7 @@
     <title>Carrinho</title>
 </head>
 
-<body>
+<body class="body">
     <div class="faixa-top">
         <h1 class="text-light d-flex justify-content-center">Revisao Pedido</h1>
     </div>
@@ -112,7 +112,7 @@
 
         <div class="col justify-content-end d-flex">
             <h3 class="margem-varTotal">$varValorTotal</h3>
-            <a type="buttom" class="borda-comprar" href="carrinho.php?acao=pedido_enviado">Finalizar</a>
+            <a type="buttom" class="btn btn-dark" href="carrinho.php?acao=pedido_enviado">Finalizar</a>
         </div>
     </div>
 
