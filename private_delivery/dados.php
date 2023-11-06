@@ -162,7 +162,7 @@
 
         }
 
-        else  if ($acao == 'recuperarPedidos') 
+        else  if ($acao == 'recuperarPedidos' || $acao == 'pedido_enviado') 
     
         {
             
@@ -173,6 +173,20 @@
             $listaPedidos = $comandos->buscarPedidos();
             
             
+            
+            
+        }
+
+        else if ($acao == 'pedido_enviado')
+
+        {
+            $admCardapio = new AdmCardapio();
+            $conexao = new Conexao();
+
+            $comandos = new Comandos($conexao, $admCardapio);
+            $comandos->pedidoEnviado();
+
+
         }
 
 

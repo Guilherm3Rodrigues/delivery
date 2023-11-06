@@ -1,6 +1,10 @@
 <?php 
     $acao = 'recuperar';
     require 'ponteinfo.php';
+
+    
+    print_r($_POST);
+    
 ?>
 
 <!DOCTYPE html>
@@ -34,9 +38,10 @@
     
     <br>
     
-        <div class="container">
+        <div class="container ">
 
-            <div class="d-flex"> 
+            <div class="d-flex margem-pedidos-carrinho"> 
+                
 
                 <ul class="list-group mr-3">
 
@@ -50,13 +55,24 @@
                             x <?php print $produto->numero_pedido; 
                             $valor = $produto->valor + $valor;
                             $qtd = $produto->numero_pedido + $qtd;
+                            
                      ?>
                         </li>
                     <?php 
                     };?>
                         <strong><li>Total: R$ <?php print $valor?></li></strong> <!-- VALOR TOTAL ESTA ERRADO!-->
                 </ul>
+                        <form id="myForm" action="" method="POST" class="col-md-auto ">
 
+                            <ul>
+                                <h4><strong>Informações do Cliente</strong></h4>
+                                <label class="row">Nome</label><input placeholder="EX: Cayo Rodrigues"></input>
+                                
+                                <label class="row">Telefone</label><input placeholder="EX: 35 9 8899-9749"></input>
+                                <button class="btn btn-success">enviar para post?</button>
+                            </ul>
+                            
+                        </form>
             </div>
 
         </div>
@@ -70,7 +86,7 @@
     <br>
 
 
-    <div class="row container test">
+    <div class="row container margem-endereco">
         <form action="" method="post" class="col-md-auto ">
             <ul>
                 <label class="row">$RuaENumero</label><input placeholder="Ex: Av. JK, 350"></input>
@@ -112,7 +128,8 @@
 
         <div class="col justify-content-end d-flex">
             <h3 class="margem-varTotal">$varValorTotal</h3>
-            <a type="buttom" class="btn btn-dark" href="carrinho.php?acao=pedido_enviado">Finalizar</a>
+            <!-- <a type="buttom" class="btn btn-dark" href="carrinho.php?acao=pedido_enviado">Finalizar</a> !-->
+            <a type="buttom" onclick="document.getElementById('myForm').submit()" class="btn btn-dark" href="carrinho.php?acao=pedido_enviado">Enviar Formulário</a>
         </div>
     </div>
 

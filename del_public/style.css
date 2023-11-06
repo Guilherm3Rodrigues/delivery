@@ -137,8 +137,12 @@
     transform: scale(0.85);
 }
 
-.test {
- transform: translateX(50px);
+.margem-endereco {
+ transform: translateX(120px);
+}
+
+.margem-pedidos-carrinho {
+ transform: translateX(40px);
 }
 
 

@@ -148,5 +148,10 @@ class Comandos
         return $resultado;
     }
 
+    public function pedidoEnviado()
+    {
+        
+    }
+
 
 }
