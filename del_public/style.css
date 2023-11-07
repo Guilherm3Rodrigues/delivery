@@ -145,5 +145,13 @@
  transform: translateX(40px);
 }
 
+.corTexto {
+    display: none;
+}
+
+.checked {
+    background-color: #007bff;
+    color: #fff;
+}
 
 

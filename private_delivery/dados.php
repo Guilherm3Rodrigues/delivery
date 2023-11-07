@@ -170,25 +170,27 @@
             $conexao = new Conexao();
 
             $comandos = new Comandos($conexao, $admCardapio);
-            $listaPedidos = $comandos->buscarPedidos();
             
+            if(!isset($_POST) || !isset($_POST['entrega'])) 
+            {
+            $_POST['entrega'] = 0;
+            }
+
+            if($acao == 'pedido_enviado') 
             
+            {
+                $comandos->pedidoEnviado();
+                $listaPedidos = $comandos->buscarPedidos();
+            }
+
+            else
+
+            {
+                $listaPedidos = $comandos->buscarPedidos();
+            }
             
             
         }
-
-        else if ($acao == 'pedido_enviado')
-
-        {
-            $admCardapio = new AdmCardapio();
-            $conexao = new Conexao();
-
-            $comandos = new Comandos($conexao, $admCardapio);
-            $comandos->pedidoEnviado();
-
-
-        }
-
 
         
     

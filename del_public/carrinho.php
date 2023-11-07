@@ -1,7 +1,9 @@
 <?php 
     $acao = 'recuperar';
     require 'ponteinfo.php';
-    
+
+    print_r($_POST);
+
 ?>
 
 <!DOCTYPE html>
@@ -17,21 +19,12 @@
 
     <script>
 
-        function atualizarValor(valor) 
-        {
-            var valor = document.getElementById("valor");
+
+    function atribuirValor(nome) {
+        document.getElementById("botaoNome").value = nome;
         
-            if (valor === "sim") 
-                {
-                    valor.innerHTML = "Você selecionou 'Sim'.";
-                } 
-            
-            else if (valor === "nao") 
-            
-                {
-                    valor.innerHTML = "Você selecionou 'Não'.";
-                }
-        }
+
+    }
 
     </script>
 
@@ -78,7 +71,7 @@
                         </li>
                     <?php 
                     };?>
-                        <strong><li>Total: R$ <?php print $valor?></li></strong> <!-- VALOR TOTAL ESTA ERRADO!-->
+                        <h3><li>Total: R$ <?php $valorTotal = $valor + $_POST['entrega']; print $valorTotal?></li></h3> <!-- VALOR TOTAL ESTA ERRADO!-->
                 </ul>
                         
             </div>
@@ -104,26 +97,31 @@
             </ul>
         </form>
 
-        <div class="col-md-auto  borda " data-toggle="buttons">
+        <div class="col-md-auto  borda ">
             
-            <h3>Entregar? ($3,00)</h3>
+            <h3>Entregar? </h3>
+                <form action="carrinho.php?acao=recuperarPedidos" method="POST">
+                    <label class="btn btn-danger">
+                        
+                        SIM, R$
+                        <button type="radio" name="entrega" value="3"  
+                        onclick="atribuirValor(this.name)"> 3 </button>
+                        <input type="hidden" id="botaoNome" name="botaoNome" value=""> ,00
 
-            <label class="btn btn-danger">
-                
-                Sim
-                <input type="radio" name="entrega" value="sim" id="opcao1" autocomplete="off">
-
-            </label>
-
+                    </label>
+                             
             <br>
             <br>
 
-            <label class="btn btn-danger">
+                    <label class="btn btn-danger">
 
-                Retirar no local
-                <input type="radio" name="entrega" value="nao" id="opcao2" autocomplete="off">
+                        NÃO, Retirar no local
+                        <button  type="radio" name="entrega" value="0" autocomplete="off"
+                        onclick="atribuirValor(this.name)"> 0 </button>
+                        <input type="hidden" id="botaoNome" name="botaoNome" value="">
 
-            </label>
+                    </label>
+                </form>       
 
         </div>
 
@@ -136,7 +134,7 @@
                 <label class="row">Telefone</label><input placeholder="EX: 35 9 8899-9749"></input>
                 
             </ul>
-            <a type="buttom" class="btn btn-dark margem-endereco" href="carrinho.php?acao=pedido_enviado">Finalizar</a>
+            <a type="buttom" class="btn btn-dark margem-endereco" href="carrinho.php?acao=pedido_enviado"><strong>Finalizar</strong></a>
 
         </form>
         
@@ -151,14 +149,14 @@
     </div>
 
     <div class="d-flex justify-content-center">
-    <a class="mb-2 borda-carrinho fs-3 fw-bolder btn btn-danger btn btn-lg btn-primary rounded-pill" href="cardapio.php">
-        Voltar ao Cardapio
-    </a>
-            
-    
-    <a class="mb-2 borda-carrinho fs-3 fw-bolder btn btn-danger btn btn-lg btn-primary rounded-pill" href="cardapio.php">
-       Status Pedido? <? // acrescentar pagina para verificar status ou algo do tipo? ?>
-    </a>
+        <a class="mb-2 borda-carrinho fs-3 fw-bolder btn btn-danger btn btn-lg btn-primary rounded-pill" href="cardapio.php">
+            Voltar ao Cardapio
+        </a>
+                
+        
+        <a class="mb-2 borda-carrinho fs-3 fw-bolder btn btn-danger btn btn-lg btn-primary rounded-pill" href="cardapio.php">
+            Status Pedido? <? // acrescentar pagina para verificar status ou algo do tipo? ?>
+        </a>
     </div>
 
     <div class="container position-relative d-flex align-items-center borda-carrinho">
@@ -167,9 +165,10 @@
 
         <div class="col justify-content-end d-flex">
 
-          ->>>>>>>>>  <h3 id="valor" class="margem-varTotal">$varValorTotal</h3>
+          <h3 id="valor" class="margem-varTotal">R$<?php $valorTotal = $valor + $_POST['entrega']; print $valorTotal?></h3>
             
         </div>
+        
     </div>
 
 
