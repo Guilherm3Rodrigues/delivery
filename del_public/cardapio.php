@@ -37,7 +37,7 @@
         </div>
 
         <?php  // PHP =============================================
-            if (isset($_GET['acao']) && $_GET['acao'] == 'Atualizar') 
+            if (isset($_GET['acao']) && $_GET['acao'] == 'Atualizar' || isset($_GET['acao']) && $_GET['acao'] == 'adminVisualizacao') 
         {?>
                 <div class="col">
                     <a href="admControl.php" class=" btn btn-info borda-index">Voltar ao ADM</a>
@@ -64,17 +64,26 @@
 
             <!-- INICIO PRODUTOS ================================================================ -->
         
-            <?php foreach($listaCardapio as $indice => $produto)  // PHP =============================================
+            <?php $repete = 'nada';
+                    foreach($listaCardapio as $indice => $produto)  // PHP =============================================
             { ?>
                 <!-- <div>  layout dos produtos  !--> 
-                        <?php  if(!isset($_GET['acao']))  // é necessario resolver a forma de lidar com as categorias na edição
+                        <?php  if(!isset($_GET['acao']) || (isset($_GET['acao'])) && $_GET['acao'] != 'Atualizar') // é necessario resolver a forma de lidar com as categorias na edição
                         { 
                         ?>
-                        <div class="container position-relative borda-categoria">
-                            <h2><?php print $produto->categoria?></h2>
-                        </div>
+                            <?php 
+                                  $categoria = $produto->categoria;
+                                   
+                                if($categoria != $repete)      { ?>
+
+                                        <div class="container position-relative borda-categoria">
+                                            <h2><?php print $categoria?></h2>
+                                        </div>
+
+                                    <?php $repete = $categoria; }?>
                         <?php 
-                        };?>
+                        }
+                        ?>
                                     
                         <?php // PHP =============================================
                         
@@ -85,6 +94,11 @@
                         
                             <form method="post">
 
+                                <div class="container position-relative borda-categoria">
+                                    <input type="text" id="categoria" name="categoria" 
+                                    value="<?php print $produto->categoria?>">
+                                </div>
+                                
                                 <img src="imagens/logo-index.png" 
                                 class="img-produtos2 position-relative borda-img img-thumbnail" 
                                 alt="Imagem Produto">

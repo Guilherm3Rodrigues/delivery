@@ -85,7 +85,7 @@
     </div>
     <br>
     <div>
-        <a class="borda-carrinho fs-3 fw-bolder btn btn-danger position-relative bottom-0 start-50 translate-middle btn btn-lg btn-primary rounded-pill" href="cardapio.php">
+        <a class="borda-carrinho fs-3 fw-bolder btn btn-danger position-relative bottom-0 start-50 translate-middle btn btn-lg btn-primary rounded-pill" href="cardapio.php?acao=adminVisualizacao">
             Ver Cardapio</a>
     </div>
 

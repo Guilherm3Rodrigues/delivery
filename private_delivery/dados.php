@@ -60,7 +60,7 @@
             header('Location: admControl.php?inclusao=2');
         } 
     
-    else  if ($acao == 'recuperar') 
+    else  if ($acao == 'recuperar'  || $acao == 'adminVisualizacao') 
     
         {
 
@@ -111,6 +111,10 @@
                 if (isset($_POST['produto']))
                 {
                     $admCardapio->__set('produto', $_POST['produto']);
+                }
+                if (isset($_POST['categoria']))
+                {
+                    $admCardapio->__set('categoria', $_POST['categoria']);
                 }
                 
                 $comandos->editar();

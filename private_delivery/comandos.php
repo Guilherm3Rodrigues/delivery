@@ -15,7 +15,7 @@ class Comandos
     }
    
    
-    public function inserir() 
+    public function inserir()  //PARA ADMINISTRADORES
     {
 
         $query = "insert into itens_cardapio(categoria, produto, descricao, valor) values (:categoria, :produto,:descricao, :valor)";
@@ -29,7 +29,7 @@ class Comandos
     }
 
 
-    public function inserirInfo() 
+    public function inserirInfo() //PARA ADMINISTRADORES
     {
         $verificar = 'select * from info_estabelecimento';
         $stmt = $this->conexao->prepare($verificar);
@@ -75,16 +75,16 @@ class Comandos
     }  
     
     
-    public function buscar() 
+    public function buscar() // carrega o cardapio
     {
-        $query = 'select id, img, produto, descricao, categoria, valor from itens_cardapio';
+        $query = 'select id, img, produto, descricao, categoria, valor from itens_cardapio ORDER BY categoria';
         $stmt = $this->conexao->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
 
     }
 
-    public function buscarPedidos() 
+    public function buscarPedidos() // carrega o carrinho
     {
         $query = 'select id, produto, valor, numero_pedido from pedidos';
         $stmt = $this->conexao->prepare($query);
@@ -94,10 +94,11 @@ class Comandos
     }
 
 
-    public function editar() 
+    public function editar() //PARA ADMINISTRADORES, edita os itens do cardapio
     {
-        $query = 'update itens_cardapio set descricao = :descricao, produto = :produto, valor = :valor where id = :id';
+        $query = 'update itens_cardapio set categoria = :categoria, descricao = :descricao, produto = :produto, valor = :valor where id = :id';
         $stmt = $this->conexao->prepare($query);
+        $stmt->bindValue(':categoria', $this->cardapio->__get('categoria'));
         $stmt->bindValue(':descricao', $this->cardapio->__get('descricao'));
         $stmt->bindValue(':produto', $this->cardapio->__get('produto'));
         $stmt->bindValue(':valor', $this->cardapio->__get('valor'));
@@ -107,7 +108,7 @@ class Comandos
     }
 
 
-    public function remover() 
+    public function remover() //PARA ADMINISTRADORES, remove itens do cardapio
     {
         $query = 'delete from itens_cardapio where id = :id';
         $stmt = $this->conexao->prepare($query);
