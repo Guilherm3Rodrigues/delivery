@@ -42,8 +42,8 @@
                 <div class="col">
                     <a href="admControl.php" class=" btn btn-info borda-index">Voltar ao ADM</a>
                 </div>
-        <?php 
-        };
+        <?php  // PHP ============================================= ;
+        };   
         ?>
 
         <div class="container position-relative">
@@ -64,23 +64,23 @@
 
             <!-- INICIO PRODUTOS ================================================================ -->
         
-            <?php $repete = 'nada';
+            <?php $repete = 'categoria repete?';
                     foreach($listaCardapio as $indice => $produto)  // PHP =============================================
             { ?>
                 <!-- <div>  layout dos produtos  !--> 
                         <?php  if(!isset($_GET['acao']) || (isset($_GET['acao'])) && $_GET['acao'] != 'Atualizar') // é necessario resolver a forma de lidar com as categorias na edição
                         { 
                         ?>
-                            <?php 
-                                  $categoria = $produto->categoria;
+                            <?php $categoria = $produto->categoria;
                                    
-                                if($categoria != $repete)      { ?>
+                                if($categoria != $repete)   { 
+                            ?>
 
-                                        <div class="container position-relative borda-categoria">
-                                            <h2><?php print $categoria?></h2>
-                                        </div>
+                                    <div class="container position-relative borda-categoria">
+                                        <h2><?php print $categoria?></h2>
+                                    </div>
 
-                                    <?php $repete = $categoria; }?>
+                                <?php $repete = $categoria; }?>
                         <?php 
                         }
                         ?>
@@ -123,13 +123,13 @@
                                     <button class="btn btn-success">Atualizar</button>
                                 
                                 <button class="btn btn-danger" 
-                                    onclick="remover(<?php print $produto->id ?>)">DEL</button>
+                                    onclick="remover(<?php print $produto->id ?>)">DELETAR</button>
                             </form>
                             <hr>
                             </div>
                             
                                     
-                        <?php  // PHP ============================================= 
+                        <?php  // PHP ============================================= ;
                         } 
                         else 
                         {?>
@@ -184,7 +184,7 @@
                     <a type="buttom" class="btn btn-dark" href="carrinho.php?acao=recuperarPedidos">Carrinho</a>
 
                 </div>
-        <?php  // PHP =============================================
+        <?php  // PHP ============================================= ;
         };?>
             </div>
 

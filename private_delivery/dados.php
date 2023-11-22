@@ -143,6 +143,24 @@
 
         }
 
+        else  if ($acao == 'removerCarrinho') 
+    
+        {
+            
+            $admCardapio = new AdmCardapio();
+            $conexao = new Conexao();
+
+            $admCardapio->__set('id', $_GET['id']);
+
+            $comandos = new Comandos($conexao, $admCardapio);
+            
+            $comandos->removerCarrinho();
+
+            header('location: carrinho.php?acao=recuperarPedidos');
+
+
+        }
+
         else if ($acao == 'logar')
 
         {

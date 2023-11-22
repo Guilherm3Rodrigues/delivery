@@ -18,14 +18,16 @@
     <title>Carrinho</title>
 
     <script>
+        function removerCarrinho (id) 
+        {
+            location.href = 'carrinho.php?acao=removerCarrinho&&id='+id;
+            
+        }
 
-
-    function atribuirValor(nome) {
-        document.getElementById("botaoNome").value = nome;
-        
-
-    }
-
+        function atribuirValor(nome) 
+        {
+            document.getElementById("botaoNome").value = nome;
+        }
     </script>
 
 
@@ -56,24 +58,27 @@
                 
                 <ul class="list-group mr-3">
 
-                    <?php 
+                                    <!--  ============ TABELA DE PEDIDOS FEITOS ============================   -->
+                    <?php // PHP =============================================
                     $valor = 0;
                     $qtd = 0;
                     foreach($listaPedidos as $indice => $produto) 
                     {?>
-                        <li class="list-group-item"><?php print $produto->produto ?> / 
-                            R$ <?php print $produto->valor ?> 
-                            x <?php print $produto->numero_pedido; 
-                            $valor = $produto->valor + $valor;
-                            $qtd = $produto->numero_pedido + $qtd;
-                            
-                     ?>
-                        </li>
+                        <li class="list-group-item">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <?php print $produto->produto ?> / R$ <?php print $produto->valor ?> x <?php print $produto->numero_pedido; ?>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-danger" onclick="removerCarrinho(<?php print $produto->id ?>)">DELETAR</button>
+                                </div>
+                            </div>
                     <?php 
                     };?>
-                        <h3><li>Total: R$ <?php $valorTotal = $valor + $_POST['entrega']; print $valorTotal?></li></h3> <!-- VALOR TOTAL ESTA ERRADO!-->
+                
                 </ul>
-                        
+                
+                <h3><li>Total: R$ <?php $valorTotal = $valor + $_POST['entrega']; print $valorTotal?></li></h3> <!-- VALOR TOTAL ESTA ERRADO!-->        
             </div>
 
         </div>
