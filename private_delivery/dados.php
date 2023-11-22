@@ -151,14 +151,24 @@
             $conexao = new Conexao();
 
             $admCardapio->__set('id', $_GET['id']);
-
             $comandos = new Comandos($conexao, $admCardapio);
+
+            $qtd = 0;
+            $qtd = $_GET['qtd'] - 1;
             
-            $comandos->removerCarrinho();
 
-            header('location: carrinho.php?acao=recuperarPedidos');
-
-
+                if($qtd == 0)
+                {
+                    $comandos->removerCarrinho();
+                    header('location: carrinho.php?acao=recuperarPedidos');
+                }
+                else
+                {
+                    $admCardapio->__set('numero_pedido', $qtd);
+                    $comandos->editarCarrinho();
+                    header('location: carrinho.php?acao=recuperarPedidos');
+                }
+            
         }
 
         else if ($acao == 'logar')

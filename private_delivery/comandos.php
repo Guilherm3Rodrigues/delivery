@@ -118,13 +118,24 @@ class Comandos
     }
 
 
-    public function removerCarrinho() //PARA ADMINISTRADORES, remove itens do cardapio
+    public function removerCarrinho() // Remove itens do Carrinho
     {
         $query = 'delete from pedidos where id = :id';
         $stmt = $this->conexao->prepare($query);
         $stmt->bindvalue(':id', $this->cardapio->__get('id'));
         $stmt->execute();
               
+    }
+
+    
+    public function editarCarrinho() //Deleta um item por vez no carrinho
+    {
+        $query = 'update pedidos set numero_pedido = :numero_pedido where id = :id';
+        $stmt = $this->conexao->prepare($query);
+        $stmt->bindvalue(':id', $this->cardapio->__get('id'));
+        $stmt->bindValue(':numero_pedido', $this->cardapio->__get('numero_pedido'));
+        return $stmt->execute(); 
+        
     }
 
 

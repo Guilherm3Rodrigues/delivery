@@ -2,8 +2,6 @@
     $acao = 'recuperar';
     require 'ponteinfo.php';
 
-    print_r($_POST);
-
 ?>
 
 <!DOCTYPE html>
@@ -18,9 +16,10 @@
     <title>Carrinho</title>
 
     <script>
-        function removerCarrinho (id) 
+
+        function removerCarrinho (id, qtd) 
         {
-            location.href = 'carrinho.php?acao=removerCarrinho&&id='+id;
+            location.href = 'carrinho.php?acao=removerCarrinho&&id='+id + '&&qtd='+qtd;
             
         }
 
@@ -28,6 +27,7 @@
         {
             document.getElementById("botaoNome").value = nome;
         }
+
     </script>
 
 
@@ -60,25 +60,33 @@
 
                                     <!--  ============ TABELA DE PEDIDOS FEITOS ============================   -->
                     <?php // PHP =============================================
-                    $valor = 0;
-                    $qtd = 0;
+                    $valorSomado = 0;
+
                     foreach($listaPedidos as $indice => $produto) 
                     {?>
                         <li class="list-group-item">
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <?php print $produto->produto ?> / R$ <?php print $produto->valor ?> x <?php print $produto->numero_pedido; ?>
+                                    <?php print $produto->produto ?> / 
+                                 R$ <?php print $produto->valor ?> x 
+                                    <?php print $produto->numero_pedido; ?>
+                                    <?php $valor = $produto->valor * $produto->numero_pedido;
+                                          $valorSomado = $valorSomado + $valor ?>
                                 </div>
                                 <div class="btn-group">
-                                    <button class="btn btn-danger" onclick="removerCarrinho(<?php print $produto->id ?>)">DELETAR</button>
+                                    <button class="btn btn-danger" 
+                                    onclick="removerCarrinho(<?php print $produto->id ?>, 
+                                                             <?php print $produto->numero_pedido ?>)">DELETAR</button>
                                 </div>
                             </div>
-                    <?php 
-                    };?>
+                        </li>
+                    <?php  
+                    }     $valorTotal = $valorSomado + $_POST['entrega'];
+                    ?>
                 
                 </ul>
                 
-                <h3><li>Total: R$ <?php $valorTotal = $valor + $_POST['entrega']; print $valorTotal?></li></h3> <!-- VALOR TOTAL ESTA ERRADO!-->        
+                <h3><li>Total: R$ <?php print $valorTotal?></li></h3> <!-- VALOR TOTAL -->
             </div>
 
         </div>
@@ -170,7 +178,7 @@
 
         <div class="col justify-content-end d-flex">
 
-          <h3 id="valor" class="margem-varTotal">R$<?php $valorTotal = $valor + $_POST['entrega']; print $valorTotal?></h3>
+          <h3 id="valor" class="margem-varTotal">R$<?php print $valorTotal?></h3>
             
         </div>
         
