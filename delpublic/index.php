@@ -62,7 +62,7 @@
         <div class="text-center" style="height:140px">
 
             <p class="text-primary"> <?php print $_SESSION['data_funcionamento']?></p>
-            <h2 class="text-success" > ABERTO </h2>
+            <h2 class="text-success" > TESTE </h2>
 
         </div>
 
