@@ -1,7 +1,7 @@
-<?php 
-    require_once "comandos.php";
-    require_once "../private_delivery/conexao.php";
-    require_once "../private_delivery/admCardapio.php";
+<?php
+    include("comandos.php");
+    include("../private_delivery/conexao.php");
+    include("../private_delivery/admCardapio.php");
 
     $acao = isset($_GET['acao']) ? $_GET['acao'] : $acao;
     

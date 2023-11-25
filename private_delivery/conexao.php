@@ -6,10 +6,10 @@
 class Conexao 
 {
 
-    private $host = 'localhost';
+    private $host = 'roundhouse.proxy.rlwy.net';
     private $dbname = 'db_delivery';
     private $user = 'root';
-    private $pass = '';
+    private $pass = 'bEagBdfG6gHHEg43bgghdAF2ah3c5eBA';
 
     
 
