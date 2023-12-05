@@ -120,7 +120,7 @@
         </form>
         <hr>
     </div>
-    <div class="container">
+    <div class="container" id="adicionar">
 
         <form method="post" action="ponteInfo.php?acao=inserir">
             <div class="form-group ">

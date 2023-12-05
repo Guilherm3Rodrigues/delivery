@@ -10,9 +10,11 @@ $valorTotal = 0;
 foreach ($listaPedidos as $key => $produto) 
 {
     $arrayProdutos[$key] = $produto->produto;
+    $valor = $produto->valor * $produto->numero_pedido;
+    $valorSomado += $valor;
 }
 
-include('../delPublic/valorTotal.php');
+
 $valorTotal = $valorSomado + $_SESSION['freteFinal'];
 $produtos = implode(', ', $arrayProdutos);
 

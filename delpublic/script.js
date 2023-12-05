@@ -26,4 +26,16 @@ botaoFechar.addEventListener('click', fecharDialog);
 const botãoEditar = document.getElementById('editar');
 botaoAdministrador.addEventListener('click', abrirDialog);
 
+
+
+
+    function scrollToElement(elementId) {
+        var element = document.getElementById(elementId);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+
+
   
