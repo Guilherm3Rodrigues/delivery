@@ -8,6 +8,7 @@
     $acao = isset($_GET['acao']) ? $_GET['acao'] : $acao;
     
     $index = $_SERVER['PHP_SELF'];
+    
 
     $admInfo = new AdmInfo();
     $admCardapio = new AdmCardapio();
@@ -15,7 +16,7 @@
     $comandos = new Comandos($conexao, $admCardapio);
     $comandosInfo = new Comandos($conexao, $admInfo);
 
-    if (strpos($index, 'index.php') !== false || strpos($index, 'cardapio.php') !== false ) 
+    if (strpos($index, 'index.php') !== false || strpos($index, 'cardapio.php') !== false || strpos($index, 'admControl.php')) 
     {
         $info = $comandosInfo->carregarInfo();
         $_SESSION = $info;
@@ -43,6 +44,7 @@
             $admInfo->__set('dia_final', $_POST['dia_final']);
             $admInfo->__set('hor_funcionamento_ini', $_POST['hor_funcionamento_ini']);
             $admInfo->__set('hor_funcionamento_fec', $_POST['hor_funcionamento_fec']);
+            $admInfo->__set('frete', $_POST['frete']);
 
             $comandosInfo->inserirInfo();
 
@@ -57,13 +59,10 @@
             if (isset($_GET['id'])) 
             {
                 $admCardapio->__set('id', $_GET['id']);
-                $objetoProduto = $comandos->add_carrinho();
+                $retornos = $comandos->add_carrinho();
+                $_SESSION['cont'] = $retornos['cont'];
                 
-                //$comandos->pedidoEnviado(); 
-                
-                //$valores = $comandos->totalPedidos();
-                
-                //$total = array_sum($valores);
+                $objetoProduto = $retornos['resultado'];
                 
                header('location: cardapio.php');
             }

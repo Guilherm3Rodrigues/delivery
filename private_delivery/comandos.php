@@ -35,8 +35,8 @@ class Comandos
         $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$resultado) {
-            $query = "insert into info_estabelecimento(nome, telefone, rua, bairro, dia_inicial, dia_final, hor_funcionamento_ini, hor_funcionamento_fec)
-            values (:nome, :telefone,:rua, :bairro, :dia_inicial, :dia_final, :hor_funcionamento_ini, :hor_funcionamento_fec)";
+            $query = "insert into info_estabelecimento(nome, telefone, rua, bairro, dia_inicial, dia_final, hor_funcionamento_ini, hor_funcionamento_fec, frete)
+            values (:nome, :telefone,:rua, :bairro, :dia_inicial, :dia_final, :hor_funcionamento_ini, :hor_funcionamento_fec, :frete)";
             $stmt = $this->conexao->prepare($query);
             $stmt->bindValue(':nome', $this->cardapio->__get('nome'));
             $stmt->bindValue(':telefone', $this->cardapio->__get('telefone'));
@@ -46,10 +46,11 @@ class Comandos
             $stmt->bindValue(':dia_final', $this->cardapio->__get('dia_final'));
             $stmt->bindValue(':hor_funcionamento_ini', $this->cardapio->__get('hor_funcionamento_ini'));
             $stmt->bindValue(':hor_funcionamento_fec', $this->cardapio->__get('hor_funcionamento_fec'));
+            $stmt->bindValue(':frete', $this->cardapio->__get('frete'));
             $stmt->execute();
         } else {
             $query = "update info_estabelecimento set nome = :nome, telefone = :telefone, rua = :rua, bairro = :bairro, 
-            dia_inicial = :dia_inicial, dia_final = :dia_final, hor_funcionamento_ini = :hor_funcionamento_ini, hor_funcionamento_fec = :hor_funcionamento_fec ";
+            dia_inicial = :dia_inicial, dia_final = :dia_final, hor_funcionamento_ini = :hor_funcionamento_ini, hor_funcionamento_fec = :hor_funcionamento_fec, frete = :frete";
             $stmt = $this->conexao->prepare($query);
             $stmt->bindValue(':nome', $this->cardapio->__get('nome'));
             $stmt->bindValue(':telefone', $this->cardapio->__get('telefone'));
@@ -59,6 +60,7 @@ class Comandos
             $stmt->bindValue(':dia_final', $this->cardapio->__get('dia_final'));
             $stmt->bindValue(':hor_funcionamento_ini', $this->cardapio->__get('hor_funcionamento_ini'));
             $stmt->bindValue(':hor_funcionamento_fec', $this->cardapio->__get('hor_funcionamento_fec'));
+            $stmt->bindValue(':frete', $this->cardapio->__get('frete'));
             $stmt->execute();
         }
 
@@ -150,6 +152,7 @@ class Comandos
         $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$resultado['numero_pedido']) {
+            $cont = 1;
             $query = 'INSERT INTO pedidos (id, img, produto, descricao, valor, categoria, numero_pedido)
                   SELECT id, img, produto, descricao, valor, categoria, 1 as numero_pedido
                   FROM itens_cardapio WHERE id = :id';
@@ -165,7 +168,7 @@ class Comandos
             $stmt2->execute();
         }
 
-        return $resultado;
+        return $resultados = ['$resultado' => $resultado, 'cont' => $cont];
     }
     
     public function totalPedidos()

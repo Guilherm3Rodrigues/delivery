@@ -4,6 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
 $acao = 'recuperar';
+$cont = isset($_SESSION['cont']) ? $_SESSION['cont'] : null;
 include('ponteInfo.php');
 ?>
 <!DOCTYPE html>
@@ -19,7 +20,6 @@ include('ponteInfo.php');
     <script>
         function remover(id) {
             location.href = 'cardapio.php?acao=remover&&id=' + id;
-
         }
 
         function add(id) {
@@ -144,7 +144,7 @@ include('ponteInfo.php');
 
                 <div class="col-sm justify-content-end d-flex align-items-center">
 
-                    <button class="btn btn-danger" onclick="add(<?php print $produto->id ?>)">COMPRAR</button>
+                    <button class="btn btn-danger" onclick="add(<?php print $produto->id ?>)">COMPRAR</button> <?php print $cont?>
 
                 </div>
                 <hr>
@@ -159,14 +159,14 @@ include('ponteInfo.php');
     <?php if (!isset($_GET['acao']))  // PHP =============================================
     {
     ?>
-        <div class="container position-relative d-flex align-items-center borda-carrinho">
-            <h2>Total: R$ </h2>
-            <h3 class="margem-varTotal">
+        <div class="position-relative d-flex align-items-center borda-carrinho">
+            <h2 class="mx-3">Total:</h2>
+            <h3> R$
                 <?php
                     print $valorSomado;                     
                 ?>
             </h3>
-            <div class="col justify-content-end d-flex align-items-center">
+            <div class="col justify-content-end d-flex align-items-center mx-5">
 
                 <a type="buttom" class="btn btn-dark" href="carrinho.php?acao=recuperarPedidos">Carrinho</a>
 

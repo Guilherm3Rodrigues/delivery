@@ -1,9 +1,9 @@
 <?php 
     ob_start();
+    session_start();
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
     $acao = 'recuperar';
-    $frete = 0; 
     include('ponteInfo.php');
 ?>
 
@@ -29,7 +29,8 @@
         function atribuirValor(nome) 
         {
             <?php 
-                $frete = $_POST['entrega'];
+                
+                $_SESSION['freteFinal'] = $_POST['entrega'];
             ?>
             document.getElementById("formularioEntrega").submit();
             
@@ -40,7 +41,8 @@
             <?php 
                 if (isset($_POST['entrega'])) 
                 {
-                    $frete = $_POST['entrega'];
+                    
+                    $_SESSION['freteFinal'] = $_POST['entrega'];
                 }
             ?>
           location.href = 'carrinho.php?acao=pedido_enviado';
@@ -72,7 +74,7 @@
     
         <div class="container">
 
-            <div class="d-flex margem-endereco"> 
+            <div class="d-flex"> 
                 
                 <ul class="list-group mr-3">
 
@@ -84,9 +86,9 @@
                         <li class="list-group-item">
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <?php print $produto->produto ?> / 
+                                    <?php print '<strong>'. $produto->produto . '</strong>' ?> - 
                                  R$ <?php print $produto->valor ?> x 
-                                    <?php print $produto->numero_pedido; ?>
+                                    <?php print '<strong>'. $produto->numero_pedido . '</strong>'; ?>
                                 </div>
                                 <div class="btn-group">
                                     <button class="btn btn-danger" 
@@ -98,9 +100,8 @@
                     <?php  
                     }
                         include('valorTotal.php');
-                        $valorTotal = $valorSomado + $frete;
-                        print $frete;
-                            
+                        $valorTotal = $valorSomado + $_SESSION['freteFinal'];
+                        
                     ?>
                 
                 </ul>
@@ -134,19 +135,19 @@
             <h3>Entregar? </h3>
             <form id="formularioEntrega" action="carrinho.php?acao=recuperarPedidos" method="POST">
                 <label class="btn btn-danger">
-                    SIM, R$
-                    <input type="radio" name="entrega" value="3" onclick="atribuirValor()" 
-                    <?php print ($frete != 0) ? 'checked' : ''; ?>> 3
-                    <input type="hidden" id="botaoNomeSim" name="botaoNomeSim" value=""> ,00
+                    
+                    <input type="radio" name="entrega" value="<?php print $_SESSION['frete']?>" onclick="atribuirValor()" 
+                    <?php print ($_SESSION['freteFinal'] != 0) ? 'checked' : ''; ?>> SIM - R$<?php print $_SESSION['frete']?>
+                    <input type="hidden" id="botaoNomeSim" name="botaoNomeSim" value=""> 
                 </label>
 
                 <br>
                 <br>
 
                 <label class="btn btn-danger">
-                    NÃO, Retirar no local
+                    
                     <input type="radio" name="entrega" value="0" onclick="atribuirValor()" 
-                    <?php print ($frete == 0) ? 'checked' : ''; ?>> 0
+                    <?php print ($_SESSION['freteFinal'] == 0) ? 'checked' : ''; ?>> NÃO, Retirar no local - R$0
                     <input type="hidden" id="botaoNomeNao" name="botaoNomeNao" value="">
                 </label>
                 <input type="submit" style="display:none;">
@@ -165,7 +166,7 @@
                 <label class="row">Telefone</label><input placeholder="EX: 35 9 8899-9749"></input>
                 
             </ul>
-            <a type="buttom" class="btn btn-dark margem-endereco" onclick="finalizar"><strong>Finalizar</strong></a>
+            <a type="buttom" class="btn btn-dark margem-endereco" onclick="finalizar()"><strong>Finalizar</strong></a>
 
         </form>
         
@@ -179,24 +180,22 @@
         <br>
     </div>
 
-    <div class="d-flex justify-content-center">
-        <a class="mb-2 borda-carrinho fs-3 fw-bolder btn btn-danger btn btn-lg btn-primary rounded-pill" href="cardapio.php">
+    <div class="d-flex justify-content-center"> 
+        <a class="mb-2 fs-4 fw-bolder btn btn-danger btn-primary me-2" href="cardapio.php">
             Voltar ao Cardapio
         </a>
                 
         
-        <a class="mb-2 borda-carrinho fs-3 fw-bolder btn btn-danger btn btn-lg btn-primary rounded-pill" href="cardapio.php">
-            Status Pedido? <? // acrescentar pagina para verificar status ou algo do tipo? ?>
+        <a class="mb-2 fs-4 fw-bolder btn btn-danger btn-primary" href="cardapio.php">
+            Fzer ou n Status Pedido? <? // acrescentar pagina para verificar status ou algo do tipo? NAO SEI SE É NECESSARIO ?>
         </a>
     </div>
 
-    <div class="container position-relative d-flex align-items-center borda-carrinho">
+    <div class="position-relative d-flex align-items-center borda-carrinho">
      
-        <h2> Carrinho </h2>
+        <div class="col justify-content-center d-flex">
 
-        <div class="col justify-content-end d-flex">
-
-          <h3 id="valor" class="margem-varTotal">R$<?php print $valorTotal?></h3>
+          <h3 id="valor" class="mx-5">TOTAL: R$<?php print $valorTotal?></h3>
             
         </div>
         

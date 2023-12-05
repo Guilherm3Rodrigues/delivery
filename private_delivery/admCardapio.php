@@ -33,6 +33,7 @@ class AdmInfo
     private $dia_final;
     private $hor_funcionamento_ini;
     private $hor_funcionamento_fec;
+    private $frete;
     
     public function __set($atributo, $valor) 
     {
