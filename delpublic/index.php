@@ -1,4 +1,5 @@
 <?php 
+<<<<<<< HEAD
     ob_start();
     session_start();
     error_reporting(E_ALL);
@@ -8,6 +9,14 @@
     $funcionamento = $_SESSION['dia_inicial'] . ' a ' . $_SESSION['dia_final'];
     $horario = $_SESSION['hor_funcionamento_ini'] . ' a ' . $_SESSION['hor_funcionamento_fec'];
 ?>
+=======
+    session_start();
+
+    $acao = 'recuperar';
+    require 'ponteinfo.php';
+?>
+
+>>>>>>> 47fc9dfe2044db29de18431abcfd7302a30e1794
 <!DOCTYPE html>
 <html lang="pt-br">
 <?php $nomeRestaurante = "McDonalds" ?>
@@ -64,10 +73,15 @@
 
         <div class="text-center" style="height:140px">
 
+<<<<<<< HEAD
             <p class="text-primary"> <?php print $funcionamento  ?></p>
             <h2 class="text-success" > ABERTO </h2>
             <p class="text-primary"> DAS <?php print $horario?></p>
             
+=======
+            <p class="text-primary"> <?php print $_SESSION['data_funcionamento']?></p>
+            <h2 class="text-success" > TESTE </h2>
+>>>>>>> 47fc9dfe2044db29de18431abcfd7302a30e1794
 
         </div>
 
@@ -119,10 +133,13 @@
     </div>
 
     <script src="script.js"></script>
+<<<<<<< HEAD
     <?php 
     session_unset(); // Limpa as variáveis de sessão
     session_destroy(); // Destroi a sessão
     ?>
+=======
+>>>>>>> 47fc9dfe2044db29de18431abcfd7302a30e1794
 
 </body>
 

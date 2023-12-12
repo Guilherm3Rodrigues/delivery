@@ -12,9 +12,9 @@ class Conexao
     //private $pass = '3tfGE?q*eqM7';
 
     private $host = 'localhost';
-    private $dbname = 'db_delivery';
-    private $user = 'root';
-    private $pass = '';
+    private $dbname = 'vitorcar_sis';
+    private $user = 'vitorcar_torvik';
+    private $pass = '3tfGE?q*eqM7';
 
     
 
