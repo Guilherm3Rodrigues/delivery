@@ -26,7 +26,6 @@ botaoFechar.addEventListener('click', fecharDialog);
 const botãoEditar = document.getElementById('editar');
 botaoAdministrador.addEventListener('click', abrirDialog);
 
-<<<<<<< HEAD
 
 
 
@@ -39,6 +38,4 @@ botaoAdministrador.addEventListener('click', abrirDialog);
 
 
 
-=======
->>>>>>> 47fc9dfe2044db29de18431abcfd7302a30e1794
   

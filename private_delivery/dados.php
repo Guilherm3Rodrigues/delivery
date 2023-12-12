@@ -1,9 +1,6 @@
 <?php
-<<<<<<< HEAD
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
-=======
->>>>>>> 47fc9dfe2044db29de18431abcfd7302a30e1794
     include("comandos.php");
     include("../private_delivery/conexao.php");
     include("../private_delivery/admCardapio.php");
