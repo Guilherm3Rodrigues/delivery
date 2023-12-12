@@ -9,7 +9,6 @@
     
     $index = $_SERVER['PHP_SELF'];
     
-
     $admInfo = new AdmInfo();
     $admCardapio = new AdmCardapio();
     $conexao = new Conexao();

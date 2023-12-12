@@ -6,17 +6,18 @@ $comandos = new Comandos($conexao, $admCardapio);
 
 $arrayProdutos;
 $valorTotal = 0;
+$valorSomado=0;
 
 foreach ($listaPedidos as $key => $produto) 
 {
-    $arrayProdutos[$key] = $produto->produto;
+    $arrayProdutos[$key] = $produto->produto . ' x ' . $produto->numero_pedido;
     $valor = $produto->valor * $produto->numero_pedido;
     $valorSomado += $valor;
 }
 
 
 $valorTotal = $valorSomado + $_SESSION['freteFinal'];
-$produtos = implode(', ', $arrayProdutos);
+$produtos = implode(PHP_EOL . '- ', $arrayProdutos);
 
 $mensagem = 'Obrigado por comprar conosco!' . PHP_EOL . PHP_EOL;
 $mensagem .= 'Você comprou:' . PHP_EOL;
