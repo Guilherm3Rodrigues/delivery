@@ -60,6 +60,11 @@
                 $admCardapio->__set('id', $_GET['id']);
                 $retornos = $comandos->add_carrinho();
                 $_SESSION['cont'] = $retornos['cont'];
+                foreach($listaPedidos as $key => $nPedido)
+                {
+                    $array = get_object_vars($nPedido);
+                }
+                print_r($array);
                 
                 $objetoProduto = $retornos['resultado'];
                 

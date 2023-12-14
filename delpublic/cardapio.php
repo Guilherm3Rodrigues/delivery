@@ -49,6 +49,12 @@ include('ponteInfo.php');
                 TOTAL: R$ <?php print $valorSomado ?>
             </div>
 
+            <div class="icone-seguidor" id="iconeSeguidor">
+                <button class="icone-seguidor circulo" id="open"><img src="imagens/carrinho-de-compras.png" alt="Ícone Seguidor"> <!-- imagem pertencente a Freepik (flaticon) !-->
+                <strong class="text"><?php ($qtdTotal != 0) ? print $qtdTotal : ''; ?></strong></button>
+            </div>
+            <?php include('carrinhoPreview.php');?>
+
         <div class="container position-relative">
 
             <div>
@@ -71,7 +77,7 @@ include('ponteInfo.php');
     foreach ($listaCardapio as $indice => $produto)  // PHP =============================================
     { ?>
         <!-- <div>  layout dos produtos  !-->
-        <?php if (!isset($_GET['acao']) || (isset($_GET['acao'])) && $_GET['acao'] != 'Atualizar') // é necessario resolver a forma de lidar com as categorias na edição
+        <?php if (!isset($_GET['acao']) || (isset($_GET['acao'])) && $_GET['acao'] != 'Atualizar') 
         {
         ?>
             <?php $categoria = $produto->categoria;
@@ -144,16 +150,16 @@ include('ponteInfo.php');
 
                 <div class="col-sm justify-content-end d-flex align-items-center">
 
-                    <button class="btn btn-danger" onclick="add(<?php print $produto->id ?>)">COMPRAR</button> <?php print $cont?>
+                    <button class="btn btn-danger" onclick="add(<?php print $produto->id ?>)">COMPRAR</button> <?php  ?>
 
                 </div>
                 <hr>
-            </div>
+            </div> 
 
             <!-- </div> !-->
 
-    <?php               } // PHP =============================================
-    }; ?>
+    <?php      //print_r($_SESSION['teste']);         } // PHP =============================================
+    }}; ?> 
     <!-- Fim do ciclo produto ======================================================================= !-->
     </div>
     <?php if (!isset($_GET['acao']))  // PHP =============================================
