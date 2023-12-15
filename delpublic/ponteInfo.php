@@ -1,4 +1,5 @@
 <?php 
+
 //Segurança 2º caso require fails
 
 
@@ -34,6 +35,7 @@ else
 */
     include("../private_delivery/dados.php");
 //}
+
 
 
 
