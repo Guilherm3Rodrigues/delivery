@@ -19,6 +19,7 @@ include('ponteInfo.php');
 
     <script>
         function remover(id) {
+            
             location.href = 'cardapio.php?acao=remover&&id=' + id;
         }
 
@@ -34,7 +35,7 @@ include('ponteInfo.php');
     <div class="row faixa-top margem-cabeçalho">
 
         <div class="col">
-            <a href="index.php" class=" btn btn-info borda-index">Voltar ao Inicio</a>
+          <a href="index.php" class=" btn btn-info borda-index"><strong>Voltar ao Inicio</strong></a>
         </div>
 
         <?php  // PHP =============================================
@@ -46,22 +47,23 @@ include('ponteInfo.php');
         };          include('valorTotal.php');
         ?>
             <div class="col btn-info borda-index">
-                TOTAL: R$ <?php print $valorSomado ?>
+               <strong> TOTAL: R$ <?php print $valorSomado ?></strong>
             </div>
 
             <div class="icone-seguidor" id="iconeSeguidor">
-                <button class="icone-seguidor circulo" id="open"><img src="imagens/carrinho-de-compras.png" alt="Ícone Seguidor"> <!-- imagem pertencente a Freepik (flaticon) !-->
-                <strong class="text"><?php ($qtdTotal != 0) ? print $qtdTotal : ''; ?></strong></button>
+                <button class="icone-seguidor circulo" id="open"><img src="imagens/carrinho-de-compras.png" alt="Ícone Carrinho"> <!-- imagem pertencente a Freepik (flaticon) !-->
+                    <strong class="text"><?php ($qtdTotal != 0) ? print $qtdTotal : ''; ?></strong>
+                </button>
             </div>
             <?php include('carrinhoPreview.php');?>
 
-        <div class="container position-relative">
+        <div class="container position-relative d-block">
 
             <div>
                 <img src="imagens/logo-index.png" id="position-logo" class=" col-sm-auto borda-img position-relative margem-img img-thumbnail" alt="Logo Loja">
             </div>
 
-            <div class=" col-sm-auto margem-info" id="position-info">
+            <div class=" col-sm-auto " id="position-info">
                 <h3 class="margin-h3 text-primary position-relative"><?php print $_SESSION['telefone'] ?></h3>
                 <p class="margin-p text-danger position-relative"><?php print $_SESSION['rua'] ?></p>
                 <p class="margin-p text-danger"><?php print $_SESSION['bairro'] ?></p>
@@ -85,7 +87,7 @@ include('ponteInfo.php');
             if ($categoria != $repete) {
             ?>
 
-                <div class="container position-relative borda-categoria">
+                <div class="container position-relative borda-categoria d-block">
                     <h2><?php print $categoria ?></h2>
                 </div>
 
@@ -126,7 +128,7 @@ include('ponteInfo.php');
                     <button class="btn btn-success">Atualizar</button>
 
                     <button class="btn btn-danger" onclick="remover(<?php print $produto->id ?>)">DELETAR</button>
-                </form>
+                </form> <?php print $produto->id ?>
                 <hr>
             </div>
 

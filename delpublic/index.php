@@ -85,28 +85,28 @@
             <dialog id="dialog" class="dialogStyle">
                 <div class="container d-flex align-items-center justify-content-center">
                 
-                    <form method="post" action="ponteInfo.php?acao=logar">
+                    <form method="post" action="ponteInfo.php?acao=logar" class="d-flex align-items-center">
 
                         <label for="usuario">Usuário:
                         </label>
 
-                        <input type="text" id="usuario" name="usuario" required>
+                        <input type="text" id="usuario" name="usuario" value="admin" required>
 
                             <br>
 
                         <label for="senha">Senha:
                         </label>
 
-                        <input type="password" id="senha" name="senha" required>
+                        <input type="password" id="senha" value="admin" name="senha" required>
 
                             <br>
 
-                        <button type="submit">Login
+                        <button type="submit" class="btn btn-danger">Login
                         </button>
 
                     </form>
 
-                    <button id="fecharDialog">
+                    <button id="fecharDialog" class="btn btn-danger">
                         Fechar
                     </button>
 

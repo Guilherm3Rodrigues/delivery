@@ -99,10 +99,12 @@
 
         else  if ($acao == 'remover') 
         {
-            $admCardapio->__set('id', $_GET['id']);
+            print 'chegamos aqui';
+            /*$admCardapio->__set('id', $_GET['id']);
+            $teste = $admCardapio->__get('id');
             $comandos->remover();
 
-            header('location: cardapio.php?acao=Atualizar');
+            header('location: cardapio.php?acao=Atualizar&&' + $teste);*/
         }
 
         else  if ($acao == 'removerCarrinho') 
