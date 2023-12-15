@@ -50,7 +50,7 @@
             header('Location: admControl.php?inclusao=2');
         } 
     
-    else  if ($acao == 'recuperar'  || $acao == 'adminVisualizacao' || $acao == 'Atualizar') 
+        else  if ($acao == 'recuperar'  || $acao == 'adminVisualizacao'  || $acao == 'Atualizar') 
         {
             $listaCardapio = $comandos->buscar();
             $listaPedidos = $comandos->buscarPedidos();
@@ -95,14 +95,13 @@
                 header('location: cardapio.php?acao=Atualizar');
             }
         }
-
+        
         else  if ($acao == 'remover') 
         {
             $admCardapio->__set('id', $_GET['id']);
-            $teste = $admCardapio->__get('id');
             $comandos->remover();
 
-            header('location: cardapio.php?acao=Atualizar&&iddd=' . $_GET['id']);
+            header('location: cardapio.php?acao=Atualizar');
         }
 
         else  if ($acao == 'removerCarrinho') 

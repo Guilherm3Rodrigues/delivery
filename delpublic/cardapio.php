@@ -5,7 +5,10 @@ ini_set('display_errors', 1);
 session_start();
 $acao = 'recuperar';
 $cont = isset($_SESSION['cont']) ? $_SESSION['cont'] : null;
+
+print_r($_SESSION);
 include('ponteInfo.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,9 +21,13 @@ include('ponteInfo.php');
     <title>Cardapio</title>
 
     <script>
-        function deletar(id) {
-
-            location.href = 'cardapio.php?acao=remover&&id=' + id;
+        function redirecionarParaPagina(url, id) {
+            <?php $id = 'id'; 
+        $_SESSION['id_produto'] = $id;
+            ?>
+        alert(<?php print $_SESSION['id_produto'] ?>);
+        alert(url);
+        window.location.href = url;
         }
 
         function add(id) {
@@ -122,7 +129,8 @@ include('ponteInfo.php');
                     <input type="hidden" id="id" name="id" value="<?php print $produto->id ?>">
                     <button class="btn btn-success">Atualizar</button>
 
-                    <button class="btn btn-danger" onclick="confirm('Tem certeza de que deseja excluir?') && redirecionarParaPagina('cardapio.php?acao=remover&&id=') + (<?php print $produto->id ?>)">DELETAR</button>
+                    <a class="btn btn-danger" href='cardapio.php?acao=remover&&id=' . <?php print $produto->id ?>>DELETAR</a>
+
                 </form>
                 <hr>
             </div>
