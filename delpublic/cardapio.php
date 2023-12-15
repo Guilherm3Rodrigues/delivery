@@ -19,15 +19,13 @@ include('ponteInfo.php');
 
     <script>
         function deletar(id) {
-            
+
             location.href = 'cardapio.php?acao=remover&&id=' + id;
         }
 
         function add(id) {
             location.href = 'cardapio.php?acao=Atualizar&&id=' + id;
         }
-
-       
     </script>
 
 </head>
@@ -37,7 +35,7 @@ include('ponteInfo.php');
     <div class="row faixa-top margem-cabeçalho">
 
         <div class="col">
-          <a href="index.php" class=" btn btn-info borda-index"><strong>Voltar ao Inicio</strong></a>
+            <a href="index.php" class=" btn btn-info borda-index"><strong>Voltar ao Inicio</strong></a>
         </div>
 
         <?php  // PHP =============================================
@@ -46,18 +44,14 @@ include('ponteInfo.php');
                 <a href="admControl.php" class=" btn btn-info borda-index">Voltar ao ADM</a>
             </div>
         <?php
-        };          include('valorTotal.php');
+        };
+        include('valorTotal.php');
         ?>
-            <div class="col btn-info borda-index">
-               <strong> TOTAL: R$ <?php print $valorSomado ?></strong>
-            </div>
-
-            <div class="icone-seguidor" id="iconeSeguidor">
-                <button class="icone-seguidor circulo" id="open"><img src="imagens/carrinho-de-compras.png" alt="Ícone Carrinho"> <!-- imagem pertencente a Freepik (flaticon) !-->
-                    <strong class="text"><?php ($qtdTotal != 0) ? print $qtdTotal : ''; ?></strong>
-                </button>
-            </div>
-            <?php include('carrinhoPreview.php');?>
+        <div class="col btn-info borda-index">
+            <strong> TOTAL: R$ <?php print $valorSomado ?></strong>
+        </div>
+        
+        <?php include('carrinhoPreview.php'); ?>
 
         <div class="container position-relative d-block">
 
@@ -81,8 +75,7 @@ include('ponteInfo.php');
     foreach ($listaCardapio as $indice => $produto)  // PHP =============================================
     { ?>
         <!-- <div>  layout dos produtos  !-->
-        <?php if (!isset($_GET['acao']) || (isset($_GET['acao'])) && $_GET['acao'] != 'Atualizar') 
-        {
+        <?php if (!isset($_GET['acao']) || (isset($_GET['acao'])) && $_GET['acao'] != 'Atualizar') {
         ?>
             <?php $categoria = $produto->categoria;
 
@@ -158,12 +151,13 @@ include('ponteInfo.php');
 
                 </div>
                 <hr>
-            </div> 
+            </div>
 
             <!-- </div> !-->
 
     <?php      //print_r($_SESSION['teste']);         } // PHP =============================================
-    }}; ?> 
+        }
+    }; ?>
     <!-- Fim do ciclo produto ======================================================================= !-->
     </div>
     <?php if (!isset($_GET['acao']))  // PHP =============================================
@@ -173,7 +167,7 @@ include('ponteInfo.php');
             <h2 class="mx-3">Total:</h2>
             <h3> R$
                 <?php
-                    print $valorSomado;                     
+                print $valorSomado;
                 ?>
             </h3>
             <div class="col justify-content-end d-flex align-items-center mx-5">
@@ -187,7 +181,7 @@ include('ponteInfo.php');
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="script.js"></script>
-      
+
 </body>
 
 </html>

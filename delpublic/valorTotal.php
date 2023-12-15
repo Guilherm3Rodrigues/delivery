@@ -9,8 +9,3 @@ foreach ($listaPedidos as $indice => $produto) {
     $qtd = $produto->numero_pedido;
     $qtdTotal += $qtd;
 }
-
-
-
-
-?>
