@@ -64,7 +64,6 @@
                 {
                     $array = get_object_vars($nPedido);
                 }
-                print_r($array);
                 
                 $objetoProduto = $retornos['resultado'];
                 
@@ -99,12 +98,11 @@
 
         else  if ($acao == 'remover') 
         {
-            print 'chegamos aqui';
-            /*$admCardapio->__set('id', $_GET['id']);
+            $admCardapio->__set('id', $_GET['id']);
             $teste = $admCardapio->__get('id');
             $comandos->remover();
 
-            header('location: cardapio.php?acao=Atualizar&&' + $teste);*/
+            header('location: cardapio.php?acao=Atualizar&&iddd=' . $_GET['id']);
         }
 
         else  if ($acao == 'removerCarrinho') 

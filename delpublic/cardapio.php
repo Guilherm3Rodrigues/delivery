@@ -18,7 +18,7 @@ include('ponteInfo.php');
     <title>Cardapio</title>
 
     <script>
-        function remover(id) {
+        function deletar(id) {
             
             location.href = 'cardapio.php?acao=remover&&id=' + id;
         }
@@ -26,6 +26,8 @@ include('ponteInfo.php');
         function add(id) {
             location.href = 'cardapio.php?acao=Atualizar&&id=' + id;
         }
+
+       
     </script>
 
 </head>
@@ -127,8 +129,8 @@ include('ponteInfo.php');
                     <input type="hidden" id="id" name="id" value="<?php print $produto->id ?>">
                     <button class="btn btn-success">Atualizar</button>
 
-                    <button class="btn btn-danger" onclick="remover(<?php print $produto->id ?>)">DELETAR</button>
-                </form> <?php print $produto->id ?>
+                    <button class="btn btn-danger" onclick="confirm('Tem certeza de que deseja excluir?') && redirecionarParaPagina('cardapio.php?acao=remover&&id=') + (<?php print $produto->id ?>)">DELETAR</button>
+                </form>
                 <hr>
             </div>
 
