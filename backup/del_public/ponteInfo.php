@@ -1,5 +1,4 @@
 <?php 
-
 //Segurança 2º caso require fails
 
 
@@ -33,9 +32,8 @@
 else 
 {
 */
-    include("../private_delivery/dados.php");
+    require_once "../private_delivery/dados.php";
 //}
-
 
 
 

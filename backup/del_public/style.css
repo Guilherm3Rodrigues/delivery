@@ -18,7 +18,7 @@
 }
 
 .testeBorda {
-    border: solid 10px black;
+    border: solid 1px black;
 }
 
 .borda {
@@ -57,58 +57,12 @@
 
 .borda-carrinho {
     background-color: rgb(145, 2, 2);
-    width: 100%;
+    border-radius: 40px;
     border: black;
     font-family:sans-serif;
     font-size: 15px;
     color: white;
     padding: 5px;
-}
-
-.borda-button-index {
-    background-color: rgb(145, 2, 2);
-    width: 20%;
-    border: black;
-    font-family:sans-serif;
-    font-size: 15px;
-    color: white;
-    padding: 5px;
-}
-
-
-.icone-seguidor img {
-    width: 32px;
-    height: 32px;
-}
-
-.circulo {
-    width: 60px; /* Largura do círculo */
-    height: 60px; /* Altura do círculo */
-    background-color: #3498db; /* Cor de fundo do círculo */
-    border-radius: 50%; /* Bordas arredondadas para criar um círculo */
-    border: solid 1px #000
-    ;
-}
-
-.icone-seguidor {
-    position: fixed;
-    z-index: 1;
-    left: 80%;
-    top: 10px;
-    cursor: pointer;
-    transition: opacity 0.3s;
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-}
-
-.icone-seguidor:hover {
-    opacity: 0.7;
-}
-
-.text {
-    color: #fff;
-    padding-left: 3px;
 }
 
 .dialogStyle {
@@ -199,10 +153,5 @@
     background-color: #007bff;
     color: #fff;
 }
-
-#faixa-menu-adm{background:#ff7c0c; width:100%; padding:10px 0;}
-#faixa-menu-adm ul{margin:0; padding:0; text-align:center;}
-#faixa-menu-adm ul li{margin:0; padding:0; list-style:none; display: inline-block;}
-#faixa-menu-adm ul li a{margin:0; font-weight:bold; color:#000; padding:0 10px; text-transform:uppercase; font-size:20px; list-style:none; text-decoration:none; }
 
 

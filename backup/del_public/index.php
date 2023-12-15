@@ -1,13 +1,10 @@
 <?php 
-    ob_start();
     session_start();
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
+
     $acao = 'recuperar';
-    include('ponteInfo.php');
-    $funcionamento = $_SESSION['dia_inicial'] . ' a ' . $_SESSION['dia_final'];
-    $horario = $_SESSION['hor_funcionamento_ini'] . ' a ' . $_SESSION['hor_funcionamento_fec'];
+    require 'ponteinfo.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <?php $nomeRestaurante = "McDonalds" ?>
@@ -64,21 +61,19 @@
 
         <div class="text-center" style="height:140px">
 
-            <p class="text-primary"> <?php print $funcionamento  ?></p>
-            <h2 class="text-success" > ABERTO </h2>
-            <p class="text-primary"> DAS <?php print $horario?></p>
-            
+            <p class="text-primary"> <?php print $_SESSION['data_funcionamento']?></p>
+            <h2 class="text-success" > TESTE </h2>
 
         </div>
 
         <div>
 
-            <a class="borda-button-index fs-3 fw-bolder btn btn-danger position-relative bottom-0 start-50 translate-middle btn btn-lg btn-primary rounded-pill"
+            <a class="borda-carrinho fs-3 fw-bolder btn btn-danger position-relative bottom-0 start-50 translate-middle btn btn-lg btn-primary rounded-pill"
                 href="cardapio.php" >Cardapio
             </a>
             <br>
             <br>
-            <button id="open" class="borda-button-index fs-3 fw-bolder btn btn-danger position-relative bottom-0 start-50 translate-middle btn btn-lg btn-primary rounded-pill">
+            <button id="open" class="borda-carrinho fs-3 fw-bolder btn btn-danger position-relative bottom-0 start-50 translate-middle btn btn-lg btn-primary rounded-pill">
                 Administrador
             </button>
 
@@ -119,10 +114,6 @@
     </div>
 
     <script src="script.js"></script>
-    <?php 
-    session_unset(); // Limpa as variáveis de sessão
-    session_destroy(); // Destroi a sessão
-    ?>
 
 </body>
 

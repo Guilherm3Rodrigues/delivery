@@ -1,21 +1,19 @@
-<?php
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
-    include("comandos.php");
-    include("../private_delivery/conexao.php");
-    include("../private_delivery/admCardapio.php");
+<?php 
+    require_once "comandos.php";
+    require_once "../private_delivery/conexao.php";
+    require_once "../private_delivery/admCardapio.php";
 
     $acao = isset($_GET['acao']) ? $_GET['acao'] : $acao;
     
     $index = $_SERVER['PHP_SELF'];
-    
+
     $admInfo = new AdmInfo();
     $admCardapio = new AdmCardapio();
     $conexao = new Conexao();
     $comandos = new Comandos($conexao, $admCardapio);
     $comandosInfo = new Comandos($conexao, $admInfo);
 
-    if (strpos($index, 'index.php') !== false || strpos($index, 'cardapio.php') !== false || strpos($index, 'admControl.php')) 
+    if (strpos($index, 'index.php') !== false || strpos($index, 'cardapio.php') !== false ) 
     {
         $info = $comandosInfo->carregarInfo();
         $_SESSION = $info;
@@ -39,11 +37,7 @@
             $admInfo->__set('telefone', $_POST['telefone']);
             $admInfo->__set('rua', $_POST['rua']);
             $admInfo->__set('bairro', $_POST['bairro']);
-            $admInfo->__set('dia_inicial', $_POST['dia_inicial']);
-            $admInfo->__set('dia_final', $_POST['dia_final']);
-            $admInfo->__set('hor_funcionamento_ini', $_POST['hor_funcionamento_ini']);
-            $admInfo->__set('hor_funcionamento_fec', $_POST['hor_funcionamento_fec']);
-            $admInfo->__set('frete', $_POST['frete']);
+            $admInfo->__set('data_funcionamento', $_POST['data_funcionamento']);
 
             $comandosInfo->inserirInfo();
 
@@ -53,22 +47,16 @@
     else  if ($acao == 'recuperar'  || $acao == 'adminVisualizacao' || $acao == 'Atualizar') 
         {
             $listaCardapio = $comandos->buscar();
-            $listaPedidos = $comandos->buscarPedidos();
 
             if (isset($_GET['id'])) 
             {
                 $admCardapio->__set('id', $_GET['id']);
-                $retornos = $comandos->add_carrinho();
-                $_SESSION['cont'] = $retornos['cont'];
-                foreach($listaPedidos as $key => $nPedido)
-                {
-                    $array = get_object_vars($nPedido);
-                }
-                print_r($array);
+                $objetoProduto = $comandos->add_carrinho();
                 
-                $objetoProduto = $retornos['resultado'];
-                
-               header('location: cardapio.php');
+                $valorTotal = $objetoProduto['valor'];
+                $_SESSION['valorTotal'] = $valorTotal;
+
+               header('location: cardapio.php?recuperar');
             }
 
             if(isset($_POST['id']))
@@ -114,17 +102,15 @@
                 if($qtd == 0)
                 {
                     $comandos->removerCarrinho();
+                    header('location: carrinho.php?acao=recuperarPedidos');
                 }
 
                 else
                 {
                     $admCardapio->__set('numero_pedido', $qtd);
                     $comandos->editarCarrinho();
+                    header('location: carrinho.php?acao=recuperarPedidos');
                 }
-                $_POST['entrega'] = isset($_POST['entrega']) ? $_POST['entrega'] : 0;
-                $listaPedidos = $comandos->buscarPedidos();
-                
-                
             
         }
 
@@ -149,26 +135,19 @@
 
         else  if ($acao == 'recuperarPedidos' || $acao == 'pedido_enviado') 
         {
-            $_POST['entrega'] = isset($_POST['entrega']) ? $_POST['entrega'] : 0;
+            if(!isset($_POST) || !isset($_POST['entrega'])) 
+            {
+            $_POST['entrega'] = 0;
+            }
 
             if($acao == 'pedido_enviado') 
             {
                 $comandos->pedidoEnviado();
                 $listaPedidos = $comandos->buscarPedidos();
-                $infoLoja = $comandos->carregarInfo();
-                $telefoneString = $infoLoja['telefone'];
-                $telefoneStringNumeros = preg_replace("/[^0-9]/", "", $telefoneString);
-                $listaPedidos = $comandos->buscarPedidos();
-
-                include('whats.php');
-
             }
             else
             {
                 $listaPedidos = $comandos->buscarPedidos();
             }
-           
         }
-        
-        
 ?>

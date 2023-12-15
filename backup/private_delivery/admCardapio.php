@@ -29,11 +29,7 @@ class AdmInfo
     private $telefone;
     private $rua;
     private $bairro;
-    private $dia_inicial;
-    private $dia_final;
-    private $hor_funcionamento_ini;
-    private $hor_funcionamento_fec;
-    private $frete;
+    private $data_funcionamento;
     
     public function __set($atributo, $valor) 
     {

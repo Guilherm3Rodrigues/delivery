@@ -1,3 +1,13 @@
+<?php 
+    ob_start();
+    session_start();
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+    $acao = 'recuperar';
+    include('ponteInfo.php');
+    
+?>    
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +24,10 @@
     <div class="faixa-top">
         <h1 class="text-light d-flex justify-content-center"><strong>Administrativo</strong></h1>
     </div>
+    
+    <?php
+        include("menuadm.php");
+    ?>
     
     <?php if(isset($_GET['inclusao']) && $_GET['inclusao'] == 1) {?>
 
@@ -47,18 +61,66 @@
             <div class="form-group ">
                 <h2>Informações do Estabelecimento</h2>
                 <p><strong>Estas informações irão aparecer na pagina inicial e no começo do cardapio</strong></p>
-                <input required name="nome" type="text" class="form-control" placeholder="NOME, Exemplo: MC Donalds">
-                <input required name="telefone" type="text" class="form-control" placeholder="TELEFONE, Exemplo: (35) 98899-9749">
-                <input name="rua" type="text" class="form-control" placeholder="RUA, Exemplo: Maria Lourdes de Andrade, 185">
-                <input name="bairro" type="text" class="form-control" placeholder="BAIRRO - CIDADE, Exemplo: Sossego - Piranguinho">
-                <input required name="data_funcionamento" type="text" class="form-control" placeholder="Data Funcionamento, Exemplo: Terça a Sabado, 18:00 as 00:00">
+                <input required name="nome" type="text" class="form-control" value="<?php print $_SESSION['nome']?>" placeholder="NOME, Exemplo: MC Donalds">
+                <input required name="telefone" type="text" class="form-control" value="<?php print $_SESSION['telefone']?>" placeholder="TELEFONE, Exemplo: (35) 98899-9749">
+                <input name="rua" type="text" class="form-control" value="<?php print $_SESSION['rua']?>" placeholder="RUA, Exemplo: Maria Lourdes de Andrade, 185">
+                <input name="bairro" type="text" class="form-control" value="<?php print $_SESSION['bairro']?>" placeholder="BAIRRO - CIDADE, Exemplo: Sossego - Piranguinho">
+                
+                <p style="margin:10px 0 0 !important;"><b>Dias de Funcionamento</b></p>
+                <select style="width:200px; display:inline-block;" class="form-select" name="dia_inicial" id="dia-inicial" >
+                      <option value="segunda">Segunda</option>
+                      <option value="terça">Terça</option>
+                      <option value="quarta">Quarta</option>
+                      <option value="quinta">Quinta</option>
+                      <option value="sexta">Sexta</option>
+                      <option value="sabado">Sábado</option>
+                      <option value="domingo">Domingo</option>
+                </select>
+                à
+                <select style="width:200px; display:inline-block;" class="form-select" name="dia_final" id="dia-final" >
+                    <option value="domingo">Domingo</option>
+                      <option value="segunda">Segunda</option>
+                      <option value="terça">Terça</option>
+                      <option value="quarta">Quarta</option>
+                      <option value="quinta">Quinta</option>
+                      <option value="sexta">Sexta</option>
+                      <option value="sabado">Sábado</option>
+                </select>
+                
+                <p style="margin:10px 0 0 !important;"><b>Hórario de Funcionamento</b></p>
+                <i>Abertura e Fechamento</i><br/>
+                <select style="width:200px; display:inline-block;" class="form-select" name="hor_funcionamento_ini" id="hor_funcionamento_ini">
+                    <option value="09:00">09:00</option>
+                    <option value="10:00">10:00</option>
+                    <option value="11:00">11:00</option>
+                    <option value="12:00">12:00</option>
+                    <option value="13:00">13:00</option>
+                    <option value="14:00">14:00</option>
+                    <option value="15:00">15:00</option>
+                    <option value="16:00">16:00</option>
+                    <option value="17:00">17:00</option>
+                    <option value="18:00">18:00</option>
+                </select>
+                à
+                <select style="width:200px; display:inline-block;" class="form-select" name="hor_funcionamento_fec" id="hor_funcionamento_fec">
+                    <option value="00:00">00:00</option>
+                    <option value="23:00">23:00</option>
+                    <option value="22:00">22:00</option>
+                    <option value="21:00">21:00</option>
+                    <option value="20:00">20:00</option>
+                    <option value="19:00">19:00</option>
+                    <option value="18:00">18:00</option>
+                </select>
+                <p style="margin:10px 0 0 !important;"><b>VALOR DO FRETE (use PONTO para os centavos)</b></p>
+                <input style="width:200px;" name="frete" type="number" step="0.01" value="<?php print $_SESSION['frete']?>" class="form-control" placeholder="EX: 2.50 (2 PONTO 50)">
+                
             </div>
             <br>
             <button class="btn btn-success">Atualizar Info</button>
         </form>
         <hr>
     </div>
-    <div class="container">
+    <div class="container" id="adicionar">
 
         <form method="post" action="ponteInfo.php?acao=inserir">
             <div class="form-group ">
@@ -84,10 +146,7 @@
         </form>
     </div>
     <br>
-    <div>
-        <a class="borda-carrinho fs-3 fw-bolder btn btn-danger position-relative bottom-0 start-50 translate-middle btn btn-lg btn-primary rounded-pill" href="cardapio.php?acao=adminVisualizacao">
-            Ver Cardapio</a>
-    </div>
+    
 
 </body>
 
