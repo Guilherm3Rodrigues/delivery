@@ -5,7 +5,10 @@ ini_set('display_errors', 1);
 session_start();
 $acao = 'recuperar';
 $cont = isset($_SESSION['cont']) ? $_SESSION['cont'] : null;
+
+print_r($_SESSION);
 include('ponteInfo.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,8 +21,13 @@ include('ponteInfo.php');
     <title>Cardapio</title>
 
     <script>
-        function remover(id) {
-            location.href = 'cardapio.php?acao=remover&&id=' + id;
+        function redirecionarParaPagina(url, id) {
+            <?php $id = 'id'; 
+        $_SESSION['id_produto'] = $id;
+            ?>
+        alert(<?php print $_SESSION['id_produto'] ?>);
+        alert(url);
+        window.location.href = url;
         }
 
         function add(id) {
@@ -34,7 +42,7 @@ include('ponteInfo.php');
     <div class="row faixa-top margem-cabeçalho">
 
         <div class="col">
-            <a href="index.php" class=" btn btn-info borda-index">Voltar ao Inicio</a>
+            <a href="index.php" class=" btn btn-info borda-index"><strong>Voltar ao Inicio</strong></a>
         </div>
 
         <?php  // PHP =============================================
@@ -43,25 +51,22 @@ include('ponteInfo.php');
                 <a href="admControl.php" class=" btn btn-info borda-index">Voltar ao ADM</a>
             </div>
         <?php
-        };          include('valorTotal.php');
+        };
+        include('valorTotal.php');
         ?>
-            <div class="col btn-info borda-index">
-                TOTAL: R$ <?php print $valorSomado ?>
-            </div>
+        <div class="col btn-info borda-index">
+            <strong> TOTAL: R$ <?php print $valorSomado ?></strong>
+        </div>
+        
+        <?php include('carrinhoPreview.php'); ?>
 
-            <div class="icone-seguidor" id="iconeSeguidor">
-                <button class="icone-seguidor circulo" id="open"><img src="imagens/carrinho-de-compras.png" alt="Ícone Seguidor"> <!-- imagem pertencente a Freepik (flaticon) !-->
-                <strong class="text"><?php ($qtdTotal != 0) ? print $qtdTotal : ''; ?></strong></button>
-            </div>
-            <?php include('carrinhoPreview.php');?>
-
-        <div class="container position-relative">
+        <div class="container position-relative d-block">
 
             <div>
                 <img src="imagens/logo-index.png" id="position-logo" class=" col-sm-auto borda-img position-relative margem-img img-thumbnail" alt="Logo Loja">
             </div>
 
-            <div class=" col-sm-auto margem-info" id="position-info">
+            <div class=" col-sm-auto " id="position-info">
                 <h3 class="margin-h3 text-primary position-relative"><?php print $_SESSION['telefone'] ?></h3>
                 <p class="margin-p text-danger position-relative"><?php print $_SESSION['rua'] ?></p>
                 <p class="margin-p text-danger"><?php print $_SESSION['bairro'] ?></p>
@@ -77,15 +82,14 @@ include('ponteInfo.php');
     foreach ($listaCardapio as $indice => $produto)  // PHP =============================================
     { ?>
         <!-- <div>  layout dos produtos  !-->
-        <?php if (!isset($_GET['acao']) || (isset($_GET['acao'])) && $_GET['acao'] != 'Atualizar') 
-        {
+        <?php if (!isset($_GET['acao']) || (isset($_GET['acao'])) && $_GET['acao'] != 'Atualizar') {
         ?>
             <?php $categoria = $produto->categoria;
 
             if ($categoria != $repete) {
             ?>
 
-                <div class="container position-relative borda-categoria">
+                <div class="container position-relative borda-categoria d-block">
                     <h2><?php print $categoria ?></h2>
                 </div>
 
@@ -125,7 +129,8 @@ include('ponteInfo.php');
                     <input type="hidden" id="id" name="id" value="<?php print $produto->id ?>">
                     <button class="btn btn-success">Atualizar</button>
 
-                    <button class="btn btn-danger" onclick="remover(<?php print $produto->id ?>)">DELETAR</button>
+                    <a class="btn btn-danger" href='cardapio.php?acao=remover&&id=' . <?php print $produto->id ?>>DELETAR</a>
+
                 </form>
                 <hr>
             </div>
@@ -154,12 +159,13 @@ include('ponteInfo.php');
 
                 </div>
                 <hr>
-            </div> 
+            </div>
 
             <!-- </div> !-->
 
     <?php      //print_r($_SESSION['teste']);         } // PHP =============================================
-    }}; ?> 
+        }
+    }; ?>
     <!-- Fim do ciclo produto ======================================================================= !-->
     </div>
     <?php if (!isset($_GET['acao']))  // PHP =============================================
@@ -169,7 +175,7 @@ include('ponteInfo.php');
             <h2 class="mx-3">Total:</h2>
             <h3> R$
                 <?php
-                    print $valorSomado;                     
+                print $valorSomado;
                 ?>
             </h3>
             <div class="col justify-content-end d-flex align-items-center mx-5">
@@ -183,7 +189,7 @@ include('ponteInfo.php');
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="script.js"></script>
-      
+
 </body>
 
 </html>

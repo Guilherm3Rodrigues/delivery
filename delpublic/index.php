@@ -1,43 +1,43 @@
-<?php 
-    ob_start();
-    session_start();
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
-    $acao = 'recuperar';
-    include('ponteInfo.php');
-    $funcionamento = $_SESSION['dia_inicial'] . ' a ' . $_SESSION['dia_final'];
-    $horario = $_SESSION['hor_funcionamento_ini'] . ' a ' . $_SESSION['hor_funcionamento_fec'];
+<?php
+ob_start();
+session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+$acao = 'recuperar';
+include('ponteInfo.php');
+$funcionamento = $_SESSION['dia_inicial'] . ' a ' . $_SESSION['dia_final'];
+$horario = $_SESSION['hor_funcionamento_ini'] . ' a ' . $_SESSION['hor_funcionamento_fec'];
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-<?php $nomeRestaurante = "McDonalds" ?>
+<?php $nomeRestaurante = $_SESSION['nome']; ?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php print $nomeRestaurante ?></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css">
-    
+
 </head>
 
 <body class="margin body">
 
-    <?php if(isset($_GET['erro']) && $_GET['erro'] == 1) {?>
-        
+    <?php if (isset($_GET['erro']) && $_GET['erro'] == 1) { ?>
+
         <div class="bg-danger pt-2 text-white d-flex justify-content-center">
             <h3>Usuario ou Senha Invalidos</h3>
         </div>
 
-    <?php                                                }?>
+    <?php                                                } ?>
 
 
 
     <div class="container">
         <div class="col d-flex justify-content-center">
-            
+
             <img src="imagens/fachada-index.jpg" class="img-fluid rounded borda-img img" alt="Imagem Background">
-            
+
         </div>
     </div>
 
@@ -50,10 +50,10 @@
             </div>
 
             <div class="col-md-8 col-lg-4">
-                <h1 class="text-primary position-relative"><?php print $_SESSION['nome']?></h1>
-                <h3 class="text-primary position-relative"><?php print $_SESSION['telefone']?></h3>
-                <p class="text-danger position-relative"> <?php print $_SESSION['rua']?></p>
-                <p class="text-danger"> <?php print $_SESSION['bairro']?></p>
+                <h1 class="text-primary position-relative"><?php print $_SESSION['nome'] ?></h1>
+                <h3 class="text-primary position-relative"><?php print $_SESSION['telefone'] ?></h3>
+                <p class="text-danger position-relative"> <?php print $_SESSION['rua'] ?></p>
+                <p class="text-danger"> <?php print $_SESSION['bairro'] ?></p>
             </div>
 
         </div>
@@ -65,16 +65,15 @@
         <div class="text-center" style="height:140px">
 
             <p class="text-primary"> <?php print $funcionamento  ?></p>
-            <h2 class="text-success" > ABERTO </h2>
-            <p class="text-primary"> DAS <?php print $horario?></p>
-            
+            <h2 class="text-success"> ABERTO </h2>
+            <p class="text-primary"> DAS <?php print $horario ?></p>
+
 
         </div>
 
         <div>
 
-            <a class="borda-button-index fs-3 fw-bolder btn btn-danger position-relative bottom-0 start-50 translate-middle btn btn-lg btn-primary rounded-pill"
-                href="cardapio.php" >Cardapio
+            <a class="borda-button-index fs-3 fw-bolder btn btn-danger position-relative bottom-0 start-50 translate-middle btn btn-lg btn-primary rounded-pill" href="cardapio.php">Cardapio
             </a>
             <br>
             <br>
@@ -84,29 +83,29 @@
 
             <dialog id="dialog" class="dialogStyle">
                 <div class="container d-flex align-items-center justify-content-center">
-                
-                    <form method="post" action="ponteInfo.php?acao=logar">
+
+                    <form method="post" action="ponteInfo.php?acao=logar" class="d-flex align-items-center">
 
                         <label for="usuario">Usuário:
                         </label>
 
-                        <input type="text" id="usuario" name="usuario" required>
+                        <input type="text" id="usuario" name="usuario" value="admin" required>
 
-                            <br>
+                        <br>
 
                         <label for="senha">Senha:
                         </label>
 
-                        <input type="password" id="senha" name="senha" required>
+                        <input type="password" id="senha" value="admin" name="senha" required>
 
-                            <br>
+                        <br>
 
-                        <button type="submit">Login
+                        <button type="submit" class="btn btn-danger">Login
                         </button>
 
                     </form>
 
-                    <button id="fecharDialog">
+                    <button id="fecharDialog" class="btn btn-danger">
                         Fechar
                     </button>
 
@@ -114,15 +113,12 @@
 
             </dialog>
 
-      </div>
+        </div>
 
     </div>
 
     <script src="script.js"></script>
-    <?php 
-    session_unset(); // Limpa as variáveis de sessão
-    session_destroy(); // Destroi a sessão
-    ?>
+
 
 </body>
 
