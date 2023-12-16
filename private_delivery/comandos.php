@@ -122,6 +122,14 @@ class Comandos
         $stmt->execute();
     }
 
+    
+    public function limparCarrinho() // LIMPA, ZERA o Carrinho
+    {
+        $query = 'delete from pedidos';
+        $stmt = $this->conexao->prepare($query);
+        $stmt->execute();
+    }
+
 
     public function removerCarrinho() // Remove itens do Carrinho
     {

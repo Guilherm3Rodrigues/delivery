@@ -26,6 +26,12 @@
             
         }
 
+        function limparCarrinho () 
+        {
+            location.href = 'carrinho.php?acao=limparCarrinho';
+            
+        }
+
         function atribuirValor(nome) 
         {
             <?php 
@@ -80,7 +86,7 @@
 
                                     <!--  ============ TABELA DE PEDIDOS FEITOS ============================   -->
                     <?php // PHP =============================================
-                    
+                    if(isset($listaPedidos)) {
                     foreach($listaPedidos as $indice => $produto) 
                     {?>
                         <li class="list-group-item">
@@ -98,7 +104,7 @@
                             </div>
                         </li> 
                     <?php  
-                    }
+                    }}
                         include('valorTotal.php');
                         $valorTotal = $valorSomado + $_SESSION['freteFinal'];
                         
@@ -108,7 +114,7 @@
                 
                 <h3><li>Total: R$ <?php print $valorTotal?></li></h3> <!-- VALOR TOTAL -->
             </div>
-
+                    <button class="btn btn-danger" onclick="limparCarrinho()">Limpar Carrinho</button>
         </div>
 
     <div class="container">
@@ -184,11 +190,7 @@
         <a class="mb-2 fs-4 fw-bolder btn btn-danger btn-primary me-2" href="cardapio.php">
             Voltar ao Cardapio
         </a>
-                
-        
-        <a class="mb-2 fs-4 fw-bolder btn btn-danger btn-primary" href="cardapio.php">
-            Fzer ou n Status Pedido? <? // acrescentar pagina para verificar status ou algo do tipo? NAO SEI SE É NECESSARIO ?>
-        </a>
+
     </div>
 
     <div class="position-relative d-flex align-items-center borda-carrinho">
@@ -200,7 +202,8 @@
         </div>
         
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
 
 </body>
 

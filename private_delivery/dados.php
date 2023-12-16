@@ -49,8 +49,16 @@
 
             header('Location: admControl.php?inclusao=2');
         } 
+
+        else  if (isset($_POST['id_remover']) && $_POST['id_remover'] != null && $_SERVER["REQUEST_METHOD"] == "POST")
+        {
+            $admCardapio->__set('id', $_POST['id_remover']);
+            $comandos->remover();
+
+            header('Location: cardapio.php?acao=Atualizar');
+        }
     
-    else  if ($acao == 'recuperar'  || $acao == 'adminVisualizacao' || $acao == 'Atualizar') 
+        else  if ($acao == 'recuperar'  || $acao == 'adminVisualizacao'  || $acao == 'Atualizar') 
         {
             $listaCardapio = $comandos->buscar();
             $listaPedidos = $comandos->buscarPedidos();
@@ -64,7 +72,6 @@
                 {
                     $array = get_object_vars($nPedido);
                 }
-                print_r($array);
                 
                 $objetoProduto = $retornos['resultado'];
                 
@@ -96,15 +103,15 @@
                 header('location: cardapio.php?acao=Atualizar');
             }
         }
-
-        else  if ($acao == 'remover') 
+        
+        else  if ($acao == 'limparCarrinho') 
         {
-            $admCardapio->__set('id', $_GET['id']);
-            $comandos->remover();
+            $comandos->limparCarrinho();
 
-            header('location: cardapio.php?acao=Atualizar');
+            $comandos->buscarPedidos();
         }
 
+        
         else  if ($acao == 'removerCarrinho') 
         {
             $admCardapio->__set('id', $_GET['id']);
