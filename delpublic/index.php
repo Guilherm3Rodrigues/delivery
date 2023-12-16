@@ -84,7 +84,11 @@ $horario = $_SESSION['hor_funcionamento_ini'] . ' a ' . $_SESSION['hor_funcionam
             <dialog id="dialog" class="dialogStyle">
                 <div class="container d-flex align-items-center justify-content-center">
 
+<<<<<<< HEAD
                     <form method="post" action="ponteInfo.php?acao=logar" class="row d-flex align-items-center">
+=======
+                    <form method="post" action="ponteInfo.php?acao=logar" class="d-flex align-items-center">
+>>>>>>> a8785340ac9b4a8e82d73a26eed482e71166c0cb
 
                         <label for="usuario">Usuário:
                         </label>
