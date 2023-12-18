@@ -2,10 +2,7 @@
 ob_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-session_start();
 $acao = 'recuperar';
-$cont = isset($_SESSION['cont']) ? $_SESSION['cont'] : null;
-
 include('ponteInfo.php');
 
 ?>
@@ -59,6 +56,7 @@ include('ponteInfo.php');
         </div>
         
         <?php include('carrinhoPreview.php'); ?>
+        
 
         <div class="container position-relative d-block">
 
@@ -78,7 +76,7 @@ include('ponteInfo.php');
 
     <!-- INICIO PRODUTOS ================================================================ -->
 
-    <?php $repete = 'categoria repete?';
+    <?php $repete = 'categoria repete?'; 
     foreach ($listaCardapio as $indice => $produto)  // PHP =============================================
     { ?>
         <!-- <div>  layout dos produtos  !-->

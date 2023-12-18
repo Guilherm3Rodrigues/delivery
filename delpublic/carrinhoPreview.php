@@ -18,9 +18,15 @@
             }; ?>
         </ul>
         R$ Total: <?php print $valorSomado ?>
-        <button id="fecharDialog" class="btn btn-danger">
-            Fechar
-        </button>
+        
+        
+    </div>
+    <div class="d-flex  justify-content-center">
+            <a type="buttom" class="btn btn-dark" href="carrinho.php?acao=recuperarPedidos">Carrinho</a>
+        
+            <button id="fecharDialog" class="btn btn-danger">
+                Fechar
+            </button>
     </div>
 
 </dialog>

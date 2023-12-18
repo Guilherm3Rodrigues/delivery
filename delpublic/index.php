@@ -1,10 +1,10 @@
 <?php
 ob_start();
-session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 $acao = 'recuperar';
 include('ponteInfo.php');
+
 $funcionamento = $_SESSION['dia_inicial'] . ' a ' . $_SESSION['dia_final'];
 $horario = $_SESSION['hor_funcionamento_ini'] . ' a ' . $_SESSION['hor_funcionamento_fec'];
 ?>
@@ -29,9 +29,13 @@ $horario = $_SESSION['hor_funcionamento_ini'] . ' a ' . $_SESSION['hor_funcionam
             <h3>Usuario ou Senha Invalidos</h3>
         </div>
 
-    <?php                                                } ?>
+    <?php                                                }
+            else if (isset($_GET['erro']) && $_GET['erro'] == 2) {?>
+            <div class="bg-danger pt-2 text-white d-flex justify-content-center">
+                    <h3>Usuario ou Senha Invalidos</h3>
+        </div>
 
-
+    <?php                                                        }?>
 
     <div class="container">
         <div class="col d-flex justify-content-center">
@@ -84,11 +88,7 @@ $horario = $_SESSION['hor_funcionamento_ini'] . ' a ' . $_SESSION['hor_funcionam
             <dialog id="dialog" class="dialogStyle">
                 <div class="container d-flex align-items-center justify-content-center">
 
-<<<<<<< HEAD
                     <form method="post" action="ponteInfo.php?acao=logar" class="row d-flex align-items-center">
-=======
-                    <form method="post" action="ponteInfo.php?acao=logar" class="d-flex align-items-center">
->>>>>>> a8785340ac9b4a8e82d73a26eed482e71166c0cb
 
                         <label for="usuario">Usuário:
                         </label>

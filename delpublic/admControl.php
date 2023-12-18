@@ -1,12 +1,15 @@
-<?php 
-    ob_start();
-    session_start();
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
-    $acao = 'recuperar';
-    include('ponteInfo.php');
-    
-?>    
+<?php
+ob_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+$acao = 'recuperar';
+include('ponteInfo.php');
+
+if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== '1')
+{
+    header('Location: index.php?erro=2');
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,34 +27,34 @@
     <div class="faixa-top">
         <h1 class="text-light d-flex justify-content-center"><strong>Administrativo</strong></h1>
     </div>
-    
+
     <?php
-        include("menuadm.php");
+    include("menuadm.php");
     ?>
-    
-    <?php if(isset($_GET['inclusao']) && $_GET['inclusao'] == 1) {?>
+
+    <?php if (isset($_GET['inclusao']) && $_GET['inclusao'] == 1) { ?>
 
         <div class="bg-success pt-2 text-white d-flex justify-content-center">
             <h3>Incluido no Cardapio com Sucesso</h3>
         </div>
 
-    <?php }?>
+    <?php } ?>
 
-    <?php if(isset($_GET['erro']) && $_GET['erro'] == 1) {?>
-        
+    <?php if (isset($_GET['erro']) && $_GET['erro'] == 1) { ?>
+
         <div class="bg-danger pt-2 text-white d-flex justify-content-center">
             <h3>Erro, preencher todos os dados obrigatorios (com *)</h3>
         </div>
 
-    <?php }?>
-    
-    <?php if(isset($_GET['inclusao']) && $_GET['inclusao'] == 2) {?>
+    <?php } ?>
+
+    <?php if (isset($_GET['inclusao']) && $_GET['inclusao'] == 2) { ?>
 
         <div class="bg-success pt-2 text-white d-flex justify-content-center">
             <h3>Informações do Estabelecimento Atualizadas</h3>
         </div>
 
-    <?php }?>
+    <?php } ?>
 
     <br>
 
@@ -61,34 +64,34 @@
             <div class="form-group ">
                 <h2>Informações do Estabelecimento</h2>
                 <p><strong>Estas informações irão aparecer na pagina inicial e no começo do cardapio</strong></p>
-                <input required name="nome" type="text" class="form-control" value="<?php print $_SESSION['nome']?>" placeholder="NOME, Exemplo: MC Donalds">
-                <input required name="telefone" type="text" class="form-control" value="<?php print $_SESSION['telefone']?>" placeholder="TELEFONE, Exemplo: (35) 98899-9749">
-                <input name="rua" type="text" class="form-control" value="<?php print $_SESSION['rua']?>" placeholder="RUA, Exemplo: Maria Lourdes de Andrade, 185">
-                <input name="bairro" type="text" class="form-control" value="<?php print $_SESSION['bairro']?>" placeholder="BAIRRO - CIDADE, Exemplo: Sossego - Piranguinho">
-                
+                <input required name="nome" type="text" class="form-control" value="<?php print $_SESSION['nome'] ?>" placeholder="NOME, Exemplo: MC Donalds">
+                <input required name="telefone" type="text" class="form-control" value="<?php print $_SESSION['telefone'] ?>" placeholder="TELEFONE, Exemplo: (35) 98899-9749">
+                <input name="rua" type="text" class="form-control" value="<?php print $_SESSION['rua'] ?>" placeholder="RUA, Exemplo: Maria Lourdes de Andrade, 185">
+                <input name="bairro" type="text" class="form-control" value="<?php print $_SESSION['bairro'] ?>" placeholder="BAIRRO - CIDADE, Exemplo: Sossego - Piranguinho">
+
                 <p style="margin:10px 0 0 !important;"><b>Dias de Funcionamento</b></p>
-                <select style="width:200px; display:inline-block;" class="form-select" name="dia_inicial" id="dia-inicial" >
-                      <option value="segunda">Segunda</option>
-                      <option value="terça">Terça</option>
-                      <option value="quarta">Quarta</option>
-                      <option value="quinta">Quinta</option>
-                      <option value="sexta">Sexta</option>
-                      <option value="sabado">Sábado</option>
-                      <option value="domingo">Domingo</option>
+                <select style="width:200px; display:inline-block;" class="form-select" name="dia_inicial" id="dia-inicial">
+                    <option value="segunda">Segunda</option>
+                    <option value="terça">Terça</option>
+                    <option value="quarta">Quarta</option>
+                    <option value="quinta">Quinta</option>
+                    <option value="sexta">Sexta</option>
+                    <option value="sabado">Sábado</option>
+                    <option value="domingo">Domingo</option>
                 </select>
                 à
-                <select style="width:200px; display:inline-block;" class="form-select" name="dia_final" id="dia-final" >
+                <select style="width:200px; display:inline-block;" class="form-select" name="dia_final" id="dia-final">
                     <option value="domingo">Domingo</option>
-                      <option value="segunda">Segunda</option>
-                      <option value="terça">Terça</option>
-                      <option value="quarta">Quarta</option>
-                      <option value="quinta">Quinta</option>
-                      <option value="sexta">Sexta</option>
-                      <option value="sabado">Sábado</option>
+                    <option value="segunda">Segunda</option>
+                    <option value="terça">Terça</option>
+                    <option value="quarta">Quarta</option>
+                    <option value="quinta">Quinta</option>
+                    <option value="sexta">Sexta</option>
+                    <option value="sabado">Sábado</option>
                 </select>
-                
+
                 <p style="margin:10px 0 0 !important;"><b>Hórario de Funcionamento</b></p>
-                <i>Abertura e Fechamento</i><br/>
+                <i>Abertura e Fechamento</i><br />
                 <select style="width:200px; display:inline-block;" class="form-select" name="hor_funcionamento_ini" id="hor_funcionamento_ini">
                     <option value="09:00">09:00</option>
                     <option value="10:00">10:00</option>
@@ -112,8 +115,8 @@
                     <option value="18:00">18:00</option>
                 </select>
                 <p style="margin:10px 0 0 !important;"><b>VALOR DO FRETE (use PONTO para os centavos)</b></p>
-                <input style="width:200px;" name="frete" type="number" step="0.01" value="<?php print $_SESSION['frete']?>" class="form-control" placeholder="EX: 2.50 (2 PONTO 50)">
-                
+                <input style="width:200px;" name="frete" type="number" step="0.01" value="<?php print $_SESSION['frete'] ?>" class="form-control" placeholder="EX: 2.50 (2 PONTO 50)">
+
             </div>
             <br>
             <button class="btn btn-success">Atualizar Info</button>
@@ -138,7 +141,7 @@
             <div class="form-group ">
                 <h2>Remover itens no menu</h2>
                 <input name="categoria" type="text" required class="form-control" placeholder="CATEGORIA*, Exemplo: Lanches, Pizzas, etc">
-                
+
             </div>
             <br>
             <button class="btn btn-warning">REMOVER CATEGORIA TODA</button>
@@ -146,7 +149,7 @@
         </form>
     </div>
     <br>
-    
+
 
 </body>
 

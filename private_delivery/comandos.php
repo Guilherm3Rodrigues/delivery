@@ -176,7 +176,9 @@ class Comandos
             $stmt2->execute();
         }
 
-        return $resultados = ['$resultado' => $resultado, 'cont' => $cont];
+        // return $resultados = ['$resultado' => $resultado, 'cont' => $cont];
+        return $resultado;
+       
     }
     
     public function totalPedidos()
@@ -187,7 +189,5 @@ class Comandos
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
-    public function pedidoEnviado()
-    {
-    }
+    
 }
