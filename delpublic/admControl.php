@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 $acao = 'recuperar';
 include('ponteInfo.php');
 
-if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== '1')
+if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique'])
 {
     header('Location: index.php?erro=2');
 }

@@ -166,9 +166,9 @@
 
             <ul>
                 
-                <label class="row">Nome</label><input placeholder="EX: Cayo Rodrigues"></input>
+                <label class="row">Nome</label><input placeholder="EX: Cayo Rodrigues" required></input>
                 
-                <label class="row">Telefone</label><input placeholder="EX: 35 9 8899-9749"></input>
+                <label class="row">Telefone</label><input placeholder="EX: 35 9 8899-9749" required></input>
                 
             </ul>
             <a type="buttom" class="btn btn-dark margem-endereco" onclick="finalizar()"><strong>Finalizar</strong></a>

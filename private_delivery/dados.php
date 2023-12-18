@@ -13,6 +13,7 @@ $index = $_SERVER['PHP_SELF'];
 
 $admInfo = new AdmInfo();
 $admCardapio = new AdmCardapio();
+$usuarios = new Usuarios();
 $conexao = new Conexao();
 $comandos = new Comandos($conexao, $admCardapio);
 $comandosInfo = new Comandos($conexao, $admInfo);
@@ -107,7 +108,11 @@ if ($acao == 'inserir') {
     $_POST['entrega'] = isset($_POST['entrega']) ? $_POST['entrega'] : 0;
 
     if ($acao == 'pedido_enviado') {
-        $comandos->pedidoEnviado();
+
+        $usuarios->__set('nome', $_POST['nome']);
+        $usuarios->__set('telefone', $_POST['telefone']);
+        $comandos->cadastroUsuario();
+        
         $listaPedidos = $comandos->buscarPedidos();
         $infoLoja = $comandos->carregarInfo();
         $telefoneString = $infoLoja['telefone'];

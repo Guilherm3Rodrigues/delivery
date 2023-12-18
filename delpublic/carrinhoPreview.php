@@ -13,7 +13,8 @@
             ?>
                 <li><?php print $carrinho->produto; ?> R$
                     <?php print $carrinho->valor; ?> x
-                    <?php print $carrinho->numero_pedido; ?></li>
+                    <?php print $carrinho->numero_pedido; ?>
+                </li>
             <?php
             }; ?>
         </ul>

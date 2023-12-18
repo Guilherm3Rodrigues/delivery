@@ -4,8 +4,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 $acao = 'recuperar';
 include('ponteInfo.php');
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,19 +17,9 @@ include('ponteInfo.php');
     <title>Cardapio</title>
 
     <script>
-        
-            function deletar() {
-                
-                location.href = 'cardapio.php?acao=Atualizar';
-        }
-        
-
         function add(id) {
-            
             location.href = 'cardapio.php?acao=Atualizar&&id=' + id;
         }
-
-     
     </script>
 
 </head>
@@ -99,41 +89,40 @@ include('ponteInfo.php');
 
         <?php // PHP =============================================
 
-        if (isset($_GET['acao']) && $_GET['acao'] == 'Atualizar') { ?>
+        if (isset($_GET['acao']) && $_GET['acao'] == 'Atualizar' && isset($_SESSION['ok']) && $_SESSION['ok'] === $_SESSION['verifique']) { ?>
+                <div class="container position-relative margem-produtos mx-auto text-center">
 
-            <div class="container position-relative margem-produtos mx-auto text-center">
-
-                <form method="post">
-
-                    <div class="container position-relative borda-categoria">
-                        <input type="text" id="categoria" name="categoria" value="<?php print $produto->categoria ?>">
-                    </div>
-
-                    <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto">
-
-                    <label for="produto">Produto:</label>
-
-                    <input type="text" id="produto" name="produto" value="<?php print $produto->produto ?>">
-
-
-                    <label for="descricao">Descrição:</label>
-
-                    <input type="text" id="descricao" name="descricao" value="<?php print $produto->descricao ?>">
-
-                    <label for="valor">Valor:</label>
-
-                    <input type="text" id="valor" name="valor" value="<?php print $produto->valor ?>">
-
-                    <input type="hidden" id="id" name="id" value="<?php print $produto->id ?>">
-                    <button class="btn btn-success">Atualizar</button>
-
-                </form>
                     <form method="post">
-                        <input type="hidden" id="id_remover" name="id_remover" value="<?php print $produto->id ?>">
-                        <button class="btn btn-danger" onclick="if (confirm('Tem certeza de que deseja excluir?')) deletar()">DELETAR</button>
+
+                        <div class="container position-relative borda-categoria">
+                            <input type="text" id="categoria" name="categoria" value="<?php print $produto->categoria ?>">
+                        </div>
+
+                        <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto">
+
+                        <label for="produto">Produto:</label>
+
+                        <input type="text" id="produto" name="produto" value="<?php print $produto->produto ?>">
+
+
+                        <label for="descricao">Descrição:</label>
+
+                        <input type="text" id="descricao" name="descricao" value="<?php print $produto->descricao ?>">
+
+                        <label for="valor">Valor:</label>
+
+                        <input type="text" id="valor" name="valor" value="<?php print $produto->valor ?>">
+
+                        <input type="hidden" id="id" name="id" value="<?php print $produto->id ?>">
+                        <button class="btn btn-success">Atualizar</button>
+
                     </form>
-                <hr>
-            </div>
+                        <form method="post" action="cardapio.php?acao=Atualizar">
+                            <input type="hidden" id="id_remover" name="id_remover" value="<?php print $produto->id ?>">
+                            <button class="btn btn-danger" onclick="if (confirm('Tem certeza de que deseja excluir?'))">DELETAR</button>
+                        </form>
+                    <hr>
+                </div>
 
 
         <?php  // PHP ============================================= ;
@@ -164,7 +153,7 @@ include('ponteInfo.php');
             <!-- </div> !-->
 
     <?php      //print_r($_SESSION['teste']);         } // PHP =============================================
-        }
+        } 
     }; ?>
     <!-- Fim do ciclo produto ======================================================================= !-->
     </div>
