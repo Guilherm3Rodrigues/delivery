@@ -46,7 +46,6 @@
             <?php 
                 if (isset($_POST['entrega'])) 
                 {
-                    
                     $_SESSION['freteFinal'] = $_POST['entrega'];
                 }
             ?>
@@ -162,16 +161,18 @@
 
         </div>
 
-        <form id="myForm" action="" method="POST" class="col-md-auto">
+        <form id="myForm" method="POST" class="col-md-auto">
 
             <ul>
                 
-                <label class="row">Nome</label><input placeholder="EX: Cayo Rodrigues" required></input>
+                <label class="row" require>Nome</label>
+                <input id="nome" name="nome" class="form-control" placeholder="EX: Cayo Rodrigues" required></input>
                 
-                <label class="row">Telefone</label><input placeholder="EX: 35 9 8899-9749" required></input>
+                <label class="row" require>Telefone</label>
+                <input id="telefone" name="telefone" class="form-control" placeholder="EX: 35 9 8899-9749" required></input>
                 
             </ul>
-            <a type="buttom" class="btn btn-dark margem-endereco" onclick="finalizar()"><strong>Finalizar</strong></a>
+            <button class="btn btn-dark margem-endereco" onclick="finalizar()"><strong>Finalizar</strong></button>
 
         </form>
         

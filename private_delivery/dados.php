@@ -17,6 +17,7 @@ $usuarios = new Usuarios();
 $conexao = new Conexao();
 $comandos = new Comandos($conexao, $admCardapio);
 $comandosInfo = new Comandos($conexao, $admInfo);
+$comandosUsuarios = new Comandos($conexao, $usuarios);
 
 if (strpos($index, 'index.php') !== false || strpos($index, 'cardapio.php') !== false || strpos($index, 'admControl.php')) {
     $info = $comandosInfo->carregarInfo();
@@ -111,7 +112,7 @@ if ($acao == 'inserir') {
 
         $usuarios->__set('nome', $_POST['nome']);
         $usuarios->__set('telefone', $_POST['telefone']);
-        $comandos->cadastroUsuario();
+        $comandosUsuarios->cadastroUsuario();
         
         $listaPedidos = $comandos->buscarPedidos();
         $infoLoja = $comandos->carregarInfo();
