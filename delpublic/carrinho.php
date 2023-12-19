@@ -31,10 +31,9 @@
             
         }
 
-        function atribuirValor(nome) 
+        function atribuirValor() 
         {
             <?php 
-                
                 $_SESSION['freteFinal'] = $_POST['entrega'];
             ?>
             document.getElementById("formularioEntrega").submit();
@@ -43,13 +42,8 @@
 
         function finalizar()
         {
-            <?php 
-                if (isset($_POST['entrega'])) 
-                {
-                    $_SESSION['freteFinal'] = $_POST['entrega'];
-                }
-            ?>
-          location.href = 'carrinho.php?acao=pedido_enviado';
+           
+            location.href = 'carrinho.php?acao=pedido_enviado';
         }
 
     </script>
@@ -161,15 +155,15 @@
 
         </div>
 
-        <form id="myForm" method="POST" class="col-md-auto">
+        <form id="myForm" method="POST" action="carrinho.php?acao=pedido_enviado" class="col-md-auto">
 
             <ul>
                 
                 <label class="row" require>Nome</label>
-                <input id="nome" name="nome" class="form-control" placeholder="EX: Cayo Rodrigues" required></input>
+                <input id="nomeCliente" name="nomeCliente" class="form-control" placeholder="EX: Cayo Rodrigues" required></input>
                 
                 <label class="row" require>Telefone</label>
-                <input id="telefone" name="telefone" class="form-control" placeholder="EX: 35 9 8899-9749" required></input>
+                <input id="telefoneCliente" name="telefoneCliente" class="form-control" placeholder="EX: 35 9 8899-9749" required></input>
                 
             </ul>
             <button class="btn btn-dark margem-endereco" onclick="finalizar()"><strong>Finalizar</strong></button>

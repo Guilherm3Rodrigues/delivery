@@ -28,3 +28,5 @@ $mensagem .= 'Agradecemos a preferência ^_^';
 
 print '<script>window.open("https://api.whatsapp.com/send?phone=55' . $telefoneStringNumeros .
     '&text='. urlencode($mensagem) .'", "_blank");</script>';
+
+    

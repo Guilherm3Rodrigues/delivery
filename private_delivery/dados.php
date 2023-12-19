@@ -84,6 +84,8 @@ if ($acao == 'inserir') {
 
         $comandos->editar();
         header('location: cardapio.php?acao=Atualizar');
+        
+        
     }
 
 } else  if ($acao == 'limparCarrinho') {
@@ -105,13 +107,13 @@ if ($acao == 'inserir') {
     $_POST['entrega'] = isset($_POST['entrega']) ? $_POST['entrega'] : 0;
     $listaPedidos = $comandos->buscarPedidos();
     
-} else  if ($acao == 'recuperarPedidos' || $acao == 'pedido_enviado') {
+} else  if ($acao == 'pedido_enviado' || $acao == 'recuperarPedidos') {
     $_POST['entrega'] = isset($_POST['entrega']) ? $_POST['entrega'] : 0;
 
     if ($acao == 'pedido_enviado') {
 
-        $usuarios->__set('nome', $_POST['nome']);
-        $usuarios->__set('telefone', $_POST['telefone']);
+        $usuarios->__set('nome', $_POST['nomeCliente']);
+        $usuarios->__set('telefone', $_POST['telefoneCliente']);
         $comandosUsuarios->cadastroUsuario();
         
         $listaPedidos = $comandos->buscarPedidos();
