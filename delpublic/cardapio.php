@@ -128,17 +128,15 @@ include('ponteInfo.php');
         <?php  // PHP ============================================= ;
         } else { ?>
             <div class="container row mx-auto">
+                <h3 class="text-center"><?php print $produto->produto ?></h3>
                 <div class="col-md-auto justify-content-start d-flex align-items-center">
                     <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
-
-                    <h3><?php print $produto->produto ?></h3>
-
                 </div>
+                
+                <div class="col-sm text-start pt-2" id="produto_<?php print $produto->id ?> ">
 
-                <div class="col-sm text-end" id="produto_<?php print $produto->id ?> ">
-
-                    <p><?php print $produto->descricao ?> </p>
-                    <p><?php print $produto->valor ?></p>
+                    <p class="text"><?php print $produto->descricao ?> </p>
+                    <p class="justify-content-start"><strong>R$<?php print $produto->valor ?></strong></p>
 
                 </div>
 
@@ -147,6 +145,7 @@ include('ponteInfo.php');
                     <button class="btn btn-danger" onclick="add(<?php print $produto->id ?>)">COMPRAR</button> <?php  ?>
 
                 </div>
+                
                 <hr>
             </div>
 

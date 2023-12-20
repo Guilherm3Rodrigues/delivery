@@ -1,6 +1,7 @@
 <div class="icone-seguidor" id="iconeSeguidor">
     <button class="icone-seguidor circulo" id="open"><img src="imagens/carrinho-de-compras.png" alt="Ícone Carrinho"> <!-- imagem pertencente a Freepik (flaticon) !-->
-        <strong class="text"><?php ($qtdTotal != 0) ? print $qtdTotal : ''; ?></strong>
+        <strong class="text-white" style="padding-left: 3px;">
+        <?php ($qtdTotal != 0) ? print $qtdTotal : ''; ?></strong>
     </button>
 </div>
 
