@@ -191,15 +191,15 @@ class Comandos
 
     public function login()
     {
-        $usuario = 'select acesso from usuarios';
+        $usuario = 'select loginNome, acesso, loginSenha from usuarios';
         $stmt = $this->conexao->prepare($usuario);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function cadastroUsuario()
     {
-        $usuario = "insert into usuarios(nome, telefone) values (:nome, :telefone)";
+        $usuario = "insert into clientes(nome, telefone) values (:nome, :telefone)";
         $stmt = $this->conexao->prepare($usuario);
         $stmt->bindValue(':nome', $this->cardapio->__get('nome'));
         $stmt->bindValue(':telefone', $this->cardapio->__get('telefone'));

@@ -51,7 +51,10 @@ class Usuarios
 {
     private $nome;
     private $telefone;
+    private $loginNome;
     private $acesso;
+    private $usuario;
+    private $senha;
     
     public function __set($atributo, $valor) 
     {

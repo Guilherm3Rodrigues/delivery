@@ -110,7 +110,7 @@ if ($acao == 'inserir') {
 } else  if ($acao == 'pedido_enviado' || $acao == 'recuperarPedidos') {
     $_POST['entrega'] = isset($_POST['entrega']) ? $_POST['entrega'] : 0;
 
-    if ($acao == 'pedido_enviado') {
+    if ($acao == 'pedido_enviado' && isset($_POST['nomeCliente']) && isset($_POST['telefoneCliente'])) {
 
         $usuarios->__set('nome', $_POST['nomeCliente']);
         $usuarios->__set('telefone', $_POST['telefoneCliente']);
@@ -123,8 +123,8 @@ if ($acao == 'inserir') {
         $listaPedidos = $comandos->buscarPedidos();
 
         include('whats.php');
-    } else {
+    } 
         $listaPedidos = $comandos->buscarPedidos();
-    }
+    
 
 } include('Login.php');

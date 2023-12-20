@@ -40,11 +40,7 @@
             
         }
 
-        function finalizar()
-        {
-           
-            location.href = 'carrinho.php?acao=pedido_enviado';
-        }
+     
 
     </script>
 

@@ -2,23 +2,28 @@
 
 if ($acao == 'logar')  // sistema de LOGIN, NECESSARIO APRIMORAR
 {
-    if (isset($_POST['usuario']) && $_POST['usuario'] !== null) {
-        if ($_POST['usuario'] == 'admin') {
-            if (isset($_POST['senha']) && $_POST['senha'] == 'admin') {
-                $retorno = $comandos->login();
-                
-                $_SESSION['ok'] = $retorno['0'];
-                $_SESSION['verifique'] = $retorno['0'];
+    if (isset($_POST['usuario'])) {
 
-                if($_SESSION['verifique'] === 'qwert0');
-                header('Location: admControl.php');
-            } else {
-                header('Location: index.php?erro=1');
-            };
-        } else {
-            header('Location: index.php?erro=1');
-        };
+        $retorno = $comandos->login();
+        $n = count($retorno);
+    
+        for ($i = 0; $i < $n; $i++) {
+            if ($_POST['usuario'] == $retorno[$i]['loginNome']) {
+                
+                if (isset($_POST['senha']) && $_POST['senha'] === $retorno[$i]['loginSenha']) {
+                    $_SESSION['ok'] = $retorno[$i]['acesso'];
+                    $_SESSION['verifique'] = $retorno[$i]['acesso'];
+    
+                    if ($_SESSION['verifique'] === 'Qw3Rt0') {
+                        header('Location: admControl.php');
+                        exit();
+                    }
+                }
+            }
+        }
+        header('Location: index.php?erro=1');
     }
+    
 }
 
 ?>
