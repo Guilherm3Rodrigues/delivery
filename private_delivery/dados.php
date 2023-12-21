@@ -1,6 +1,7 @@
 <?php
+$parametros = ['httponly' => true];
+session_set_cookie_params($parametros);
 session_start();
-$session_id_atual = session_id();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 include("comandos.php");
@@ -18,6 +19,7 @@ $conexao = new Conexao();
 $comandos = new Comandos($conexao, $admCardapio);
 $comandosInfo = new Comandos($conexao, $admInfo);
 $comandosUsuarios = new Comandos($conexao, $usuarios);
+
 
 if (strpos($index, 'index.php') !== false || strpos($index, 'cardapio.php') !== false || strpos($index, 'admControl.php')) {
     $info = $comandosInfo->carregarInfo();

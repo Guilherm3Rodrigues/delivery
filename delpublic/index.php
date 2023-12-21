@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 $acao = 'recuperar';
 include('ponteInfo.php');
-
+print session_id();
 $funcionamento = $_SESSION['dia_inicial'] . ' a ' . $_SESSION['dia_final'];
 $horario = $_SESSION['hor_funcionamento_ini'] . ' a ' . $_SESSION['hor_funcionamento_fec'];
 ?>

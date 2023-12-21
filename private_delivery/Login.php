@@ -15,6 +15,7 @@ if ($acao == 'logar')  // sistema de LOGIN, NECESSARIO APRIMORAR
                     $_SESSION['verifique'] = $retorno[$i]['acesso'];
     
                     if ($_SESSION['verifique'] === 'Qw3Rt0') {
+                        session_regenerate_id(true);
                         header('Location: admControl.php');
                         exit();
                     }

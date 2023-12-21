@@ -22,13 +22,11 @@
         function removerCarrinho (id, qtd) 
         {
             location.href = 'carrinho.php?acao=removerCarrinho&&id='+id + '&&qtd='+qtd;
-            
         }
 
         function limparCarrinho () 
         {
             location.href = 'carrinho.php?acao=limparCarrinho';
-            
         }
 
         function atribuirValor() 
@@ -37,7 +35,6 @@
                 $_SESSION['freteFinal'] = $_POST['entrega'];
             ?>
             document.getElementById("formularioEntrega").submit();
-            
         }
 
      
