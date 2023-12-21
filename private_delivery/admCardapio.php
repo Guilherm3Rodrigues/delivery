@@ -55,7 +55,7 @@ class Usuarios
     private $acesso;
     private $usuario;
     private $senha;
-    private $sessao = session_id();
+    private $sessao;
     
     public function __set($atributo, $valor) 
     {
