@@ -149,6 +149,26 @@ class Comandos
         return $stmt->execute();
     }
 
+    public function pre_carrinho()
+    {
+        $query = 'SELECT * FROM itens_cardapio WHERE id = :id';
+            $stmt2 = $this->conexao->prepare($query);
+            $stmt2->bindValue(':id', $this->cardapio->__get('id'));
+            $stmt2->execute();
+            $resultado = $stmt2->fetch(PDO::FETCH_OBJ);
+            
+            var_dump($resultado);
+            
+            $_SESSION['pedidos'] = $resultado;
+            
+            
+            var_dump($_SESSION);
+            
+
+            
+            
+    }
+
 
     public function add_carrinho()
     {

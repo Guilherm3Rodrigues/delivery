@@ -10,7 +10,7 @@
         <ul>
 
             <?php
-            foreach ($listaPedidos as $key => $carrinho) {
+            foreach ($_SESSION as $_SESSION['pedidos'] => $carrinho) {
             ?>
                 <li><?php print $carrinho->produto; ?> R$
                     <?php print $carrinho->valor; ?> x

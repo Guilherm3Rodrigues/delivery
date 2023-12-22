@@ -63,9 +63,10 @@ if ($acao == 'inserir') {
 
     if (isset($_GET['id'])) {
         $admCardapio->__set('id', $_GET['id']);
-        $retornos = $comandos->add_carrinho();
+        $comandos->pre_carrinho();
+        //$retornos = $comandos->add_carrinho();
 
-        header('location: cardapio.php');
+        //header('location: cardapio.php');
     }
 
     if (isset($_POST['id'])) {
