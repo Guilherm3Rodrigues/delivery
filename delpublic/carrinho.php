@@ -19,18 +19,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <title>Carrinho</title>
 
-    <?php 
-    function limparCarrinho() 
-        {
-                $_SESSION['itens'] = [];
-        }
-    ?>
-
     <script>
 
         function removerCarrinho (id, qtd) 
         {
             location.href = 'carrinho.php?acao=removerCarrinho&&id='+id + '&&qtd='+qtd;
+        }
+
+        function limparCarrinho () 
+        {
+            location.href = 'carrinho.php?acao=limparCarrinho';
         }
 
         
@@ -105,7 +103,10 @@
                 
                 <h3><li>Total: R$ <?php print $valorTotal?></li></h3> <!-- VALOR TOTAL -->
             </div>
-                    <button class="btn btn-danger" onclick="call_user_func('limparCarrinho')">Limpar Carrinho</button>
+                    <button class="btn btn-danger" onclick="limparCarrinho()">Limpar Carrinho</button>
+        </div>
+        </div>
+        </div>
         </div>
 
     <div class="container">

@@ -125,18 +125,28 @@ class Comandos
     
     public function limparCarrinho() // LIMPA, ZERA o Carrinho
     {
-        $query = 'delete from pedidos';
-        $stmt = $this->conexao->prepare($query);
-        $stmt->execute();
+        //$query = 'delete from pedidos';
+        //$stmt = $this->conexao->prepare($query);
+        //$stmt->execute();
+
+        $_SESSION['itens'] = [];
     }
 
 
     public function removerCarrinho() // Remove itens do Carrinho
     {
-        $query = 'delete from pedidos where id = :id';
-        $stmt = $this->conexao->prepare($query);
-        $stmt->bindvalue(':id', $this->cardapio->__get('id'));
-        $stmt->execute();
+
+
+        if ($_SESSION['itens'][$this->cardapio->__get['id']] && $_SESSION['itens'][$this->cardapio->__get['id']]['numero_pedido'] >= 2) {
+            $count = $_SESSION['itens'][$this->cardapio->__get['id']['id']]['numero_pedido'] - 1;
+            $_SESSION['itens'][$this->cardapio->__get['id']['id']]['numero_pedido'] = $count;
+        } else {
+            $_SESSION['itens'][$this->cardapio->__get['id']['id']] = [];            
+        }
+
+
+
+
     }
 
 
@@ -171,38 +181,6 @@ class Comandos
         var_dump($_SESSION['itens']);
     }
 
-
-    public function add_carrinho()
-    {
-        $verificar = 'select * from pedidos where id = :id';
-        $stmt = $this->conexao->prepare($verificar);
-        $stmt->bindValue(':id', $this->cardapio->__get('id'));
-        $stmt->execute();
-
-        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if (!$resultado['numero_pedido']) {
-            $cont = 1;
-            $query = 'INSERT INTO pedidos (id, img, produto, descricao, valor, categoria, numero_pedido)
-                  SELECT id, img, produto, descricao, valor, categoria, 1 as numero_pedido
-                  FROM itens_cardapio WHERE id = :id';
-            $stmt2 = $this->conexao->prepare($query);
-            $stmt2->bindValue(':id', $this->cardapio->__get('id'));
-            $stmt2->execute();
-        } else {
-            $cont = intval($resultado['numero_pedido']) + 1;
-            $query = 'update pedidos set numero_pedido = :cont where id = :id';
-            $stmt2 = $this->conexao->prepare($query);
-            $stmt2->bindValue(':cont', $cont);
-            $stmt2->bindValue(':id', $this->cardapio->__get('id'));
-            $stmt2->execute();
-        }
-
-        // return $resultados = ['$resultado' => $resultado, 'cont' => $cont];
-        return $resultado;
-       
-    }
-    
     public function totalPedidos()
     {
         $verificar = 'select valor from pedidos';
@@ -228,6 +206,5 @@ class Comandos
         $stmt->execute();
         //return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
-
 
 }
