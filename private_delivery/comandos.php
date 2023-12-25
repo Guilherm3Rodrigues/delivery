@@ -161,17 +161,14 @@ class Comandos
             $_SESSION['itens'] = [];
         }
 
-        $_SESSION['itens'][] = $resultado;
-
+        if (array_key_exists($resultado['id'], $_SESSION['itens'])) {
+            $count = $_SESSION['itens'][$resultado['id']]['numero_pedido'] + 1;
+            $_SESSION['itens'][$resultado['id']]['numero_pedido'] = $count;
+        } else {
+            $_SESSION['itens'][$resultado['id']] = $resultado;
+            $_SESSION['itens'][$resultado['id']]['numero_pedido'] = 1;
+        }
         var_dump($_SESSION['itens']);
-        $teste = count($_SESSION['itens']);
-        print $teste;
-        var_dump($_SESSION);
-        
-        $_SESSION['itens'] = []; //limpa o carrinho
-        
-        var_dump($_SESSION);
-
     }
 
 

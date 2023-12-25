@@ -4,6 +4,8 @@
     ini_set('display_errors', 1);
     $acao = 'recuperar';
     include('ponteInfo.php');
+    var_dump($_SESSION['itens']);
+    
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +19,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <title>Carrinho</title>
 
+    <?php 
+    function limparCarrinho() 
+        {
+                $_SESSION['itens'] = [];
+        }
+    ?>
+
     <script>
 
         function removerCarrinho (id, qtd) 
@@ -24,10 +33,7 @@
             location.href = 'carrinho.php?acao=removerCarrinho&&id='+id + '&&qtd='+qtd;
         }
 
-        function limparCarrinho () 
-        {
-            location.href = 'carrinho.php?acao=limparCarrinho';
-        }
+        
 
         function atribuirValor() 
         {
@@ -72,19 +78,19 @@
                                     <!--  ============ TABELA DE PEDIDOS FEITOS ============================   -->
                     <?php // PHP =============================================
                     if(isset($listaPedidos)) {
-                    foreach($listaPedidos as $indice => $produto) 
+                        foreach ($_SESSION['itens'] as $itens) 
                     {?>
                         <li class="list-group-item">
                             <div class="d-flex justify-content-between">
                                 <div>
-                                    <?php print '<strong>'. $produto->produto . '</strong>' ?> - 
-                                 R$ <?php print $produto->valor ?> x 
-                                    <?php print '<strong>'. $produto->numero_pedido . '</strong>'; ?>
+                                    <?php print '<strong>'. $itens['produto'] . '</strong>'?> - 
+                                 R$ <?php print $itens['valor'] ?> x 
+                                    <?php print '<strong>'. $itens['numero_pedido'] . '</strong>'; ?>
                                 </div>
                                 <div class="btn-group">
                                     <button class="btn btn-danger" 
-                                    onclick="removerCarrinho(<?php print $produto->id ?>, 
-                                                             <?php print $produto->numero_pedido ?>)">DELETAR</button>
+                                    onclick="removerCarrinho(<?php print $itens['id'] ?>, 
+                                                             <?php print $itens['numero_pedido'] ?>)">DELETAR</button>
                                 </div>
                             </div>
                         </li> 
@@ -99,7 +105,7 @@
                 
                 <h3><li>Total: R$ <?php print $valorTotal?></li></h3> <!-- VALOR TOTAL -->
             </div>
-                    <button class="btn btn-danger" onclick="limparCarrinho()">Limpar Carrinho</button>
+                    <button class="btn btn-danger" onclick="call_user_func('limparCarrinho')">Limpar Carrinho</button>
         </div>
 
     <div class="container">

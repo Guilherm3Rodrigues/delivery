@@ -10,13 +10,13 @@
         <ul>
 
             <?php
-            foreach ($_SESSION as $_SESSION['pedidos'] => $carrinho) {
+            foreach ($_SESSION['itens'] as $itens) {
             ?>
-                <li><?php print $carrinho->produto; ?> R$
-                    <?php print $carrinho->valor; ?> x
-                    <?php print $carrinho->numero_pedido; ?>
+                <li><?php print $itens['produto']; ?> R$
+                    <?php print $itens['valor']; ?> x
+                    <?php print $itens['numero_pedido']; ?>
                 </li>
-            <?php
+            <?php 
             }; ?>
         </ul>
         R$ Total: <?php print $valorSomado ?>

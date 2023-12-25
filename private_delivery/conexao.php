@@ -1,8 +1,5 @@
 <?php 
 
-
-
-
 class Conexao 
 {
 
@@ -15,8 +12,6 @@ class Conexao
     private $dbname = 'db_delivery';
     private $user = 'root';
     private $pass = '';
-
-    
 
     public function conectar() 
     {
@@ -38,12 +33,6 @@ class Conexao
         }
     }
 
-
-
 }
-
-
-
-
 
 ?>
