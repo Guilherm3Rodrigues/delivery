@@ -66,7 +66,7 @@ if ($acao == 'inserir') {
         $comandos->pre_carrinho();
         //$retornos = $comandos->add_carrinho();
 
-        //header('location: cardapio.php');
+        header('location: cardapio.php');
     }
 
     if (isset($_POST['id'])) {
@@ -98,10 +98,15 @@ if ($acao == 'inserir') {
 
 } else  if ($acao == 'removerCarrinho') {
     $admCardapio->__set('id', $_GET['id']);
-
-    $qtd = 0;
-    $qtd = $_GET['qtd'] - 1;
-    if ($qtd == 0) {
+    $admCardapio->__set('numero_pedido', $_GET['qtd']);
+    var_dump($_GET);
+    
+    print $admCardapio->__get('id');
+    
+    print $admCardapio->__get('numero_pedido');
+    /*
+    $qtde = $_GET['qtd'] - 1;
+    if ($qtde == 0) {
         $comandos->removerCarrinho();
     } else {
         $admCardapio->__set('numero_pedido', $qtd);
@@ -109,7 +114,7 @@ if ($acao == 'inserir') {
     }
     $_POST['entrega'] = isset($_POST['entrega']) ? $_POST['entrega'] : 0;
     $listaPedidos = $comandos->buscarPedidos();
-    
+    */
 } else  if ($acao == 'pedido_enviado' || $acao == 'recuperarPedidos') {
     $_POST['entrega'] = isset($_POST['entrega']) ? $_POST['entrega'] : 0;
 

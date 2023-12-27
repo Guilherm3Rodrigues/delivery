@@ -137,26 +137,28 @@ class Comandos
     {
 
 
-        if ($_SESSION['itens'][$this->cardapio->__get['id']] && $_SESSION['itens'][$this->cardapio->__get['id']]['numero_pedido'] >= 2) {
+        /*if ($_SESSION['itens'][$this->cardapio->__get['id']] && $_SESSION['itens'][$this->cardapio->__get['id']]['numero_pedido'] >= 2) {
             $count = $_SESSION['itens'][$this->cardapio->__get['id']['id']]['numero_pedido'] - 1;
             $_SESSION['itens'][$this->cardapio->__get['id']['id']]['numero_pedido'] = $count;
         } else {
             $_SESSION['itens'][$this->cardapio->__get['id']['id']] = [];            
-        }
+        }*/
 
-
-
+        $_SESSION['itens'][$this->cardapio->__get['id']] = [];
 
     }
 
 
     public function editarCarrinho() //Deleta um item por vez no carrinho
     {
-        $query = 'update pedidos set numero_pedido = :numero_pedido where id = :id';
+        /*$query = 'update pedidos set numero_pedido = :numero_pedido where id = :id';
         $stmt = $this->conexao->prepare($query);
         $stmt->bindvalue(':id', $this->cardapio->__get('id'));
         $stmt->bindValue(':numero_pedido', $this->cardapio->__get('numero_pedido'));
-        return $stmt->execute();
+        return $stmt->execute();*/
+        $count = $_SESSION['itens'][$this->cardapio->__get['id']['id']]['numero_pedido'] - 1;
+
+        $_SESSION['itens'][$this->cardapio->__get['id']]['numero_pedido'] = $count;
     }
 
     public function pre_carrinho()

@@ -4,7 +4,7 @@
     ini_set('display_errors', 1);
     $acao = 'recuperar';
     include('ponteInfo.php');
-    var_dump($_SESSION['itens']);
+//    var_dump($_SESSION['itens']);
     
 ?>
 
@@ -30,9 +30,7 @@
         {
             location.href = 'carrinho.php?acao=limparCarrinho';
         }
-
-        
-
+    
         function atribuirValor() 
         {
             <?php 
@@ -75,7 +73,7 @@
 
                                     <!--  ============ TABELA DE PEDIDOS FEITOS ============================   -->
                     <?php // PHP =============================================
-                    if(isset($listaPedidos)) {
+                    if(isset($_SESSION['itens'])) {
                         foreach ($_SESSION['itens'] as $itens) 
                     {?>
                         <li class="list-group-item">
