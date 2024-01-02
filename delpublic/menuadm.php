@@ -1,6 +1,7 @@
 <nav id="faixa-menu-adm" style="text-align:center;">
 <?php
-echo "<b>Olá XXXXX</b>, seja novamente bem-vindo a sua área";
+$nome = $_SESSION['nomeProprietario'];
+echo "Olá <b> " . $nome . "</b>, seja novamente bem-vindo a sua área";
 ?>
     <ul>
         <li><a href="admControl.php">Início</a></li> | 

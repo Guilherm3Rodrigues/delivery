@@ -1,5 +1,5 @@
 <?php
-$parametros = ['httponly' => true];
+$parametros = ['httponly' => true, 'lifetime' => 21600];
 session_set_cookie_params($parametros);
 session_start();
 error_reporting(E_ALL);
@@ -23,7 +23,9 @@ $comandosUsuarios = new Comandos($conexao, $usuarios);
 
 if (strpos($index, 'index.php') !== false || strpos($index, 'cardapio.php') !== false || strpos($index, 'admControl.php')) {
     $info = $comandosInfo->carregarInfo();
+    $infoAdm = $comandos->carregarInfoAdm();
     $_SESSION = array_merge($_SESSION, $info);
+    $_SESSION = array_merge($_SESSION, $infoAdm);
 }
 
 if ($acao == 'inserir') {
@@ -99,22 +101,11 @@ if ($acao == 'inserir') {
 } else  if ($acao == 'removerCarrinho') {
     $admCardapio->__set('id', $_GET['id']);
     $admCardapio->__set('numero_pedido', $_GET['qtd']);
-    var_dump($_GET);
-    
-    print $admCardapio->__get('id');
-    
-    print $admCardapio->__get('numero_pedido');
-    /*
-    $qtde = $_GET['qtd'] - 1;
-    if ($qtde == 0) {
-        $comandos->removerCarrinho();
-    } else {
-        $admCardapio->__set('numero_pedido', $qtd);
-        $comandos->editarCarrinho();
-    }
-    $_POST['entrega'] = isset($_POST['entrega']) ? $_POST['entrega'] : 0;
-    $listaPedidos = $comandos->buscarPedidos();
-    */
+ 
+    $comandos->editarCarrinho();
+
+    header('location: carrinho.php?acao=recuperarPedidos');
+
 } else  if ($acao == 'pedido_enviado' || $acao == 'recuperarPedidos') {
     $_POST['entrega'] = isset($_POST['entrega']) ? $_POST['entrega'] : 0;
 

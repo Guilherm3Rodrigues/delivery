@@ -8,10 +8,10 @@ $arrayProdutos;
 $valorTotal = 0;
 $valorSomado=0;
 
-foreach ($listaPedidos as $key => $produto) 
+foreach ($_SESSION['itens'] as $key => $itens) 
 {
-    $arrayProdutos[$key] = $produto->produto . ' x ' . $produto->numero_pedido;
-    $valor = $produto->valor * $produto->numero_pedido;
+    $arrayProdutos[$key] = $itens['produto'] . ' x ' . $itens['numero_pedido'];
+    $valor = $itens['valor'] * $itens['numero_pedido'];
     $valorSomado += $valor;
 }
 
@@ -26,7 +26,8 @@ $mensagem .= 'O valor total é de R$ ' . $valorTotal . '.' . PHP_EOL . PHP_EOL;
 $mensagem .= 'Agradecemos a preferência ^_^';
 
 
+
 print '<script>window.open("https://api.whatsapp.com/send?phone=55' . $telefoneStringNumeros .
-    '&text='. urlencode($mensagem) .'", "_blank");</script>';
+  '&text='. urlencode($mensagem) .'", "_blank");</script>';
 
     

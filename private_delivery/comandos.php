@@ -83,6 +83,21 @@ class Comandos
     }
 }
 
+public function carregarInfoAdm()
+{
+    try {
+        $verificar = 'SELECT nomeProprietario FROM usuarios';
+        $stmt = $this->conexao->prepare($verificar);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        // Tratar erro aqui, como registrar em um arquivo de log
+        echo "Erro ao carregar informações: " . $e->getMessage();
+        return false; // Ou outro valor indicando erro
+    }
+}
+
 
     public function buscar() // carrega o cardapio
     {
@@ -156,9 +171,13 @@ class Comandos
         $stmt->bindvalue(':id', $this->cardapio->__get('id'));
         $stmt->bindValue(':numero_pedido', $this->cardapio->__get('numero_pedido'));
         return $stmt->execute();*/
-        $count = $_SESSION['itens'][$this->cardapio->__get['id']['id']]['numero_pedido'] - 1;
+        if ($_GET['qtd'] <= 1) {
+            unset($_SESSION['itens'][$_GET['id']]);
+        } else {
+            $qtdProdutos = $_GET['qtd'] - 1;
+            $_SESSION['itens'][$_GET['id']]['numero_pedido'] = $_SESSION['itens'][$_GET['id']]['numero_pedido'] - 1;
+        }
 
-        $_SESSION['itens'][$this->cardapio->__get['id']]['numero_pedido'] = $count;
     }
 
     public function pre_carrinho()
