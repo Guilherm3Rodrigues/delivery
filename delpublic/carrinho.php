@@ -4,7 +4,7 @@
     ini_set('display_errors', 1);
     $acao = 'recuperar';
     include('ponteInfo.php');
-//    var_dump($_SESSION['itens']);
+    //var_dump($_SESSION['itens']);
     
 ?>
 
@@ -164,7 +164,7 @@
                 <input id="telefoneCliente" name="telefoneCliente" class="form-control" placeholder="EX: 35 9 8899-9749" required></input>
                 
             </ul>
-            <button class="btn btn-dark margem-endereco" onclick="finalizar()"><strong>Finalizar</strong></button>
+            <button class="btn btn-dark margem-endereco"><strong>Finalizar</strong></button>
 
         </form>
         

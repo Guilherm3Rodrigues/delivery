@@ -10,13 +10,15 @@
         <ul>
 
             <?php
-            foreach ($_SESSION['itens'] as $itens) {
-            ?>
-                <li><?php print $itens['produto']; ?> R$
-                    <?php print $itens['valor']; ?> x
-                    <?php print $itens['numero_pedido']; ?>
-                </li>
-            <?php 
+            if (isset($_SESSION['itens'])) {
+                foreach ($_SESSION['itens'] as $itens) {
+                ?>
+                    <li><?php print $itens['produto']; ?> R$
+                        <?php print $itens['valor']; ?> x
+                        <?php print $itens['numero_pedido']; ?>
+                    </li>
+                <?php 
+                }
             }; ?>
         </ul>
         R$ Total: <?php print $valorSomado ?>

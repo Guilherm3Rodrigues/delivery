@@ -9,6 +9,7 @@ class AdmCardapio
     private $valor;
     private $categoria;
     private $numero_pedido;
+    private $cliente;
     
     public function __set($atributo, $valor) 
     {

@@ -114,14 +114,24 @@ if ($acao == 'inserir') {
         $usuarios->__set('nome', $_POST['nomeCliente']);
         $usuarios->__set('telefone', $_POST['telefoneCliente']);
         $comandosUsuarios->cadastroUsuario();
-        
-        $listaPedidos = $comandos->buscarPedidos();
-        $infoLoja = $comandos->carregarInfo();
-        $telefoneString = $infoLoja['telefone'];
-        $telefoneStringNumeros = preg_replace("/[^0-9]/", "", $telefoneString);
-        $listaPedidos = $comandos->buscarPedidos();
 
-        include('whats.php');
+        foreach ($_SESSION['itens'] as $key => $value) {
+            $admCardapio->__set('id',$value['id']);
+            $admCardapio->__set('produto',$value['produto']);
+            $admCardapio->__set('cliente',$_POST['nomeCliente']);
+
+            $comandos->finalizarPedido();
+            
+        }
+
+
+        //$comandos->finalizarPedido();
+        
+//        $infoLoja = $comandos->carregarInfo();  revisar
+  //      $telefoneString = $infoLoja['telefone'];   revisar
+    //    $telefoneStringNumeros = preg_replace("/[^0-9]/", "", $telefoneString);   revisar
+
+        //include('whats.php');
     } 
         $listaPedidos = $comandos->buscarPedidos();
     

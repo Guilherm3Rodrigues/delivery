@@ -15,7 +15,6 @@ class Comandos
 
     public function inserir()  //PARA ADMINISTRADORES
     {
-
         $query = "insert into itens_cardapio(categoria, produto, descricao, valor) values (:categoria, :produto,:descricao, :valor)";
         $stmt = $this->conexao->prepare($query);
         $stmt->bindValue(':categoria', $this->cardapio->__get('categoria'));
@@ -69,34 +68,34 @@ class Comandos
 
 
     public function carregarInfo()
-{
-    try {
-        $verificar = 'SELECT * FROM info_estabelecimento';
-        $stmt = $this->conexao->prepare($verificar);
-        $stmt->execute();
+    {
+        try {
+            $verificar = 'SELECT * FROM info_estabelecimento';
+            $stmt = $this->conexao->prepare($verificar);
+            $stmt->execute();
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        // Tratar erro aqui, como registrar em um arquivo de log
-        echo "Erro ao carregar informações: " . $e->getMessage();
-        return false; // Ou outro valor indicando erro
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            // Tratar erro aqui, como registrar em um arquivo de log
+            echo "Erro ao carregar informações: " . $e->getMessage();
+            return false; // Ou outro valor indicando erro
+        }
     }
-}
 
-public function carregarInfoAdm()
-{
-    try {
-        $verificar = 'SELECT nomeProprietario FROM usuarios';
-        $stmt = $this->conexao->prepare($verificar);
-        $stmt->execute();
+    public function carregarInfoAdm()
+    {
+        try {
+            $verificar = 'SELECT nomeProprietario FROM usuarios';
+            $stmt = $this->conexao->prepare($verificar);
+            $stmt->execute();
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        // Tratar erro aqui, como registrar em um arquivo de log
-        echo "Erro ao carregar informações: " . $e->getMessage();
-        return false; // Ou outro valor indicando erro
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            // Tratar erro aqui, como registrar em um arquivo de log
+            echo "Erro ao carregar informações: " . $e->getMessage();
+            return false; // Ou outro valor indicando errolocal
+        }
     }
-}
 
 
     public function buscar() // carrega o cardapio
@@ -107,7 +106,8 @@ public function carregarInfoAdm()
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function buscarPedidos() // carrega o carrinho
+    //inativa no momento
+    public function buscarPedidos() // carrega o carrinho, PODE SER UTIL PARA ADMs
     {
         $query = 'select id, produto, valor, numero_pedido from pedidos';
         $stmt = $this->conexao->prepare($query);
@@ -140,37 +140,18 @@ public function carregarInfoAdm()
     
     public function limparCarrinho() // LIMPA, ZERA o Carrinho
     {
-        //$query = 'delete from pedidos';
-        //$stmt = $this->conexao->prepare($query);
-        //$stmt->execute();
-
         $_SESSION['itens'] = [];
     }
 
 
     public function removerCarrinho() // Remove itens do Carrinho
     {
-
-
-        /*if ($_SESSION['itens'][$this->cardapio->__get['id']] && $_SESSION['itens'][$this->cardapio->__get['id']]['numero_pedido'] >= 2) {
-            $count = $_SESSION['itens'][$this->cardapio->__get['id']['id']]['numero_pedido'] - 1;
-            $_SESSION['itens'][$this->cardapio->__get['id']['id']]['numero_pedido'] = $count;
-        } else {
-            $_SESSION['itens'][$this->cardapio->__get['id']['id']] = [];            
-        }*/
-
         $_SESSION['itens'][$this->cardapio->__get['id']] = [];
-
     }
 
 
     public function editarCarrinho() //Deleta um item por vez no carrinho
     {
-        /*$query = 'update pedidos set numero_pedido = :numero_pedido where id = :id';
-        $stmt = $this->conexao->prepare($query);
-        $stmt->bindvalue(':id', $this->cardapio->__get('id'));
-        $stmt->bindValue(':numero_pedido', $this->cardapio->__get('numero_pedido'));
-        return $stmt->execute();*/
         if ($_GET['qtd'] <= 1) {
             unset($_SESSION['itens'][$_GET['id']]);
         } else {
@@ -202,6 +183,24 @@ public function carregarInfoAdm()
         var_dump($_SESSION['itens']);
     }
 
+    public function finalizarPedido()  //PARA ADMINISTRADORES
+    {
+        $query = "select * from itens_cardapio where id = :id AND produto = :produto";
+        $stmt = $this->conexao->prepare($query);
+        $stmt->bindValue(':id', $this->cardapio->__get('id'));
+        $stmt->bindValue(':produto', $this->cardapio->__get('produto'));
+        $stmt->execute();
+        $pedido = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        //var_dump($pedido);
+        var_dump($_SESSION['itens']);
+            if (1 == 0) {
+            
+            var_dump($pedido[0]['id']);
+            var_dump($pedido[0]['valor']);
+            var_dump($pedido[0]['produto']);
+            }
+    }
+    
     public function totalPedidos()
     {
         $verificar = 'select valor from pedidos';
