@@ -21,3 +21,5 @@ if (isset($_SESSION['itens'])) {
         $qtdTotal += $qtd;
     }
 }
+
+$_SESSION['ValorTotal'] = $valorSomado;

@@ -107,33 +107,33 @@ if ($acao == 'inserir') {
     header('location: carrinho.php?acao=recuperarPedidos');
 
 } else  if ($acao == 'pedido_enviado' || $acao == 'recuperarPedidos') {
+
     $_POST['entrega'] = isset($_POST['entrega']) ? $_POST['entrega'] : 0;
 
     if ($acao == 'pedido_enviado' && isset($_POST['nomeCliente']) && isset($_POST['telefoneCliente'])) {
 
         $usuarios->__set('nome', $_POST['nomeCliente']);
         $usuarios->__set('telefone', $_POST['telefoneCliente']);
-        $comandosUsuarios->cadastroUsuario();
-
+        
+        $cliente = $comandosUsuarios->cadastroUsuario();
+        
         foreach ($_SESSION['itens'] as $key => $value) {
             $admCardapio->__set('id',$value['id']);
             $admCardapio->__set('produto',$value['produto']);
-            $admCardapio->__set('cliente',$_POST['nomeCliente']);
+            $admCardapio->__set('descricao',$value['descricao']);
+            $admCardapio->__set('valor',$value['valor']);
+            $admCardapio->__set('categoria',$value['categoria']);
+            $admCardapio->__set('numero_pedido',$value['numero_pedido']);
+            $admCardapio->__set('idCliente',$cliente[0]['id_cliente']);
 
             $comandos->finalizarPedido();
-            
         }
 
-
-        //$comandos->finalizarPedido();
-        
-//        $infoLoja = $comandos->carregarInfo();  revisar
-  //      $telefoneString = $infoLoja['telefone'];   revisar
-    //    $telefoneStringNumeros = preg_replace("/[^0-9]/", "", $telefoneString);   revisar
-
-        //include('whats.php');
+        include('whats.php');
     } 
         $listaPedidos = $comandos->buscarPedidos();
     
 
 } include('Login.php');
+?>
+<script src="scriptPrivate.js"></script>

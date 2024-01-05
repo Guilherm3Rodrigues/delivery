@@ -39,9 +39,7 @@
             document.getElementById("formularioEntrega").submit();
         }
 
-     
-
-    </script>
+</script>
 
 
 </head>
@@ -156,7 +154,6 @@
         <form id="myForm" method="POST" action="carrinho.php?acao=pedido_enviado" class="col-md-auto">
 
             <ul>
-                
                 <label class="row" require>Nome</label>
                 <input id="nomeCliente" name="nomeCliente" class="form-control" placeholder="EX: Cayo Rodrigues" required></input>
                 
@@ -164,6 +161,7 @@
                 <input id="telefoneCliente" name="telefoneCliente" class="form-control" placeholder="EX: 35 9 8899-9749" required></input>
                 
             </ul>
+
             <button class="btn btn-dark margem-endereco"><strong>Finalizar</strong></button>
 
         </form>

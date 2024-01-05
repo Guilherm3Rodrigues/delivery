@@ -185,20 +185,29 @@ class Comandos
 
     public function finalizarPedido()  //PARA ADMINISTRADORES
     {
-        $query = "select * from itens_cardapio where id = :id AND produto = :produto";
+        $query = "select * from itens_cardapio where id = :id";
         $stmt = $this->conexao->prepare($query);
         $stmt->bindValue(':id', $this->cardapio->__get('id'));
-        $stmt->bindValue(':produto', $this->cardapio->__get('produto'));
         $stmt->execute();
-        $pedido = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        //var_dump($pedido);
-        var_dump($_SESSION['itens']);
-            if (1 == 0) {
-            
-            var_dump($pedido[0]['id']);
-            var_dump($pedido[0]['valor']);
-            var_dump($pedido[0]['produto']);
-            }
+        $id = $this->cardapio->__get('id');
+        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $pedido = [];
+        foreach ($resultados as $resultado) {
+            $pedido[$id] = $resultado;
+        }
+
+        $query = 'INSERT INTO pedidos (img, produto, descricao, valor, categoria, numero_pedido, id_cliente)
+        values (:img, :produto, :descricao, :valor, :categoria, :numero_pedido, :idCliente)';
+        $stmt2 = $this->conexao->prepare($query);
+        $stmt2->bindValue(':img', $this->cardapio->__get('img'));
+        $stmt2->bindValue(':produto', $this->cardapio->__get('produto'));
+        $stmt2->bindValue(':descricao', $this->cardapio->__get('descricao'));
+        $stmt2->bindValue(':valor', $this->cardapio->__get('valor'));
+        $stmt2->bindValue(':categoria', $this->cardapio->__get('categoria'));
+        $stmt2->bindValue(':numero_pedido', $this->cardapio->__get('numero_pedido'));
+        $stmt2->bindValue(':idCliente', $this->cardapio->__get('idCliente'));
+        $stmt2->execute();
     }
     
     public function totalPedidos()
@@ -219,12 +228,31 @@ class Comandos
 
     public function cadastroUsuario()
     {
-        $usuario = "insert into clientes(nome, telefone) values (:nome, :telefone)";
-        $stmt = $this->conexao->prepare($usuario);
-        $stmt->bindValue(':nome', $this->cardapio->__get('nome'));
-        $stmt->bindValue(':telefone', $this->cardapio->__get('telefone'));
-        $stmt->execute();
-        //return $stmt->fetchAll(PDO::FETCH_COLUMN);
+                $verificar = 'select * from clientes where telefone = :telefoneCliente';
+                $stmt = $this->conexao->prepare($verificar);
+                $stmt->bindValue(':telefoneCliente', $this->cardapio->__get('telefone'));
+                $stmt->execute();
+                $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                if  ($retorno) {
+                        return $retorno;
+                    } 
+                else 
+                    { //inserindo cliente em db
+                    $usuario = "insert into clientes(nome, telefone) values (:nome, :telefone)";
+                    $stmt = $this->conexao->prepare($usuario);
+                    $stmt->bindValue(':nome', $this->cardapio->__get('nome'));
+                    $stmt->bindValue(':telefone', $this->cardapio->__get('telefone'));
+                    $stmt->execute();
+                    //puxando dados após inseridos
+                    $verificar = 'select * from clientes where telefone = :telefoneCliente';
+                    $stmt = $this->conexao->prepare($verificar);
+                    $stmt->bindValue(':telefoneCliente', $this->cardapio->__get('telefone'));
+                    $stmt->execute();
+                    $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    
+                    return $retorno;
+                    }
     }
 
 }

@@ -1,4 +1,8 @@
 <?php
+//puxando telefone da loja pra enviar msg
+$infoLoja = $comandos->carregarInfo();  
+$telefoneString = $infoLoja['telefone'];   
+$telefoneStringNumeros = preg_replace("/[^0-9]/", "", $telefoneString);   
 
 $admCardapio = new AdmCardapio();
 $conexao = new Conexao();
