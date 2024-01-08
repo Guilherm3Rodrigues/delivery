@@ -131,9 +131,35 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique'])
                 <input name="produto" type="text" required class="form-control" placeholder="NOME DO PRODUTO*, Exemplo: X-tudo, Hot-dog">
                 <input name="descricao" type="text" class="form-control" placeholder="Descrição, Exemplo: hamburguer 180g, queijo prado">
                 <input name="valor" required type="text" class="form-control" placeholder="VALOR*, Exemplo: 15,00">
+                
+                
+                
             </div>
             <br>
             <button class="btn btn-success">Cadastrar Itens</button>
+        </form>
+        <form method="POST" action="ponteInfo.php?acao=atualizarOrdem">
+        <h2>Ordem no Cardapio</h2>
+                <?php 
+                        $repete = "categoria repete?";
+                        foreach($listaCardapio as $key => $valor)
+                        {$categoria = $valor->categoria;
+
+                            if ($categoria != $repete) {
+                            ?>
+                            <br>
+                            <?php print $categoria;?>
+                            <input style="width:80px; display:inline-block;" name="ordem" value="<?php print $valor->ordem ?>" required type="text" class="form-control" >
+                            <br>
+                            <?php
+                            $_SESSION['ordem'][$categoria] = $valor->ordem; ?>
+                <?php       $repete = $categoria;
+                        
+                        }
+                    }
+                ?>
+                <br><br>
+            <button class="btn btn-success">Atualizar Ordem</button>
         </form>
         <hr>
         <form method="post" action="ponteInfo.php?acao=Atualizar">

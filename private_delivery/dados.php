@@ -61,7 +61,7 @@ if ($acao == 'inserir') {
 
 } else  if ($acao == 'recuperar'  || $acao == 'adminVisualizacao'  || $acao == 'Atualizar') {
     $listaCardapio = $comandos->buscar();
-    $listaPedidos = $comandos->buscarPedidos();
+    //$listaPedidos = $comandos->buscarPedidos();
 
     if (isset($_GET['id'])) {
         $admCardapio->__set('id', $_GET['id']);
@@ -96,7 +96,19 @@ if ($acao == 'inserir') {
 } else  if ($acao == 'limparCarrinho') {
     $comandos->limparCarrinho();
 
-    $comandos->buscarPedidos();
+    //$comandos->buscarPedidos();
+
+} else  if ($acao == 'atualizarOrdem') {
+    
+    $ordem = $_SESSION['ordem'];
+
+    foreach ($ordem as $key => $valor) {
+        $admCardapio->__set('categoria', $key);
+        $admCardapio->__set('ordem', $valor);
+
+        $comandos->editarOrdem();
+    }    
+    header('Location: admControl.php');
 
 } else  if ($acao == 'removerCarrinho') {
     $admCardapio->__set('id', $_GET['id']);
@@ -131,7 +143,7 @@ if ($acao == 'inserir') {
 
         include('whats.php');
     } 
-        $listaPedidos = $comandos->buscarPedidos();
+        //$listaPedidos = $comandos->buscarPedidos();
     
 
 } include('Login.php');

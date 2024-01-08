@@ -8,8 +8,9 @@ class AdmCardapio
     private $descricao;
     private $valor;
     private $categoria;
-    private $numero_pedido;
-    private $idCliente;
+    private $numero_pedido;  // quantos do mesmo pedido a pessoa fez
+    private $idCliente;  // para identificar quem é o dono do pedido
+    private $ordem; //referente a ordem das categorias no cardapio
     
     public function __set($atributo, $valor) 
     {

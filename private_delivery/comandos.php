@@ -100,20 +100,20 @@ class Comandos
 
     public function buscar() // carrega o cardapio
     {
-        $query = 'select id, img, produto, descricao, categoria, valor from itens_cardapio ORDER BY categoria';
+        $query = 'select id, img, produto, descricao, categoria, valor, ordem from itens_cardapio ORDER BY ordem';
         $stmt = $this->conexao->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     //inativa no momento
-    public function buscarPedidos() // carrega o carrinho, PODE SER UTIL PARA ADMs
+    /*public function buscarPedidos() // carrega o carrinho, PODE SER UTIL PARA ADMs
     {
         $query = 'select id, produto, valor, numero_pedido from pedidos';
         $stmt = $this->conexao->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
-    }
+    }*/
 
 
     public function editar() //PARA ADMINISTRADORES, edita os itens do cardapio
@@ -125,6 +125,15 @@ class Comandos
         $stmt->bindValue(':produto', $this->cardapio->__get('produto'));
         $stmt->bindValue(':valor', $this->cardapio->__get('valor'));
         $stmt->bindValue(':id', $this->cardapio->__get('id'));
+        return $stmt->execute();
+    }
+
+    public function editarOrdem() //PARA ADMINISTRADORES, edita os itens do cardapio
+    {
+        $query = 'update itens_cardapio set ordem = :ordem where categoria = :categoria';
+        $stmt = $this->conexao->prepare($query);
+        $stmt->bindValue(':categoria', $this->cardapio->__get('categoria'));
+        $stmt->bindValue(':ordem', $this->cardapio->__get('ordem'));
         return $stmt->execute();
     }
 
@@ -183,7 +192,7 @@ class Comandos
         var_dump($_SESSION['itens']);
     }
 
-    public function finalizarPedido()  //PARA ADMINISTRADORES
+    public function finalizarPedido()  
     {
         $query = "select * from itens_cardapio where id = :id";
         $stmt = $this->conexao->prepare($query);
