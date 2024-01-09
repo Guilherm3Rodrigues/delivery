@@ -15,12 +15,13 @@ class Comandos
 
     public function inserir()  //PARA ADMINISTRADORES
     {
-        $query = "insert into itens_cardapio(categoria, produto, descricao, valor) values (:categoria, :produto,:descricao, :valor)";
+        $query = "insert into itens_cardapio(categoria, produto, descricao, valor, ordem) values (:categoria, :produto,:descricao, :valor, :ordem)";
         $stmt = $this->conexao->prepare($query);
         $stmt->bindValue(':categoria', $this->cardapio->__get('categoria'));
         $stmt->bindValue(':produto', $this->cardapio->__get('produto'));
         $stmt->bindValue(':descricao', $this->cardapio->__get('descricao'));
         $stmt->bindValue(':valor', $this->cardapio->__get('valor'));
+        $stmt->bindValue(':ordem', $this->cardapio->__get('ordem'));
         $stmt->execute();
     }
 
@@ -134,7 +135,7 @@ class Comandos
         $stmt = $this->conexao->prepare($query);
         $stmt->bindValue(':categoria', $this->cardapio->__get('categoria'));
         $stmt->bindValue(':ordem', $this->cardapio->__get('ordem'));
-        return $stmt->execute();
+        return $stmt->execute(); 
     }
 
 

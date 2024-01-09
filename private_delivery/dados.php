@@ -29,10 +29,12 @@ if (strpos($index, 'index.php') !== false || strpos($index, 'cardapio.php') !== 
 }
 
 if ($acao == 'inserir') {
+    
     $admCardapio->__set('categoria', $_POST['categoria']);
     $admCardapio->__set('produto', $_POST['produto']);
     $admCardapio->__set('descricao', $_POST['descricao']);
     $admCardapio->__set('valor', $_POST['valor']);
+    $admCardapio->__set('ordem', $_POST['ordem']);
 
     $comandos->inserir();
 
@@ -100,15 +102,30 @@ if ($acao == 'inserir') {
 
 } else  if ($acao == 'atualizarOrdem') {
     
-    $ordem = $_SESSION['ordem'];
+    $ordem = $_POST['ordem'];
+    $countTotal = count($ordem);
+    $verificacaoRepetir = array_count_values($ordem);
+    $countVerificacao = count($verificacaoRepetir);
 
-    foreach ($ordem as $key => $valor) {
-        $admCardapio->__set('categoria', $key);
-        $admCardapio->__set('ordem', $valor);
-
-        $comandos->editarOrdem();
-    }    
-    header('Location: admControl.php');
+    if ($countTotal == $countVerificacao) {
+        foreach ($ordem as $key => $valor) {
+            $admCardapio->__set('categoria', $key);
+            $admCardapio->__set('ordem', $valor);
+    
+            $comandos->editarOrdem();
+        }
+        header('Location: admControl.php');
+    } 
+    else 
+    {
+        ?>
+        <script>
+            alert('NÃO REPITA OS NUMEROS, necessario numeros unicos para ordem do Cardapio');
+            location.href = 'admControl.php';
+        </script>
+        <?php 
+        
+    }
 
 } else  if ($acao == 'removerCarrinho') {
     $admCardapio->__set('id', $_GET['id']);

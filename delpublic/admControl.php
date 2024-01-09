@@ -4,6 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 $acao = 'recuperar';
 include('ponteInfo.php');
+
 if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique'])
 {
     header('Location: index.php?erro=2');
@@ -131,6 +132,7 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique'])
                 <input name="produto" type="text" required class="form-control" placeholder="NOME DO PRODUTO*, Exemplo: X-tudo, Hot-dog">
                 <input name="descricao" type="text" class="form-control" placeholder="Descrição, Exemplo: hamburguer 180g, queijo prado">
                 <input name="valor" required type="text" class="form-control" placeholder="VALOR*, Exemplo: 15,00">
+                <input name="ordem" type="hidden" value="<?php print_r($_SESSION['ultOrdem']); ?>" class="form-control">
                 
                 
                 
@@ -142,21 +144,25 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique'])
         <h2>Ordem no Cardapio</h2>
                 <?php 
                         $repete = "categoria repete?";
+                        $ultOrdem = 0;
                         foreach($listaCardapio as $key => $valor)
                         {$categoria = $valor->categoria;
-
                             if ($categoria != $repete) {
                             ?>
                             <br>
                             <?php print $categoria;?>
-                            <input style="width:80px; display:inline-block;" name="ordem" value="<?php print $valor->ordem ?>" required type="text" class="form-control" >
+                            <input style="width:80px; display:inline-block;" name="ordem[<?php print$categoria?>]"value="<?php print $valor->ordem ?>" required type="text" class="form-control" >
                             <br>
-                            <?php
-                            $_SESSION['ordem'][$categoria] = $valor->ordem; ?>
                 <?php       $repete = $categoria;
+                        $ordem = $valor->ordem; //apesar de $ordem sempre terminar sendo o ultimo valor, apenas para segurança faço a logica.
+                        if ($ultOrdem <= $ordem) {
+                            $ultOrdem = $ordem;
+                            $intOrdem = intval($ultOrdem);
+                            $_SESSION['ultOrdem'] = $intOrdem + 1;
+                        }
                         
                         }
-                    }
+                    } 
                 ?>
                 <br><br>
             <button class="btn btn-success">Atualizar Ordem</button>
