@@ -119,7 +119,7 @@ if ($acao == 'inserir') {
         ?>
         <script>
             alert('NÃO REPITA OS NUMEROS, necessario numeros unicos para ordem do Cardapio');
-            location.href = 'admControl.php';
+            location.href = 'admControl.php#ordemEAdd';
         </script>
         <?php 
         
