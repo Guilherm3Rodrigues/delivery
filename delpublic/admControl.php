@@ -17,6 +17,11 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique'])
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php
+    if (!isset($_SESSION['ultOrdem'])) {?>
+    <meta http-equiv="refresh" content="0.01">
+    <?php } //não é elegante, mas funciona bem
+    ?>
     <link rel="stylesheet" type="text/css" href="style.css">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
@@ -124,49 +129,51 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique'])
         <hr>
     </div>
     <div class="container" id="adicionar">
-
-        <form method="post" action="ponteInfo.php?acao=inserir">
-            <div class="form-group ">
-                <h2>Adicionar itens no menu</h2>
-                <input name="categoria" type="text" required class="form-control" placeholder="CATEGORIA*, Exemplo: Lanches, Pizzas, etc">
-                <input name="produto" type="text" required class="form-control" placeholder="NOME DO PRODUTO*, Exemplo: X-tudo, Hot-dog">
-                <input name="descricao" type="text" class="form-control" placeholder="Descrição, Exemplo: hamburguer 180g, queijo prado">
-                <input name="valor" required type="text" class="form-control" placeholder="VALOR*, Exemplo: 15,00">
-                <input name="ordem" type="hidden" value="<?php print_r($_SESSION['ultOrdem']); ?>" class="form-control">
-                
-                
-                
+        <div class="row">
+            <div class="col-md-6">        
+                    <form method="post" action="ponteInfo.php?acao=inserir">
+                        <div class="form-group ">
+                            <h2>Adicionar itens no menu</h2>
+                            <input name="categoria" type="text" required class="form-control" placeholder="CATEGORIA*, Exemplo: Lanches, Pizzas, etc">
+                            <input name="produto" type="text" required class="form-control" placeholder="NOME DO PRODUTO*, Exemplo: X-tudo, Hot-dog">
+                            <input name="descricao" type="text" class="form-control" placeholder="Descrição, Exemplo: hamburguer 180g, queijo prado">
+                            <input name="valor" required type="text" class="form-control" placeholder="VALOR*, Exemplo: 15,00">
+                            <input name="ordem" type="hidden" value="<?php print_r($_SESSION['ultOrdem']); ?>" class="form-control">
+                        </div>
+                        <br>
+                        <button class="btn btn-success">Cadastrar Itens</button>
+                    </form>
             </div>
-            <br>
-            <button class="btn btn-success">Cadastrar Itens</button>
-        </form>
-        <form method="POST" action="ponteInfo.php?acao=atualizarOrdem">
-        <h2>Ordem no Cardapio</h2>
-                <?php 
-                        $repete = "categoria repete?";
-                        $ultOrdem = 0;
-                        foreach($listaCardapio as $key => $valor)
-                        {$categoria = $valor->categoria;
-                            if ($categoria != $repete) {
+            <div class="col-md-6">
+                    <form method="POST" action="ponteInfo.php?acao=atualizarOrdem">
+                        <h2>Ordem no Cardapio</h2>
+                            <?php 
+                                    $repete = "categoria repete?";
+                                    $ultOrdem = 0;
+                                    foreach($listaCardapio as $key => $valor)
+                                    {$categoria = $valor->categoria;
+                                        if ($categoria != $repete) {
+                                        ?>
+                                        <br>
+                                        <?php print $categoria;?>
+                                        <input style="width:80px; display:inline-block;" name="ordem[<?php print$categoria?>]"value="<?php print $valor->ordem ?>" required type="text" class="form-control" >
+                                        <br>
+                            <?php       $repete = $categoria;
+                                    $ordem = $valor->ordem; //apesar de $ordem sempre terminar sendo o ultimo valor, apenas para segurança faço a logica.
+                                    if ($ultOrdem <= $ordem) {
+                                        $ultOrdem = $ordem;
+                                        $intOrdem = intval($ultOrdem);
+                                        $_SESSION['ultOrdem'] = $intOrdem + 1;
+                                    }
+                                    
+                                    }
+                                } 
                             ?>
-                            <br>
-                            <?php print $categoria;?>
-                            <input style="width:80px; display:inline-block;" name="ordem[<?php print$categoria?>]"value="<?php print $valor->ordem ?>" required type="text" class="form-control" >
-                            <br>
-                <?php       $repete = $categoria;
-                        $ordem = $valor->ordem; //apesar de $ordem sempre terminar sendo o ultimo valor, apenas para segurança faço a logica.
-                        if ($ultOrdem <= $ordem) {
-                            $ultOrdem = $ordem;
-                            $intOrdem = intval($ultOrdem);
-                            $_SESSION['ultOrdem'] = $intOrdem + 1;
-                        }
-                        
-                        }
-                    } 
-                ?>
-                <br><br>
-            <button class="btn btn-success">Atualizar Ordem</button>
-        </form>
+                            <br><br>
+                        <button class="btn btn-success">Atualizar Ordem</button>
+                    </form>
+            </div>
+        </div>                
         <hr>
         <form method="post" action="ponteInfo.php?acao=Atualizar">
             <div class="form-group ">
