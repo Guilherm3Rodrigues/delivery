@@ -15,14 +15,27 @@ class Comandos
 
     public function inserir()  //PARA ADMINISTRADORES
     {
+        $verificar = 'select * from itens_cardapio where categoria = :categoria';
+        $stmt2 = $this->conexao->prepare($verificar);
+        $stmt2->bindValue(':categoria', $this->cardapio->__get('categoria'));
+        $stmt2->execute();
+        $verificar = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($verificar) {
+            $ordem = $verificar[0]['ordem'];
+        } else
+        {
+            $ordem = $this->cardapio->__get('ordem');
+        }
+
         $query = "insert into itens_cardapio(categoria, produto, descricao, valor, ordem) values (:categoria, :produto,:descricao, :valor, :ordem)";
         $stmt = $this->conexao->prepare($query);
         $stmt->bindValue(':categoria', $this->cardapio->__get('categoria'));
         $stmt->bindValue(':produto', $this->cardapio->__get('produto'));
         $stmt->bindValue(':descricao', $this->cardapio->__get('descricao'));
         $stmt->bindValue(':valor', $this->cardapio->__get('valor'));
-        $stmt->bindValue(':ordem', $this->cardapio->__get('ordem'));
-        $stmt->execute();
+        $stmt->bindValue(':ordem', $ordem);
+        $stmt->execute(); 
     }
 
 
@@ -86,11 +99,13 @@ class Comandos
     public function carregarInfoAdm()
     {
         try {
-            $verificar = 'SELECT nomeProprietario FROM usuarios';
+            $verificar = 'SELECT nomeProprietario FROM usuarios where loginNome = :loginNome';
             $stmt = $this->conexao->prepare($verificar);
+            $stmt->bindValue(':loginNome', $this->cardapio->__get('loginNome'));
             $stmt->execute();
 
             return $stmt->fetch(PDO::FETCH_ASSOC);
+
         } catch (PDOException $e) {
             // Tratar erro aqui, como registrar em um arquivo de log
             echo "Erro ao carregar informações: " . $e->getMessage();

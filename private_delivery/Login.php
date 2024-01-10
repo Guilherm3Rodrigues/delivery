@@ -2,6 +2,11 @@
 
 if ($acao == 'logar')  // sistema de LOGIN, NECESSARIO APRIMORAR
 {
+    $usuarios->__set('loginNome', $_POST['usuario']);
+    
+    $infoAdm = $comandosUsuarios->carregarInfoAdm();
+    $_SESSION = array_merge($_SESSION, $infoAdm);
+    
     if (isset($_POST['usuario'])) {
 
         $retorno = $comandos->login();
@@ -24,7 +29,6 @@ if ($acao == 'logar')  // sistema de LOGIN, NECESSARIO APRIMORAR
         }
         header('Location: index.php?erro=1');
     }
-    
 }
 
 ?>

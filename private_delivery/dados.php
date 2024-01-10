@@ -23,9 +23,7 @@ $comandosUsuarios = new Comandos($conexao, $usuarios);
 
 if (strpos($index, 'index.php') !== false || strpos($index, 'cardapio.php') !== false || strpos($index, 'admControl.php')) {
     $info = $comandosInfo->carregarInfo();
-    $infoAdm = $comandos->carregarInfoAdm();
     $_SESSION = array_merge($_SESSION, $info);
-    $_SESSION = array_merge($_SESSION, $infoAdm);
 }
 
 if ($acao == 'inserir') {
@@ -38,7 +36,7 @@ if ($acao == 'inserir') {
 
     $comandos->inserir();
 
-    header('Location: admControl.php?inclusao=1');
+    header('Location: admControl.php?inclusao=1#ordemEAdd');
 
 } else if ($acao == 'inserirInfo') {
     $admInfo->__set('nome', $_POST['nome']);
@@ -114,7 +112,7 @@ if ($acao == 'inserir') {
     
             $comandos->editarOrdem();
         }
-        header('Location: admControl.php');
+        header('Location: admControl.php#ordemEAdd');
     } 
     else 
     {
