@@ -2,12 +2,9 @@
 ob_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-$acao = 'recuperar';
+$acao = 'verPedidos';
 include('ponteInfo.php');
-
-foreach ($listaPedidos as $key => $value) {
-    var_dump($value);
-}
+date_default_timezone_set('America/Sao_Paulo');
 ?>
 
 <html lang="en">
@@ -21,46 +18,78 @@ foreach ($listaPedidos as $key => $value) {
 <body>
     <?php 
     include('menuadm.php');
+    
     ?>
+    <nav id="faixa-menu-adm" style="text-align:center;">
+            <ul>
+                <li><a href="verPedidos.php#listaClientes">Clientes</a></li> | 
+                <li><a href="verPedidos.php#motoBoy">Entregas Moto</a></li> | 
+            </ul>
+    </nav>
     fora container
-    <div class="container testeBorda">
-        <table>
-        <tr class="testeBorda"><h2>Tabela de Pedidos</h2>
-        <p><strong>Pedidos do dia?</strong></p>
-        <!-- foreach para chamar pedidos !-->
-            <td>Nome  //</td>
-            <td>Telefone  //</td>
-            <td>Pedido                                                       //</td>
-            <td>Observação:                                                  //</td><!-- ainda não existe area de observação sobre o pedido para o cliente !-->
-            <td>Para entrega ?  //</td>
-            <td>Endereço:  //</td>
-        </tr>
-        <tr>
-            <td>
-            <a type="buttom" class="btn btn-danger">Pedidos Anteriores</a> <!-- Criar dialog com filtro de data? ou criar um filtro de data com todos juntos na pag principal !-->
-            </td>
-            <td>1º pedidos //</td>
-            <td>2º pedidos  //</td>
-            <td>3º pedidos   </td>
-        </tr>
-        </table>
-    </div>
-    <div class="container testeBorda">
-        <table>
-            <tr class="testeBorda"><h2>Lista de Clientes</h2>
-            <!-- foreach para chamar todos os clientes que ja fizeram pedido !-->
-                <td>Nome  //</td>
-                <td>Telefone  //</td>
-                <td>numero de pedidos  //</td>
-                <td>Observação:</td>
+    <div class="container row">
+        <div class="col-md-6">
+        <div class="container testeBorda">
+            <tr class="testeBorda"><h2 id="tabelaPedidos">Tabela de Pedidos</h2>
+            <p><strong>Pedidos do dia</strong></p>
+            <!-- foreach para chamar pedidos !-->
+            <?php 
+            foreach ($listaPedidos as $key => $value) {
+                $dataHora = $value['data_insercao'];
+                $dataPedido = substr($dataHora, 0, 10);
+                $horaData = $value['data_insercao'];
+                $horaPedido = substr($horaData, 11, 8);
+                $dataAtual = date('Y-m-d');
+
+            ?> 
+                <div>
+                <?php 
+                    if ($dataAtual == $dataPedido) {
+                        print 'feito hoje esse pedido' ;?>
+                    <hr>
+                    <p><b>Numero Pedido: </b><?php print $value['id'];?>//</p>
+                    <p><b>Nome: </b><?php print $value['id_cliente'];?>//</p>
+                    <p><b>Telefone: </b>  </p>
+                    <p><b>Produto:</b> <?php print $value['produto']; ?></p>
+                    <p><b>Observação:</b>                                                  </p>
+                    <p><b>Para entrega ? </b>  </p>
+                    <p><b>Endereço: </b>  </p>
+                    <p><b>DATA: </b> <?php print $dataPedido; ?></p>
+                    <p><b>Hora: </b> <?php print $horaPedido; ?></p>
+                    <?php 
+                    } 
+                    else
+                    {
+                        print '<button class="btn btn-danger"> Pedidos Antigos </button>';
+                        //colocar um dialog aqui com os pedidos de outros dias
+                    }
+                    ?>
+                    
+                </div>
+                <?php }?> 
+                
             </tr>
-        </table>
+        </div>
+        </div>
+        <div class="col-md-4">
+        <div class="container testeBorda">
+            <table>
+                <tr class="testeBorda"><h2 id="listaClientes">Lista de Clientes</h2>
+                <!-- foreach para chamar todos os clientes que ja fizeram pedido !-->
+                    <p>Nome  //</p>
+                    <p>Telefone  //</p>
+                    <p>numero de pedidos  //</p>
+                    <p>Observação:</p>
+                </tr>
+            </table>
+        </div>
+        </div>
     </div>
     <div class="container testeBorda">
         <div class="row">
             <div class="col-md-6">
                 <table>
-                <tr class="testeBorda"><h2>Motoboy</h2>
+                <tr class="testeBorda"><h2 id="motoBoy">Motoboy</h2>
                     <td>
                         <td>Numero de entregas: $numeroEntregas  //</td>
                         <td>Valor a pagar: R$ $valorMotoboy  //</td>

@@ -125,7 +125,7 @@ class Comandos
     
     public function buscarPedidos() // carrega o carrinho, PODE SER UTIL PARA ADMs
     {
-        $query = 'select * from pedidos';
+        $query = 'select * from pedidos order by data_insercao desc';
         $stmt = $this->conexao->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
