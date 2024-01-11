@@ -26,12 +26,16 @@ botaoAdministrador.addEventListener('click', abrirDialog);
 
 
 
-function scrollToElement(elementId) {
-    var element = document.getElementById(elementId);
+ /*// Verifica se há um fragmento na URL, ou seja, se houve um redirecionamento
+ if(window.location.hash) {
+    var hash = window.location.hash.substring(1); // Remove o #
+    var element = document.getElementById(hash);
+    
     if (element) {
+        // Scroll para o elemento se encontrado
         element.scrollIntoView({ behavior: 'smooth' });
     }
-}
+}*/
 
 
 //ICONE FLUTUANTE CARRINHO

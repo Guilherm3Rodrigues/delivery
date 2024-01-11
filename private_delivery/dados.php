@@ -61,14 +61,15 @@ if ($acao == 'inserir') {
 
 } else  if ($acao == 'recuperar'  || $acao == 'adminVisualizacao'  || $acao == 'Atualizar') {
     $listaCardapio = $comandos->buscar();
-    //$listaPedidos = $comandos->buscarPedidos();
+    
 
     if (isset($_GET['id'])) {
         $admCardapio->__set('id', $_GET['id']);
+        $id = $_GET['id'];
         $comandos->pre_carrinho();
         //$retornos = $comandos->add_carrinho();
 
-        header('location: cardapio.php');
+        header('location: cardapio.php#scroll_' . $id);
     }
 
     if (isset($_POST['id'])) {
@@ -96,7 +97,7 @@ if ($acao == 'inserir') {
 } else  if ($acao == 'limparCarrinho') {
     $comandos->limparCarrinho();
 
-    //$comandos->buscarPedidos();
+    
 
 } else  if ($acao == 'atualizarOrdem') {
     
@@ -157,10 +158,16 @@ if ($acao == 'inserir') {
         }
 
         include('whats.php');
-    } 
-        //$listaPedidos = $comandos->buscarPedidos();
-    
 
-} include('Login.php');
+}
+}   else  if ($acao == 'verPedidos') {
+
+        $listaPedidos = $comandos->buscarPedidos();
+
+        //header('location: index.php');
+    
+}
+
+ include('Login.php');
 ?>
-<script src="scriptPrivate.js"></script>
+

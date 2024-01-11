@@ -4,8 +4,6 @@
     ini_set('display_errors', 1);
     $acao = 'recuperar';
     include('ponteInfo.php');
-    //var_dump($_SESSION['itens']);
-    
 ?>
 
 <!DOCTYPE html>

@@ -4,6 +4,10 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 $acao = 'recuperar';
 include('ponteInfo.php');
+
+foreach ($listaPedidos as $key => $value) {
+    var_dump($value);
+}
 ?>
 
 <html lang="en">
@@ -33,7 +37,7 @@ include('ponteInfo.php');
         </tr>
         <tr>
             <td>
-            <button class="btn btn-danger">Pedidos Anteriores</button> <!-- Criar dialog com filtro de data? ou criar um filtro de data com todos juntos na pag principal !-->
+            <a type="buttom" class="btn btn-danger">Pedidos Anteriores</a> <!-- Criar dialog com filtro de data? ou criar um filtro de data com todos juntos na pag principal !-->
             </td>
             <td>1º pedidos //</td>
             <td>2º pedidos  //</td>

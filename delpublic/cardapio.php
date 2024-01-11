@@ -124,16 +124,15 @@ include('ponteInfo.php');
                     <hr>
                 </div>
 
-
         <?php  // PHP ============================================= ;
         } else { ?>
             <div class="container row mx-auto">
-                <h3 class="text-center"><?php print $produto->produto ?></h3>
+                <h3 id="scroll_<?php print $produto->id ?>" class="text-center"><?php print $produto->produto ?></h3>
                 <div class="col-md-auto justify-content-start d-flex align-items-center">
                     <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
                 </div>
                 
-                <div class="col-sm text-start pt-2" id="produto_<?php print $produto->id ?> ">
+                <div class="col-sm text-start pt-2" id="produto_<?php print $produto->id ?>">
 
                     <p class="text"><?php print $produto->descricao ?> </p>
                     <p class="justify-content-start"><strong>R$<?php print $produto->valor ?></strong></p>

@@ -122,14 +122,14 @@ class Comandos
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    //inativa no momento
-    /*public function buscarPedidos() // carrega o carrinho, PODE SER UTIL PARA ADMs
+    
+    public function buscarPedidos() // carrega o carrinho, PODE SER UTIL PARA ADMs
     {
-        $query = 'select id, produto, valor, numero_pedido from pedidos';
+        $query = 'select * from pedidos';
         $stmt = $this->conexao->prepare($query);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
-    }*/
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 
     public function editar() //PARA ADMINISTRADORES, edita os itens do cardapio
@@ -205,7 +205,7 @@ class Comandos
             $_SESSION['itens'][$resultado['id']] = $resultado;
             $_SESSION['itens'][$resultado['id']]['numero_pedido'] = 1;
         }
-        var_dump($_SESSION['itens']);
+        
     }
 
     public function finalizarPedido()  
