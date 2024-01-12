@@ -30,8 +30,9 @@ date_default_timezone_set('America/Sao_Paulo');
     <div class="container row">
         <div class="col-md-6">
         <div class="container testeBorda">
-            <tr class="testeBorda"><h2 id="tabelaPedidos">Tabela de Pedidos</h2>
+            <h2 id="tabelaPedidos">Tabela de Pedidos</h2>
             <p><strong>Pedidos do dia</strong></p>
+            <hr>
             <!-- foreach para chamar pedidos !-->
             <?php 
             foreach ($listaPedidos as $key => $value) {
@@ -40,15 +41,13 @@ date_default_timezone_set('America/Sao_Paulo');
                 $horaData = $value['data_insercao'];
                 $horaPedido = substr($horaData, 11, 8);
                 $dataAtual = date('Y-m-d');
-
             ?> 
                 <div>
                 <?php 
-                    if ($dataAtual == $dataPedido) {
-                        print 'feito hoje esse pedido' ;?>
-                    <hr>
-                    <p><b>Numero Pedido: </b><?php print $value['id'];?>//</p>
-                    <p><b>Nome: </b><?php print $value['id_cliente'];?>//</p>
+                    if ($dataAtual == $dataPedido) { ?>
+                    
+                    <p><b>Numero Pedido: </b><?php print $value['id'];?></p>
+                    <p><b>Nome: </b><?php print $value['id_cliente'];?></p>
                     <p><b>Telefone: </b>  </p>
                     <p><b>Produto:</b> <?php print $value['produto']; ?></p>
                     <p><b>Observação:</b>                                                  </p>
@@ -56,19 +55,44 @@ date_default_timezone_set('America/Sao_Paulo');
                     <p><b>Endereço: </b>  </p>
                     <p><b>DATA: </b> <?php print $dataPedido; ?></p>
                     <p><b>Hora: </b> <?php print $horaPedido; ?></p>
-                    <?php 
+                    <hr>
+                    <?php
                     } 
-                    else
-                    {
-                        print '<button class="btn btn-danger"> Pedidos Antigos </button>';
-                        //colocar um dialog aqui com os pedidos de outros dias
-                    }
                     ?>
-                    
                 </div>
-                <?php }?> 
+                <?php }                         //colocar um dialog aqui com os pedidos de outros dias ?> 
+                <button id="open" class="btn btn-danger"> Pedidos Antigos </button>
                 
-            </tr>
+                <dialog id="dialog" class="dialogStyle">
+                            <form>
+                                <label for="dataSelecionada">Selecione uma data:</label>
+                                <input type="date" id="dataSelecionada" name="dataSelecionada">
+                                <input type="submit" value="Filtrar">
+                            </form>
+                        <?php 
+                            if ($dataAtual > $dataPedido) { ?>
+                                <p class="container d-flex align-items-center justify-content-center"><b>DATA: </b> <?php print $dataPedido; ?></p>
+                                <p><b>Numero Pedido: </b><?php print $value['id'];?></p>
+                                <p><b>Nome: </b><?php print $value['id_cliente'];?></p>
+                                <p><b>Telefone: </b>  </p>
+                                <p><b>Produto:</b> <?php print $value['produto']; ?></p>
+                                <p><b>Observação:</b></p>
+                                <p><b>Para entrega ? </b>  </p>
+                                <p><b>Endereço: </b>  </p>
+                                <!-- <p><b>Hora: </b> <?php // print $horaPedido; ?></p> !-->
+                            <hr>
+                            <?php
+                            } 
+                            ?>
+
+                    <div class="d-flex  justify-content-center">
+                            <button id="fecharDialog" class="btn btn-danger">
+                                Fechar
+                            </button>
+                    </div>
+
+                </dialog>
+            
         </div>
         </div>
         <div class="col-md-4">
@@ -112,5 +136,6 @@ date_default_timezone_set('America/Sao_Paulo');
         </div>
         
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
