@@ -125,7 +125,10 @@ class Comandos
     
     public function buscarPedidos() // carrega o carrinho, PODE SER UTIL PARA ADMs
     {
-        $query = 'select * from pedidos order by data_insercao desc';
+        $query = 'SELECT pedidos.*, clientes.nome AS nome_do_cliente
+        FROM pedidos
+        JOIN clientes ON pedidos.id_cliente = clientes.id_cliente';
+        //$query = 'select * from pedidos order by data_insercao desc';
         $stmt = $this->conexao->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -250,6 +253,15 @@ class Comandos
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function listaUsuarios()
+    {
+                $verificar = 'select * from clientes';
+                $stmt = $this->conexao->prepare($verificar);
+                $stmt->execute();
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
     public function cadastroUsuario()
     {

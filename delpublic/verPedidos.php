@@ -22,19 +22,22 @@ date_default_timezone_set('America/Sao_Paulo');
     ?>
     <nav id="faixa-menu-adm" style="text-align:center;">
             <ul>
-                <li><a href="verPedidos.php#listaClientes">Clientes</a></li> | 
-                <li><a href="verPedidos.php#motoBoy">Entregas Moto</a></li> | 
+                <li><a class="btn btn-danger" href="verPedidos.php#listaClientes">Clientes</a></li> | 
+                <li><a class="btn btn-danger" href="verPedidos.php#motoBoy">Entregas Moto</a></li> |
+                <li><a id="open" class="btn btn-danger"> Pedidos Antigos </a></li>
             </ul>
     </nav>
     fora container
     <div class="container row">
         <div class="col-md-6">
-        <div class="container testeBorda">
-            <h2 id="tabelaPedidos">Tabela de Pedidos</h2>
+        <div class="container testeBorda rolagem">
+            <h2 id="tabelaPedidos"><b>Tabela de Pedidos</b></h2>
             <p><strong>Pedidos do dia</strong></p>
             <hr>
             <!-- foreach para chamar pedidos !-->
             <?php 
+            $clienteRepete = 'cliente repete?';
+
             foreach ($listaPedidos as $key => $value) {
                 $dataHora = $value['data_insercao'];
                 $dataPedido = substr($dataHora, 0, 10);
@@ -45,70 +48,81 @@ date_default_timezone_set('America/Sao_Paulo');
                 <div>
                 <?php 
                     if ($dataAtual == $dataPedido) { ?>
-                    
-                    <p><b>Numero Pedido: </b><?php print $value['id'];?></p>
-                    <p><b>Nome: </b><?php print $value['id_cliente'];?></p>
-                    <p><b>Telefone: </b>  </p>
-                    <p><b>Produto:</b> <?php print $value['produto']; ?></p>
-                    <p><b>Observação:</b>                                                  </p>
-                    <p><b>Para entrega ? </b>  </p>
-                    <p><b>Endereço: </b>  </p>
-                    <p><b>DATA: </b> <?php print $dataPedido; ?></p>
-                    <p><b>Hora: </b> <?php print $horaPedido; ?></p>
-                    <hr>
-                    <?php
-                    } 
-                    ?>
-                </div>
-                <?php }                         //colocar um dialog aqui com os pedidos de outros dias ?> 
-                <button id="open" class="btn btn-danger"> Pedidos Antigos </button>
-                
-                <dialog id="dialog" class="dialogStyle">
-                            <form>
-                                <label for="dataSelecionada">Selecione uma data:</label>
-                                <input type="date" id="dataSelecionada" name="dataSelecionada">
-                                <input type="submit" value="Filtrar">
-                            </form>
-                        <?php 
-                            if ($dataAtual > $dataPedido) { ?>
-                                <p class="container d-flex align-items-center justify-content-center"><b>DATA: </b> <?php print $dataPedido; ?></p>
-                                <p><b>Numero Pedido: </b><?php print $value['id'];?></p>
-                                <p><b>Nome: </b><?php print $value['id_cliente'];?></p>
-                                <p><b>Telefone: </b>  </p>
-                                <p><b>Produto:</b> <?php print $value['produto']; ?></p>
-                                <p><b>Observação:</b></p>
-                                <p><b>Para entrega ? </b>  </p>
-                                <p><b>Endereço: </b>  </p>
-                                <!-- <p><b>Hora: </b> <?php // print $horaPedido; ?></p> !-->
+                        <?php $cliente = $value['id_cliente'];
+
+                            if ($clienteRepete != $cliente) { ?>
+                               <p class="bg-warning d-flex justify-content-center"><b>Nome : </b><?php print $value['nome_do_cliente']; ?> ID: <?php print $value['id_cliente']?> </p>
+                               <p><b>Telefone: </b>  </p>
+                               <p><b>Endereço: </b>  </p>
+                               <p><b>DATA: </b> <?php print $dataPedido; ?></p> <!-- É necessario colocar a data aqui? !-->
+                            <?php 
+                                $clienteRepete = $cliente;                                
+                            }
+                            ?>        
+                            <p class="bg-primary d-flex justify-content-center"><b>Numero Pedido: </b><?php print $value['id'];?></p>
+                            <p><b>Produto:</b> <?php print $value['produto']; ?></p>
+                            <p><b>Observação:</b>                                                  </p>
+                            <p><b>Para entrega ? </b>  </p>
+                            <p><b>Hora: </b> <?php print $horaPedido; ?></p>
                             <hr>
                             <?php
                             } 
                             ?>
+                </div>
+                            <dialog id="dialog" class="dialogStyle">
+                                        <form>
+                                            <label for="dataSelecionada">Selecione uma data:</label>
+                                            <input type="date" id="dataSelecionada" name="dataSelecionada">
+                                            <input type="submit" value="Filtrar">
+                                        </form>
+                                    <?php 
+                                        if ($dataAtual > $dataPedido) { ?>
+                                            <p class="container d-flex align-items-center justify-content-center"><b>DATA: </b> <?php print $dataPedido; ?></p>
+                                                <p class="bg-warning d-flex justify-content-center"><b>Nome : </b><?php print $value['nome_do_cliente']; ?> ID: <?php print $value['id_cliente']?></p>
+                                                <p><b>Telefone: </b>  </p>
+                                                <p><b>Endereço: </b>  </p>
+                                                <p><b>DATA: </b> <?php print $dataPedido; ?></p>
+                                            
+                                                <p class="bg-primary d-flex justify-content-center"><b>Numero Pedido: </b><?php print $value['id'];?></p>
+                                                <p><b>Produto:</b> <?php print $value['produto']; ?></p>
+                                                <p><b>Observação:</b>                                                  </p>
+                                                <p><b>Para entrega ? </b>  </p>
+                                                <p><b>Hora: </b> <?php print $horaPedido; ?></p>
+                                                <hr>
+                                                <?php
+                                                } 
+                                                ?>
 
-                    <div class="d-flex  justify-content-center">
-                            <button id="fecharDialog" class="btn btn-danger">
-                                Fechar
-                            </button>
-                    </div>
-
-                </dialog>
+                                <div class="d-flex  justify-content-center">
+                                        <button id="fecharDialog" class="btn btn-danger">
+                                            Fechar
+                                        </button>
+                                </div>
+                            </dialog>
+                <?php }                         //colocar um dialog aqui com os pedidos de outros dias ?> 
+                
             
         </div>
         </div>
         <div class="col-md-4">
-        <div class="container testeBorda">
+        <div class="container testeBorda rolagem">
             <table>
-                <tr class="testeBorda"><h2 id="listaClientes">Lista de Clientes</h2>
+                <b><tr class="testeBorda"><h2 id="listaClientes">Lista de Clientes</h2></b>
                 <!-- foreach para chamar todos os clientes que ja fizeram pedido !-->
-                    <p>Nome  //</p>
-                    <p>Telefone  //</p>
-                    <p>numero de pedidos  //</p>
-                    <p>Observação:</p>
+                <?php 
+                    foreach ($listaClientes as $key => $valor) { ?>
+                        <p class="bg-success d-flex justify-content-center text-white"><b><?php print $valor['nome']; ?> ID: <?php print $valor['id_cliente'] ?></b></p>
+                        <p><b> Telefone: <?php print $valor['telefone']; ?> </b></p>
+                        <p><b>Observação sobre cliente: </b></p>
+                        <hr>
+                    <?php }
+                ?>
                 </tr>
             </table>
         </div>
         </div>
     </div>
+                
     <div class="container testeBorda">
         <div class="row">
             <div class="col-md-6">
@@ -134,6 +148,10 @@ date_default_timezone_set('America/Sao_Paulo');
                 </table>
             </div>
         </div>
+
+        <!-- DIALOG PEDIDOS ANTIGOS!-->
+
+                    
         
     </div>
     <script src="script.js"></script>

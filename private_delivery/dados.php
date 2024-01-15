@@ -163,6 +163,7 @@ if ($acao == 'inserir') {
 }   else  if ($acao == 'verPedidos') {
 
         $listaPedidos = $comandos->buscarPedidos();
+        $listaClientes = $comandos->listaUsuarios();
 
         //header('location: index.php');
     
