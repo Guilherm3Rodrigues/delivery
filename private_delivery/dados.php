@@ -153,6 +153,7 @@ if ($acao == 'inserir') {
             $admCardapio->__set('categoria',$value['categoria']);
             $admCardapio->__set('numero_pedido',$value['numero_pedido']);
             $admCardapio->__set('idCliente',$cliente[0]['id_cliente']);
+            $admCardapio->__set('frete',$_SESSION['freteFinal']);
 
             $comandos->finalizarPedido();
         }

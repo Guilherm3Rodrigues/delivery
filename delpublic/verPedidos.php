@@ -5,6 +5,10 @@ ini_set('display_errors', 1);
 $acao = 'verPedidos';
 include('ponteInfo.php');
 date_default_timezone_set('America/Sao_Paulo');
+
+if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
+    header('Location: index.php?erro=2');
+}
 ?>
 
 <html lang="en">

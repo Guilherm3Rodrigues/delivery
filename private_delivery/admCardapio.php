@@ -11,6 +11,7 @@ class AdmCardapio
     private $numero_pedido;  // quantos do mesmo pedido a pessoa fez
     private $idCliente;  // para identificar quem é o dono do pedido
     private $ordem; //referente a ordem das categorias no cardapio
+    private $frete;
     
     public function __set($atributo, $valor) 
     {

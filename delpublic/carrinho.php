@@ -24,9 +24,12 @@
             location.href = 'carrinho.php?acao=removerCarrinho&&id='+id + '&&qtd='+qtd;
         }
 
-        function limparCarrinho () 
+        function confirmarLimparCarrinho () 
         {
+            var confirmar = confirm("Você tem certeza que deseja limpar o carrinho?");
+            if (confirmar) {
             location.href = 'carrinho.php?acao=limparCarrinho';
+            }
         }
     
         function atribuirValor() 
@@ -97,7 +100,7 @@
                 
                 <h3><li>Total: R$ <?php print $valorTotal?></li></h3> <!-- VALOR TOTAL -->
             </div>
-                    <button class="btn btn-danger" onclick="limparCarrinho()">Limpar Carrinho</button>
+                    <button class="btn btn-danger" onclick="return confirmarLimparCarrinho()">Limpar Carrinho</button>
         </div>
         </div>
         </div>
@@ -111,61 +114,55 @@
     <h2 class="d-flex justify-content-center"><strong>Informações do Cliente</strong></h2>
     <br>
 
-
-    <div class="row container d-flex justify-content-center">
-        
-        <form action="" method="post" class="col-md-auto">
-            <ul>
-                <label class="row">Rua e Numero</label><input placeholder="Ex: Av. JK, 350"></input>
-                <label class="row">Bairro</label><input placeholder="Ex: Centro"></input>
-                <label class="row">Complemento</label><input placeholder="Ex: Proximo a Loterica"></input>
-            </ul>
-        </form>
-
-        <div class="col-md-auto  borda ">
-            
-            <h3>Entregar? </h3>
-            <form id="formularioEntrega" action="carrinho.php?acao=recuperarPedidos" method="POST">
-                <label class="btn btn-danger">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="borda col-md-auto">
                     
-                    <input type="radio" name="entrega" value="<?php print $_SESSION['frete']?>" onclick="atribuirValor()" 
-                    <?php print ($_SESSION['freteFinal'] != 0) ? 'checked' : ''; ?>> SIM - R$<?php print $_SESSION['frete']?>
-                    <input type="hidden" id="botaoNomeSim" name="botaoNomeSim" value=""> 
-                </label>
+                    <h3 id="entregar" class="d-flex justify-content-center">Entregar? </h3>
+                    <form id="formularioEntrega" action="carrinho.php?acao=recuperarPedidos" method="POST">
+                        <label class="btn btn-danger">
+                            
+                            <input type="radio" name="entrega" value="<?php print $_SESSION['frete']?>" onclick="atribuirValor()" 
+                            <?php print ($_SESSION['freteFinal'] != 0) ? 'checked' : ''; ?>> SIM - R$<?php print $_SESSION['frete']?>
+                            <input type="hidden" id="botaoNomeSim" name="botaoNomeSim" value=""> 
+                        </label>
 
-                <br>
-                <br>
+                        <br>
+                        <br>
 
-                <label class="btn btn-danger">
-                    
-                    <input type="radio" name="entrega" value="0" onclick="atribuirValor()" 
-                    <?php print ($_SESSION['freteFinal'] == 0) ? 'checked' : ''; ?>> NÃO, Retirar no local - R$0
-                    <input type="hidden" id="botaoNomeNao" name="botaoNomeNao" value="">
-                </label>
-                <input type="submit" style="display:none;">
+                        <label class="btn btn-danger">
+                            <input type="radio" name="entrega" value="0" onclick="atribuirValor()" 
+                            <?php print ($_SESSION['freteFinal'] == 0) ? 'checked' : ''; ?>> NÃO, Retirar no local - R$0
+                            <input type="hidden" id="botaoNomeNao" name="botaoNomeNao" value="">
+                        </label>
 
-            </form>
-       
-
+                        <input type="submit" style="display:none;">
+                    </form>
+            </div>
         </div>
+        <div class="row d-flex justify-content-center">
+            <div class="borda col-md-auto">
+                <form id="myForm" method="POST" action="carrinho.php?acao=pedido_enviado">
 
-        <form id="myForm" method="POST" action="carrinho.php?acao=pedido_enviado" class="col-md-auto">
-
-            <ul>
-                <label class="row" require>Nome</label>
-                <input id="nomeCliente" name="nomeCliente" class="form-control" placeholder="EX: Cayo Rodrigues" required></input>
+                        <ul>
+                            <label class="row">Rua e Numero</label><input placeholder="Ex: Av. JK, 350"></input>
+                            <label class="row">Bairro</label><input placeholder="Ex: Centro"></input>
+                            <label class="row">Complemento</label><input placeholder="Ex: Proximo a Loterica"></input>
+                        </ul>
                 
-                <label class="row" require>Telefone</label>
-                <input id="telefoneCliente" name="telefoneCliente" class="form-control" placeholder="EX: 35 9 8899-9749" required></input>
-                
-            </ul>
-
-            <button class="btn btn-dark margem-endereco"><strong>Finalizar</strong></button>
-
-        </form>
-        
-        
-
+                        <ul>
+                            <label class="row" require>Nome</label>
+                            <input id="nomeCliente" name="nomeCliente" class="form-control" placeholder="EX: Cayo Rodrigues" required></input>
+                            
+                            <label class="row" require>Telefone</label>
+                            <input id="telefoneCliente" name="telefoneCliente" class="form-control" placeholder="EX: 35 9 8899-9749" required></input>
+                        </ul>
+                    <div class="container d-flex justify-content-center">
+                        <button class="btn btn-dark"><strong>Finalizar</strong></button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <div class="container">
