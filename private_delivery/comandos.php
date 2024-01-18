@@ -276,11 +276,16 @@ class Comandos
                     } 
                 else 
                     { //inserindo cliente em db
-                    $usuario = "insert into clientes(nome, telefone) values (:nome, :telefone)";
+                    $usuario = "insert into clientes(nome, telefone, rua, numero, bairro, complemento) values (:nome, :telefone, :rua, :numero, :bairro, :complemento)";
                     $stmt = $this->conexao->prepare($usuario);
                     $stmt->bindValue(':nome', $this->cardapio->__get('nome'));
                     $stmt->bindValue(':telefone', $this->cardapio->__get('telefone'));
+                    $stmt->bindValue(':rua', $this->cardapio->__get('rua'));
+                    $stmt->bindValue(':numero', $this->cardapio->__get('numero'));
+                    $stmt->bindValue(':bairro', $this->cardapio->__get('bairro'));
+                    $stmt->bindValue(':complemento', $this->cardapio->__get('complemento'));
                     $stmt->execute();
+                    
                     //puxando dados após inseridos
                     $verificar = 'select * from clientes where telefone = :telefoneCliente';
                     $stmt = $this->conexao->prepare($verificar);

@@ -59,6 +59,10 @@ class Usuarios
     private $usuario;
     private $senha;
     private $sessao;
+    private $rua;
+    private $numero;
+    private $bairro;
+    private $complemento;
     
     public function __set($atributo, $valor) 
     {

@@ -1,5 +1,5 @@
 <?php
-$parametros = ['httponly' => true, 'lifetime' => 21600];
+$parametros = ['httponly' => true, 'lifetime' => 86400];
 session_set_cookie_params($parametros);
 session_start();
 error_reporting(E_ALL);
@@ -140,10 +140,25 @@ if ($acao == 'inserir') {
 
     if ($acao == 'pedido_enviado' && isset($_POST['nomeCliente']) && isset($_POST['telefoneCliente'])) {
 
+        $end = strlen($_POST['rua']);
+        $num = strlen($_POST['numero']);
+        $bairro = strlen($_POST['bairro']);
+
+            if (!$_POST['entrega'] == 0) {
+                if ($end < 3 || $bairro < 3 || $num == 0) {
+                    header('location: carrinho.php?acao=recuperarPedidos&&erro=1');
+                }
+            }
+
+        $usuarios->__set('rua', $_POST['rua']);
+        $usuarios->__set('numero', $_POST['numero']);
+        $usuarios->__set('bairro', $_POST['bairro']);
+        $usuarios->__set('complemento', $_POST['complemento']);
         $usuarios->__set('nome', $_POST['nomeCliente']);
         $usuarios->__set('telefone', $_POST['telefoneCliente']);
-        
+
         $cliente = $comandosUsuarios->cadastroUsuario();
+
         
         foreach ($_SESSION['itens'] as $key => $value) {
             $admCardapio->__set('id',$value['id']);
@@ -158,7 +173,7 @@ if ($acao == 'inserir') {
             $comandos->finalizarPedido();
         }
 
-        include('whats.php');
+        include('whats.php'); 
 
 }
 }   else  if ($acao == 'verPedidos') {
