@@ -272,7 +272,32 @@ class Comandos
                 $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 if  ($retorno) {
-                        return $retorno;
+                    
+                    $usuario = "UPDATE clientes 
+                                SET nome = :nome, 
+                                    rua = :rua, 
+                                    numero = :numero, 
+                                    bairro = :bairro, 
+                                    complemento = :complemento 
+                                WHERE telefone = :telefoneCliente";
+                    $stmt = $this->conexao->prepare($usuario);
+                    $stmt->bindValue(':nome', $this->cardapio->__get('nome'));
+                    $stmt->bindValue(':telefoneCliente', $this->cardapio->__get('telefone'));
+                    $stmt->bindValue(':rua', $this->cardapio->__get('rua'));
+                    $stmt->bindValue(':numero', $this->cardapio->__get('numero'));
+                    $stmt->bindValue(':bairro', $this->cardapio->__get('bairro'));
+                    $stmt->bindValue(':complemento', $this->cardapio->__get('complemento'));
+                    $stmt->execute();
+                    
+                    //puxando dados após atualizados
+                    $verificar = 'select * from clientes where telefone = :telefoneCliente';
+                    $stmt = $this->conexao->prepare($verificar);
+                    $stmt->bindValue(':telefoneCliente', $this->cardapio->__get('telefone'));
+                    $stmt->execute();
+                    $update = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                        return $update;
+                    
                     } 
                 else 
                     { //inserindo cliente em db

@@ -102,7 +102,7 @@
 
             <div class="d-flex justify-content-center"> 
                 
-                <ul class="list-group mr-3">
+                <ul class="list-group mr-3 shadow p-4 mb-4 bg-white rounded">
 
                                     <!--  ============ TABELA DE PEDIDOS FEITOS ============================   -->
                     <?php // PHP =============================================
@@ -162,7 +162,7 @@
 
     <div class="container">
         <div class="row d-flex justify-content-center">
-            <div class="borda col-md-6"> <!-- vale a pena? !-->
+            <div class="borda col-md-6 shadow p-4 mb-4 bg-white rounded"> <!-- vale a pena? !-->
                     
             <h2 id="entregar" class="d-flex justify-content-center">Entregar?</h2>
                     <br>

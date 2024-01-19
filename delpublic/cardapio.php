@@ -127,7 +127,7 @@ $_SESSION['freteFinal'] = 0;
 
         <?php  // PHP ============================================= ;
         } else { ?>
-            <div class="container row mx-auto">
+            <div class="container row mx-auto shadow p-4 mb-4 bg-white rounded">
                 <h3 id="scroll_<?php print $produto->id ?>" class="text-center"><?php print $produto->produto ?></h3>
                 <div class="col-md-auto justify-content-start d-flex align-items-center">
                     <img src="imagens/logo-index.png" class="img-produtos2 position-relative borda-img img-thumbnail" alt="Imagem Produto"></td>
