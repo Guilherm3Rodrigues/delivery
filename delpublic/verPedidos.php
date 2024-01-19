@@ -9,6 +9,10 @@ date_default_timezone_set('America/Sao_Paulo');
 if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
     header('Location: index.php?erro=2');
 }
+
+    foreach ($listaClientes as $key => $value) {
+        $_SESSION['endCliente'][$value['id_cliente']] = $value;
+    }
 ?>
 
 <html lang="en">
@@ -53,11 +57,14 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                 <?php 
                     if ($dataAtual == $dataPedido) { ?>
                         <?php $cliente = $value['id_cliente'];
+                              $telefone = $_SESSION['endCliente'][$cliente]['telefone']; 
+                              $rua = $_SESSION['endCliente'][$cliente]['rua']; 
+                              $numero = $_SESSION['endCliente'][$cliente]['numero']; 
 
                             if ($clienteRepete != $cliente) { ?>
                                <p class="bg-warning d-flex justify-content-center"><b>Nome : </b><?php print $value['nome_do_cliente']; ?> ID: <?php print $value['id_cliente']?> </p>
-                               <p><b>Telefone: </b>  </p>
-                               <p><b>Endereço: </b>  </p>
+                               <p><b>Telefone:</b> <?php print $telefone ?>  </p>
+                               <p><b>Endereço:</b> <?php print $rua ?> Nº <?php print $numero ?>  </p>
                                <p><b>DATA: </b> <?php print $dataPedido; ?></p> <!-- É necessario colocar a data aqui? !-->
                             <?php 
                                 $clienteRepete = $cliente;                                
