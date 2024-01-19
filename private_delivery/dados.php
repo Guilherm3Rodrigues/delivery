@@ -26,123 +26,112 @@ if (strpos($index, 'index.php') !== false || strpos($index, 'cardapio.php') !== 
     $_SESSION = array_merge($_SESSION, $info);
 }
 
-if ($acao == 'inserir') {
-    
-    $admCardapio->__set('categoria', $_POST['categoria']);
-    $admCardapio->__set('produto', $_POST['produto']);
-    $admCardapio->__set('descricao', $_POST['descricao']);
-    $admCardapio->__set('valor', $_POST['valor']);
-    $admCardapio->__set('ordem', $_POST['ordem']);
+switch ($acao) {
 
-    $comandos->inserir();
+    case 'inserir':
+        $admCardapio->__set('categoria', $_POST['categoria']);
+        $admCardapio->__set('produto', $_POST['produto']);
+        $admCardapio->__set('descricao', $_POST['descricao']);
+        $admCardapio->__set('valor', $_POST['valor']);
+        $admCardapio->__set('ordem', $_POST['ordem']);
+        $comandos->inserir();
+        header('Location: admControl.php?inclusao=1#ordemEAdd');
+        break;
 
-    header('Location: admControl.php?inclusao=1#ordemEAdd');
+    case 'inserirInfo':
+        $admInfo->__set('nome', $_POST['nome']);
+        $admInfo->__set('telefone', $_POST['telefone']);
+        $admInfo->__set('rua', $_POST['rua']);
+        $admInfo->__set('bairro', $_POST['bairro']);
+        $admInfo->__set('dia_inicial', $_POST['dia_inicial']);
+        $admInfo->__set('dia_final', $_POST['dia_final']);
+        $admInfo->__set('hor_funcionamento_ini', $_POST['hor_funcionamento_ini']);
+        $admInfo->__set('hor_funcionamento_fec', $_POST['hor_funcionamento_fec']);
+        $admInfo->__set('frete', $_POST['frete']);
+        $comandosInfo->inserirInfo();
+        header('Location: admControl.php?inclusao=2');
+        break;
 
-} else if ($acao == 'inserirInfo') {
-    $admInfo->__set('nome', $_POST['nome']);
-    $admInfo->__set('telefone', $_POST['telefone']);
-    $admInfo->__set('rua', $_POST['rua']);
-    $admInfo->__set('bairro', $_POST['bairro']);
-    $admInfo->__set('dia_inicial', $_POST['dia_inicial']);
-    $admInfo->__set('dia_final', $_POST['dia_final']);
-    $admInfo->__set('hor_funcionamento_ini', $_POST['hor_funcionamento_ini']);
-    $admInfo->__set('hor_funcionamento_fec', $_POST['hor_funcionamento_fec']);
-    $admInfo->__set('frete', $_POST['frete']);
+    case 'recuperar':
+    case 'adminVisualizacao':
+    case 'Atualizar':
 
-    $comandosInfo->inserirInfo();
+        $listaCardapio = $comandos->buscar();
 
-    header('Location: admControl.php?inclusao=2');
+        if (isset($_GET['id'])) {
+            $admCardapio->__set('id', $_GET['id']);
+            $id = $_GET['id'];
+            $comandos->pre_carrinho();
+            header('location: cardapio.php#scroll_' . $id);
+        }
 
-} else  if (isset($_POST['id_remover']) && $_POST['id_remover'] != null && $_SERVER["REQUEST_METHOD"] == "POST") {
-    $admCardapio->__set('id', $_POST['id_remover']);
-    $comandos->remover();
+        if (isset($_POST['id'])) {
+            $admCardapio->__set('id', $_POST['id']);
 
-    header('Location: cardapio.php?acao=Atualizar');
+            if (isset($_POST['descricao'])) {
+                $admCardapio->__set('descricao', $_POST['descricao']);
+            }
+            if (isset($_POST['valor'])) {
+                $admCardapio->__set('valor', $_POST['valor']);
+            }
+            if (isset($_POST['produto'])) {
+                $admCardapio->__set('produto', $_POST['produto']);
+            }
+            if (isset($_POST['categoria'])) {
+                $admCardapio->__set('categoria', $_POST['categoria']);
+            }
+            $comandos->editar();
+            header('location: cardapio.php?acao=Atualizar');
+        }
+        break;
 
-} else  if ($acao == 'recuperar'  || $acao == 'adminVisualizacao'  || $acao == 'Atualizar') {
-    $listaCardapio = $comandos->buscar();
-    
+    case 'limparCarrinho':
+        $comandos->limparCarrinho();
+        break;
 
-    if (isset($_GET['id'])) {
+    case 'atualizarOrdem':
+        $ordem = $_POST['ordem'];
+        $countTotal = count($ordem);
+        $verificacaoRepetir = array_count_values($ordem);
+        $countVerificacao = count($verificacaoRepetir);
+
+        if ($countTotal == $countVerificacao) {
+            foreach ($ordem as $key => $valor) {
+                $admCardapio->__set('categoria', $key);
+                $admCardapio->__set('ordem', $valor);
+                $comandos->editarOrdem();
+            }
+            header('Location: admControl.php#ordemEAdd');
+        } else {
+            ?>
+            <script>
+                alert('NÃO REPITA OS NÚMEROS, necessário números únicos para ordem do Cardápio');
+                location.href = 'admControl.php#ordemEAdd';
+            </script>
+            <?php
+        }
+        break;
+
+    case 'removerCarrinho':
         $admCardapio->__set('id', $_GET['id']);
-        $id = $_GET['id'];
-        $comandos->pre_carrinho();
-        //$retornos = $comandos->add_carrinho();
+        $admCardapio->__set('numero_pedido', $_GET['qtd']);
+        $comandos->editarCarrinho();
+        header('location: carrinho.php?acao=recuperarPedidos');
+        break;
 
-        header('location: cardapio.php#scroll_' . $id);
-    }
+    case 'pedido_enviado':
+    case 'recuperarPedidos':
+        $_POST['entrega'] = isset($_POST['entrega']) ? $_POST['entrega'] : 0;
 
-    if (isset($_POST['id'])) {
-        $admCardapio->__set('id', $_POST['id']);
+        if ($acao == 'pedido_enviado' && isset($_POST['nomeCliente']) && isset($_POST['telefoneCliente'])) {
 
-        if (isset($_POST['descricao'])) {
-            $admCardapio->__set('descricao', $_POST['descricao']);
-        }
-        if (isset($_POST['valor'])) {
-            $admCardapio->__set('valor', $_POST['valor']);
-        }
-        if (isset($_POST['produto'])) {
-            $admCardapio->__set('produto', $_POST['produto']);
-        }
-        if (isset($_POST['categoria'])) {
-            $admCardapio->__set('categoria', $_POST['categoria']);
-        }
+            if (!$_SESSION['itens']) {
+                header('location: carrinho.php?acao=recuperarPedidos&&erro=0');
+            }
 
-        $comandos->editar();
-        header('location: cardapio.php?acao=Atualizar');
-        
-        
-    }
-
-} else  if ($acao == 'limparCarrinho') {
-    $comandos->limparCarrinho();
-
-    
-
-} else  if ($acao == 'atualizarOrdem') {
-    
-    $ordem = $_POST['ordem'];
-    $countTotal = count($ordem);
-    $verificacaoRepetir = array_count_values($ordem);
-    $countVerificacao = count($verificacaoRepetir);
-
-    if ($countTotal == $countVerificacao) {
-        foreach ($ordem as $key => $valor) {
-            $admCardapio->__set('categoria', $key);
-            $admCardapio->__set('ordem', $valor);
-    
-            $comandos->editarOrdem();
-        }
-        header('Location: admControl.php#ordemEAdd');
-    } 
-    else 
-    {
-        ?>
-        <script>
-            alert('NÃO REPITA OS NUMEROS, necessario numeros unicos para ordem do Cardapio');
-            location.href = 'admControl.php#ordemEAdd';
-        </script>
-        <?php 
-        
-    }
-
-} else  if ($acao == 'removerCarrinho') {
-    $admCardapio->__set('id', $_GET['id']);
-    $admCardapio->__set('numero_pedido', $_GET['qtd']);
- 
-    $comandos->editarCarrinho();
-
-    header('location: carrinho.php?acao=recuperarPedidos');
-
-} else  if ($acao == 'pedido_enviado' || $acao == 'recuperarPedidos') {
-
-    $_POST['entrega'] = isset($_POST['entrega']) ? $_POST['entrega'] : 0;
-
-    if ($acao == 'pedido_enviado' && isset($_POST['nomeCliente']) && isset($_POST['telefoneCliente'])) {
-
-        $end = strlen($_POST['rua']);
-        $num = strlen($_POST['numero']);
-        $bairro = strlen($_POST['bairro']);
+            $end = strlen($_POST['rua']);
+            $num = strlen($_POST['numero']);
+            $bairro = strlen($_POST['bairro']);
 
             if (!$_POST['entrega'] == 0) {
                 if ($end < 3 || $bairro < 3 || $num == 0) {
@@ -150,41 +139,41 @@ if ($acao == 'inserir') {
                 }
             }
 
-        $usuarios->__set('rua', $_POST['rua']);
-        $usuarios->__set('numero', $_POST['numero']);
-        $usuarios->__set('bairro', $_POST['bairro']);
-        $usuarios->__set('complemento', $_POST['complemento']);
-        $usuarios->__set('nome', $_POST['nomeCliente']);
-        $usuarios->__set('telefone', $_POST['telefoneCliente']);
+            $usuarios->__set('rua', $_POST['rua']);
+            $usuarios->__set('numero', $_POST['numero']);
+            $usuarios->__set('bairro', $_POST['bairro']);
+            $usuarios->__set('complemento', $_POST['complemento']);
+            $usuarios->__set('nome', $_POST['nomeCliente']);
+            $usuarios->__set('telefone', $_POST['telefoneCliente']);
 
-        $cliente = $comandosUsuarios->cadastroUsuario();
+            $cliente = $comandosUsuarios->cadastroUsuario();
 
-        
-        foreach ($_SESSION['itens'] as $key => $value) {
-            $admCardapio->__set('id',$value['id']);
-            $admCardapio->__set('produto',$value['produto']);
-            $admCardapio->__set('descricao',$value['descricao']);
-            $admCardapio->__set('valor',$value['valor']);
-            $admCardapio->__set('categoria',$value['categoria']);
-            $admCardapio->__set('numero_pedido',$value['numero_pedido']);
-            $admCardapio->__set('idCliente',$cliente[0]['id_cliente']);
-            $admCardapio->__set('frete',$_SESSION['freteFinal']);
+            foreach ($_SESSION['itens'] as $key => $value) {
+                $admCardapio->__set('id', $value['id']);
+                $admCardapio->__set('produto', $value['produto']);
+                $admCardapio->__set('descricao', $value['descricao']);
+                $admCardapio->__set('valor', $value['valor']);
+                $admCardapio->__set('categoria', $value['categoria']);
+                $admCardapio->__set('numero_pedido', $value['numero_pedido']);
+                $admCardapio->__set('idCliente', $cliente[0]['id_cliente']);
+                $admCardapio->__set('frete', $_SESSION['freteFinal']);
+                $comandos->finalizarPedido();
+            }
 
-            $comandos->finalizarPedido();
+            include('whats.php');
         }
+        break;
 
-        include('whats.php'); 
-
-}
-}   else  if ($acao == 'verPedidos') {
-
+    case 'verPedidos':
         $listaPedidos = $comandos->buscarPedidos();
         $listaClientes = $comandos->listaUsuarios();
+        
+        break;
 
-        //header('location: index.php');
-    
+    default:
+        // Tratamento para outros casos, se necessário
 }
 
- include('Login.php');
+include('Login.php');
 ?>
 

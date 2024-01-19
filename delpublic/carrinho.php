@@ -80,6 +80,13 @@
         </div>
     <?php 
     }?>
+    <?php if(isset($_GET['erro']) && $_GET['erro'] == 0) 
+    {?>
+        <div class="bg-warning pt-2 text-white d-flex justify-content-center">
+            <h3>O CARRINHO ESTA VAZIO</h3>
+        </div>
+    <?php 
+    }?>
     <?php if(isset($_GET['erro']) && $_GET['erro'] == 1) 
     {?>
         <div class="bg-warning pt-2 text-white d-flex justify-content-center">
