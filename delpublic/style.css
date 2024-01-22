@@ -1,14 +1,15 @@
 .body {
     /*background-color:rgb(36, 33, 33);*/
-    background-color: rgb(211, 211, 211);
+    background-color: rgb(231, 229, 229);
+    overflow-x: hidden;
 
 }
+
 
 @media screen and (min-width: 768px) {
     .img {
         width: 50%;
         height: auto;
-    
     }
 }
 
@@ -105,8 +106,6 @@
         padding: 5px;
     }
     }
-
-
 
 .icone-seguidor img {
     width: 32px;
