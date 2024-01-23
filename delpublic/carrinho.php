@@ -131,7 +131,7 @@
                     }
                 }
                         include('valorTotal.php');
-                        $valorTotal = $valorSomado + $_SESSION['freteFinal'];    
+                        $valorTotal = $valorSomado ;//+ $_SESSION['freteFinal'];    
                         
                         
                         

@@ -129,6 +129,7 @@ switch ($acao) {
                 header('location: carrinho.php?acao=recuperarPedidos&&erro=0');
             }
 
+            $frete = $_POST['entrega'];
             $end = strlen($_POST['rua']);
             $num = strlen($_POST['numero']);
             $bairro = strlen($_POST['bairro']);
@@ -155,7 +156,7 @@ switch ($acao) {
                     $admCardapio->__set('categoria', $value['categoria']);
                     $admCardapio->__set('numero_pedido', $value['numero_pedido']);
                     $admCardapio->__set('idCliente', $cliente[0]['id_cliente']);
-                    $admCardapio->__set('frete', $_SESSION['freteFinal']);
+                    $admCardapio->__set('frete', $frete);
                     $comandos->finalizarPedido();
                 }
                 }
@@ -180,7 +181,7 @@ switch ($acao) {
                     $admCardapio->__set('categoria', $value['categoria']);
                     $admCardapio->__set('numero_pedido', $value['numero_pedido']);
                     $admCardapio->__set('idCliente', $cliente[0]['id_cliente']);
-                    $admCardapio->__set('frete', $_SESSION['freteFinal']);
+                    $admCardapio->__set('frete', $frete);
                     $comandos->finalizarPedido();
                 }
             }
