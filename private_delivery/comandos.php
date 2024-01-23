@@ -225,8 +225,8 @@ class Comandos
             $pedido[$id] = $resultado;
         }
 
-        $query = 'INSERT INTO pedidos (img, produto, descricao, valor, categoria, numero_pedido, id_cliente)
-        values (:img, :produto, :descricao, :valor, :categoria, :numero_pedido, :idCliente)';
+        $query = 'INSERT INTO pedidos (img, produto, descricao, valor, categoria, numero_pedido, id_cliente, entrega)
+        values (:img, :produto, :descricao, :valor, :categoria, :numero_pedido, :idCliente, :entrega)';
         $stmt2 = $this->conexao->prepare($query);
         $stmt2->bindValue(':img', $this->cardapio->__get('img'));
         $stmt2->bindValue(':produto', $this->cardapio->__get('produto'));
@@ -235,6 +235,7 @@ class Comandos
         $stmt2->bindValue(':categoria', $this->cardapio->__get('categoria'));
         $stmt2->bindValue(':numero_pedido', $this->cardapio->__get('numero_pedido'));
         $stmt2->bindValue(':idCliente', $this->cardapio->__get('idCliente'));
+        $stmt2->bindValue(':entrega', $this->cardapio->__get('frete'));
         $stmt2->execute();
     }
     

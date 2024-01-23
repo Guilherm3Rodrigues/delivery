@@ -171,8 +171,6 @@
                         <label class="btn btn-danger">
                             <input type="radio" name="entrega" value="<?php print $_SESSION['frete']?>" 
                             <?php print ($_SESSION['freteFinal'] != 0) ? 'checked' : ''; ?>> <b>SIM</b> (R$<?php print $_SESSION['frete']?>)
-                            
-                            
                         </label>
                         
                         <br>

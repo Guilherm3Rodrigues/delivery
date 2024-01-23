@@ -134,30 +134,55 @@ switch ($acao) {
             $bairro = strlen($_POST['bairro']);
 
             if (!$_POST['entrega'] == 0) {
-                if ($end < 3 || $bairro < 3 || $num == 0) {
+                if ($end < 2 || $bairro < 2 || $num == 0) {
                     header('location: carrinho.php?acao=recuperarPedidos&&erro=1');
+                } else 
+                {
+                $usuarios->__set('rua', $_POST['rua']);
+                $usuarios->__set('numero', $_POST['numero']);
+                $usuarios->__set('bairro', $_POST['bairro']);
+                $usuarios->__set('complemento', $_POST['complemento']);
+                $usuarios->__set('nome', $_POST['nomeCliente']);
+                $usuarios->__set('telefone', $_POST['telefoneCliente']);
+
+                $cliente = $comandosUsuarios->cadastroUsuario();
+
+                foreach ($_SESSION['itens'] as $key => $value) {
+                    $admCardapio->__set('id', $value['id']);
+                    $admCardapio->__set('produto', $value['produto']);
+                    $admCardapio->__set('descricao', $value['descricao']);
+                    $admCardapio->__set('valor', $value['valor']);
+                    $admCardapio->__set('categoria', $value['categoria']);
+                    $admCardapio->__set('numero_pedido', $value['numero_pedido']);
+                    $admCardapio->__set('idCliente', $cliente[0]['id_cliente']);
+                    $admCardapio->__set('frete', $_SESSION['freteFinal']);
+                    $comandos->finalizarPedido();
                 }
-            }
+                }
+            } 
+            else
+            {
 
-            $usuarios->__set('rua', $_POST['rua']);
-            $usuarios->__set('numero', $_POST['numero']);
-            $usuarios->__set('bairro', $_POST['bairro']);
-            $usuarios->__set('complemento', $_POST['complemento']);
-            $usuarios->__set('nome', $_POST['nomeCliente']);
-            $usuarios->__set('telefone', $_POST['telefoneCliente']);
+                $usuarios->__set('rua', $_POST['rua']);
+                $usuarios->__set('numero', $_POST['numero']);
+                $usuarios->__set('bairro', $_POST['bairro']);
+                $usuarios->__set('complemento', $_POST['complemento']);
+                $usuarios->__set('nome', $_POST['nomeCliente']);
+                $usuarios->__set('telefone', $_POST['telefoneCliente']);
 
-            $cliente = $comandosUsuarios->cadastroUsuario();
+                $cliente = $comandosUsuarios->cadastroUsuario();
 
-            foreach ($_SESSION['itens'] as $key => $value) {
-                $admCardapio->__set('id', $value['id']);
-                $admCardapio->__set('produto', $value['produto']);
-                $admCardapio->__set('descricao', $value['descricao']);
-                $admCardapio->__set('valor', $value['valor']);
-                $admCardapio->__set('categoria', $value['categoria']);
-                $admCardapio->__set('numero_pedido', $value['numero_pedido']);
-                $admCardapio->__set('idCliente', $cliente[0]['id_cliente']);
-                $admCardapio->__set('frete', $_SESSION['freteFinal']);
-                $comandos->finalizarPedido();
+                foreach ($_SESSION['itens'] as $key => $value) {
+                    $admCardapio->__set('id', $value['id']);
+                    $admCardapio->__set('produto', $value['produto']);
+                    $admCardapio->__set('descricao', $value['descricao']);
+                    $admCardapio->__set('valor', $value['valor']);
+                    $admCardapio->__set('categoria', $value['categoria']);
+                    $admCardapio->__set('numero_pedido', $value['numero_pedido']);
+                    $admCardapio->__set('idCliente', $cliente[0]['id_cliente']);
+                    $admCardapio->__set('frete', $_SESSION['freteFinal']);
+                    $comandos->finalizarPedido();
+                }
             }
 
             include('whats.php');

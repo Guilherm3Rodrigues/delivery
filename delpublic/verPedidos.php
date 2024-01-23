@@ -45,6 +45,7 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
             <!-- foreach para chamar pedidos !-->
             <?php 
             $clienteRepete = 'cliente repete?';
+            $horarioRepete = 'horario repete?';
 
             foreach ($listaPedidos as $key => $value) {
                 $dataHora = $value['data_insercao'];
@@ -60,14 +61,19 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                               $telefone = $_SESSION['endCliente'][$cliente]['telefone']; 
                               $rua = $_SESSION['endCliente'][$cliente]['rua']; 
                               $numero = $_SESSION['endCliente'][$cliente]['numero']; 
+                            
+                              if ($horarioRepete != $horaPedido) {
+                                 if ($clienteRepete != $cliente) {   ?>
 
-                            if ($clienteRepete != $cliente) { ?>
                                <p class="bg-warning d-flex justify-content-center"><b>Nome : </b><?php print $value['nome_do_cliente']; ?> ID: <?php print $value['id_cliente']?> </p>
                                <p><b>Telefone:</b> <?php print $telefone ?>  </p>
                                <p><b>Endereço:</b> <?php print $rua ?> Nº <?php print $numero ?>  </p>
                                <p><b>DATA: </b> <?php print $dataPedido; ?></p> <!-- É necessario colocar a data aqui? !-->
+                               
                             <?php 
-                                $clienteRepete = $cliente;                                
+                                $clienteRepete = $cliente;
+                                $horarioRepete = $horaPedido;
+                                }                                
                             }
                             ?>        
                             <p class="bg-primary d-flex justify-content-center"><b>Numero Pedido: </b><?php print $value['id'];?></p>
