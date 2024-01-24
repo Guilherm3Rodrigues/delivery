@@ -32,15 +32,15 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
     ?>
     <nav id="faixa-menu-adm" class="text-center">
             <ul>
-                <li><a class="btn btn-danger" href="verPedidos.php#listaClientes">Clientes</a></li> | 
+                <li><a id="abrirListaC" class="btn btn-danger">Clientes</a></li> | 
                 <li><a class="btn btn-danger" href="verPedidos.php#motoBoy">Entregas Moto</a></li> |
                 <li><a id="open" class="btn btn-danger"> Pedidos Antigos </a></li>
             </ul>
     </nav>
     fora container
-    <div class="container row">
-        <div class="col-md-6">
-        <div class="container rolagem p-4 mb-4 bg-white rounded shadow-lg shadow-right shadow-bottom">
+    <div class="container">
+        <div class="container col-md-6">
+            <div class="container rolagem p-4 mb-4 bg-white rounded shadow-lg shadow-right shadow-bottom">
             <h2 id="tabelaPedidos"><b>Tabela de Pedidos</b></h2>
             <p><strong>Pedidos do dia</strong></p>
             <hr>
@@ -92,15 +92,18 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                             <p><b>Hora: </b> <?php print $horaPedido; ?></p>
                             <hr>
                             <?php
-                            } 
+                            }
+
                             ?>
                 </div>
                             <dialog id="dialog" class="dialogStyle">
+                                
                                         <form>
                                             <label for="dataSelecionada">Selecione uma data:</label>
                                             <input type="date" id="dataSelecionada" name="dataSelecionada">
                                             <input type="submit" value="Filtrar">
                                         </form>
+                                <div class="rolagem">
                                     <?php 
                                         if ($dataAtual > $dataPedido) { ?>
                                             <p class="container d-flex align-items-center justify-content-center"><b>DATA: </b> <?php print $dataPedido; ?></p>
@@ -119,34 +122,46 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                                                 } 
                                                 ?>
 
-                                <div class="d-flex  justify-content-center">
-                                        <button id="fecharDialog" class="btn btn-danger">
-                                            Fechar
-                                        </button>
+                                    <div class="d-flex  justify-content-center">
+                                            <button id="fecharDialog" class="btn btn-danger">
+                                                Fechar
+                                            </button>
+                                    </div>
                                 </div>
                             </dialog>
-                <?php }                         //colocar um dialog aqui com os pedidos de outros dias ?> 
+                <?php     }                     //colocar um dialog aqui com os pedidos de outros dias ?> 
                 
             
         </div>
         </div>
-        <div class="col-md-4">
-        <div class="container testeBorda rolagem">
-            <table>
-                <b><tr class="testeBorda"><h2 id="listaClientes">Lista de Clientes</h2></b>
-                <!-- foreach para chamar todos os clientes que ja fizeram pedido !-->
-                <?php 
-                    foreach ($listaClientes as $key => $valor) { ?>
-                        <p class="bg-success d-flex justify-content-center text-white"><b><?php print $valor['nome']; ?> ID: <?php print $valor['id_cliente'] ?></b></p>
-                        <p><b> Telefone: <?php print $valor['telefone']; ?> </b></p>
-                        <p><b>Observação sobre cliente: </b></p>
-                        <hr>
-                    <?php }
-                ?>
-                </tr>
-            </table>
-        </div>
-        </div>
+            <dialog id="dialogListaCliente">
+                <div class="container row">
+                    <div class="col-md-6">
+                        <b><h2 id="listaClientes">Lista de Clientes</h2></b>
+                        <!-- Adição do campo de pesquisa -->
+                        <input type="text" id="campoPesquisa" placeholder="Pesquisar Cliente" oninput="filtrarClientes()">
+                    </div>
+                </div>
+                <div class="container rolagem">
+                    <table id="tabelaClientes" class="table table-bordered">
+                        <!-- Iteração sobre os clientes -->
+                        <?php foreach ($listaClientes as $key => $valor) { ?>
+                            <tr class="clienteRow">
+                                <td>
+                                    <p class="bg-success d-flex justify-content-center text-white"><b>
+                                        <?php echo $valor['nome']; ?> ID: <?php echo $valor['id_cliente']; ?></b></p>
+                                    <p><b>Telefone: <?php echo $valor['telefone']; ?></b></p>
+                                    <p><b>Observação sobre cliente:</b></p>
+                                    <hr>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </table>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-danger" id="fecharListaCliente">Fechar</button>
+                </div>
+            </dialog>
     </div>
                 
     <div class="container testeBorda">

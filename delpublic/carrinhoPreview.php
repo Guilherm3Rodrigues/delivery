@@ -5,7 +5,7 @@
     </button>
 </div>
 
-<dialog id="dialog" class="dialogStyle">
+<dialog id="dialog" class="dialogStyleCarrinho">
     <div class="container d-flex align-items-center justify-content-center">
         <ul>
 
