@@ -34,13 +34,14 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
             <ul>
                 <li><a id="abrirListaC" class="btn btn-danger">Clientes</a></li> | 
                 <li><a class="btn btn-danger" href="verPedidos.php#motoBoy">Entregas Moto</a></li> |
-                <li><a id="open" class="btn btn-danger"> Pedidos Antigos </a></li>
+                <li><a id="open" class="btn btn-danger"> Pedidos Antigos </a></li> |
+                <li><a href="verPedidos.php#financeiro" class="btn btn-danger"> Financeiro </a></li>
             </ul>
     </nav>
     fora container
     <div class="container">
         <div class="container col-md-6">
-            <div class="container rolagem p-4 mb-4 bg-white rounded shadow-lg shadow-right shadow-bottom">
+            <div class="rolagem p-4 mb-4 bg-white rounded shadow-lg shadow-right shadow-bottom">
             <h2 id="tabelaPedidos"><b>Tabela de Pedidos</b></h2>
             <p><strong>Pedidos do dia</strong></p>
             <hr>
@@ -141,6 +142,7 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                         <!-- Adição do campo de pesquisa -->
                         <input type="text" id="campoPesquisa" placeholder="Pesquisar Cliente" oninput="filtrarClientes()">
                     </div>
+                    
                 </div>
                 <div class="container rolagem">
                     <table id="tabelaClientes" class="table table-bordered">
@@ -164,38 +166,38 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
             </dialog>
     </div>
                 
-    <div class="container testeBorda">
-        <div class="row">
-            <div class="col-md-6">
-                <table>
-                <tr class="testeBorda"><h2 id="motoBoy">Motoboy</h2>
+    <div class="container d-flex align-items-center justify-content-center">
+        
+            <div class="col-md-6 p-4 mb-4 bg-white rounded shadow-lg shadow-right shadow-bottom">
                 
-                    <td>
-                        <td>Numero de entregas: <?php print $count++ ?>  //</td>
-                        <td>Valor a pagar: R$ $valorMotoboy  //</td>
-                    </td>
-                </tr>
-                </table>
+                <ul class="list-unstyled"><h2 id="motoBoy" class="text-center"><b>Motoboy</b></h2>
+                
+                    <li><b>Numero de entregas:</b> <?php print $count++ ?> </li>
+                    <li><b>Valor a pagar:</b> R$ $valorMotoboy  </li>
+                    
+                </ul>
+                
             </div>
 
-            <div class="col-md-6">
-                <table>
-                <tr class="testeBorda container text-center"><h1>Financeiro</h1>
-                    <td>
-                        <td><b class="text-xl"><h3>Vendas do Dia:</b></h3> <?php print $countPedido; ?>  </td>
-                        <td><b class="text-sm"><h3>Receita Diaria:</b></h3> R$ <?php print $valorDia ?> </td>
-                        <td><b class="text-lg"><h3>Valor do Mes:</b></h3> R$ $valorMes</td>
-                    </td>
-                </tr>
-                </table>
-            </div>
-        </div>
+            
+        
         <?php // var_dump($listaPedidos); ?>
 
         <!-- DIALOG PEDIDOS ANTIGOS!-->
 
                     
         
+    </div>
+    <div id="financeiro" class="container d-flex justify-content-center">
+        <div class="col-md-6 p-4 mb-4 bg-white rounded shadow-lg shadow-right shadow-bottom">
+                    <ul class="container text-center list-unstyled"><h1 class="text-center"><b>Financeiro</b></h1>
+                        
+                            <li class="text-xl"><h3>Vendas do Dia:</h3> <?php print $countPedido; ?>  </li>
+                            <li class="text-sm"><h3>Receita Diaria:</h3> R$ <?php print $valorDia ?> </li>
+                            <li class="text-lg"><h3>Valor do Mes:</h3> R$ $valorMes</li>
+                        
+                    </ul>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>

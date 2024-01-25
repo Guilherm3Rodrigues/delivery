@@ -185,6 +185,12 @@ time, mark, audio, video {
             border-radius: 5px;
 }
 
+@media (max-width: 768px) {
+    #dialogListaCliente {
+        width: 90%;
+    }
+}
+
 
 
 #position-logo {
