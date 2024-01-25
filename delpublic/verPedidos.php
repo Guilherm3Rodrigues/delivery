@@ -38,7 +38,7 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                 <li><a href="verPedidos.php#financeiro" class="btn btn-danger"> Financeiro </a></li>
             </ul>
     </nav>
-    fora container
+    
     <div class="container">
         <div class="container col-md-6">
             <div class="rolagem p-4 mb-4 bg-white rounded shadow-lg shadow-right shadow-bottom">
