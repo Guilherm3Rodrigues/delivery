@@ -78,6 +78,42 @@ function filtrarClientes() {
     }
 }*/
 
+// ============================================================ INICIO EXPANDIR E RETRAIR ==================
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Ocultando por padrão
+    const containersExpansiveis = document.querySelectorAll('.expansivel');
+
+    containersExpansiveis.forEach(container => {
+        if(container.dataset.inicial === 'fechado') {
+            container.style.height = `${container.querySelector('.expansivel-header').offsetHeight}px`;
+        } else {
+            container.style.height = `${container.scrollHeight}px`;
+            container.classList.add('expandido');
+        }
+    });
+});
+
+function toggleExpansao(elemento) {
+    // Verifica se o clique ocorreu no cabeçalho
+    if (elemento.classList.contains('expansivel-header')) {
+        // Verifica se o container está expandido
+        const estaExpandido = elemento.parentElement.classList.contains('expandido');
+
+        // Se estiver expandido, retrai, se não, expande
+        if (estaExpandido) {
+            elemento.parentElement.style.height = `${elemento.parentElement.querySelector('.expansivel-header').offsetHeight}px`;
+            elemento.parentElement.classList.remove('expandido');
+        } else {
+            elemento.parentElement.style.height = `${elemento.parentElement.scrollHeight}px`;
+            elemento.parentElement.classList.add('expandido');
+        }
+    }
+}
+
+
+
+
 
 //ICONE FLUTUANTE CARRINHO
 document.addEventListener("DOMContentLoaded", function () {

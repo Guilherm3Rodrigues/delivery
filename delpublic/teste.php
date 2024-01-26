@@ -25,31 +25,43 @@
 </head>
 <body>
 
-<div class="expansivel" onclick="toggleExpansao(this)">
+<div class="expansivel" data-inicial="fechado" onclick="toggleExpansao(this)">
     <div class="expansivel-header">
         <h2>Clique para Expandir/Retrair</h2>
     </div>
     <div class="expansivel-conteudo">
         <p>Seu conteúdo aqui...</p>
         <p>Seu conteúdo aqui...</p>
-        <p>Seu conteúdo aqui...</p>
-        <p>Seu conteúdo aqui...</p>
-        <p>Seu conteúdo aqui...</p>
-        <p>Seu conteúdo aqui...</p>
-        <p>Seu conteúdo aqui...</p>
-        <p>Seu conteúdo aqui...</p>
-        <p>Seu conteúdo aqui...</p>
+        <!-- ... mais parágrafos ... -->
+    </div>
+</div>
 
+<div class="expansivel" data-inicial="fechado" onclick="toggleExpansao(this)">
+    <div class="expansivel-header">
+        <h2>Clique para Expandir/Retrair</h2>
+    </div>
+    <div class="expansivel-conteudo">
+        <p>Seu conteúdo aqui...2</p>
+        <p>Seu conteúdo aqui...2</p>
+        <!-- ... mais parágrafos ... -->
     </div>
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // Oculta o conteúdo por padrão
-        const containerExpansivel = document.querySelector('.expansivel');
-        containerExpansivel.style.height = `${containerExpansivel.querySelector('.expansivel-header').offsetHeight}px`;
+        const containersExpansiveis = document.querySelectorAll('.expansivel');
+
+        containersExpansiveis.forEach(container => {
+            if (container.dataset.inicial === 'fechado') {
+                container.style.height = `${container.querySelector('.expansivel-header').offsetHeight}px`;
+            } else {
+                container.style.height = `${container.scrollHeight}px`;
+                container.classList.add('expandido');
+            }
+        });
     });
-    
+
     function toggleExpansao(elemento) {
         // Verifica se o container está expandido
         const estaExpandido = elemento.classList.contains('expandido');
