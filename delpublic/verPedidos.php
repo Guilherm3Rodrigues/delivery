@@ -53,7 +53,7 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                 $count = 0;
                 $countPedido = 0;
                 $valorDia = 0;
-
+                print date('d/m/Y');
                 foreach ($listaPedidos as $key => $value) {
                     $dataHora = $value['data_insercao'];
                     $dataPedido = substr($dataHora, 0, 10);

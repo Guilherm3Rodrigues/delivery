@@ -1,3 +1,8 @@
+<?php 
+
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,23 +32,23 @@
 
 <div class="expansivel" data-inicial="fechado" onclick="toggleExpansao(this)">
     <div class="expansivel-header">
-        <h2>Clique para Expandir/Retrair</h2>
+        <h2>Testes</h2>
     </div>
     <div class="expansivel-conteudo">
         <p>Seu conteúdo aqui...</p>
         <p>Seu conteúdo aqui...</p>
-        <!-- ... mais parágrafos ... -->
-    </div>
-</div>
+        <?php 
+       
 
-<div class="expansivel" data-inicial="fechado" onclick="toggleExpansao(this)">
-    <div class="expansivel-header">
-        <h2>Clique para Expandir/Retrair</h2>
-    </div>
-    <div class="expansivel-conteudo">
-        <p>Seu conteúdo aqui...2</p>
-        <p>Seu conteúdo aqui...2</p>
-        <!-- ... mais parágrafos ... -->
+       $array = in_array('Bobs', $_SESSION);
+        $array2 = array_search('JKa', $_SESSION['endCliente'][43]);
+       var_dump($array);
+        print '<br>';
+       var_dump($array2);
+
+       var_dump($_SESSION);
+        ?>
+        
     </div>
 </div>
 
