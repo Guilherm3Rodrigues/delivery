@@ -40,29 +40,30 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
     </nav>
     
     <div class="container">
-        <div class="container col-md-6">
-            <div class="rolagem p-4 mb-4 bg-white rounded shadow-lg shadow-right shadow-bottom">
-            <h2 id="tabelaPedidos"><b>Tabela de Pedidos</b></h2>
-            <p><strong>Pedidos do dia</strong></p>
-            <hr>
-            <!-- foreach para chamar pedidos !-->
-            <?php 
-            $clienteRepete = 'cliente repete?';
-            $horarioRepete = 'horario repete?';
-            $count = 0;
-            $countPedido = 0;
-            $valorDia = 0;
-
-            foreach ($listaPedidos as $key => $value) {
-                $dataHora = $value['data_insercao'];
-                $dataPedido = substr($dataHora, 0, 10);
-                $horaData = $value['data_insercao'];
-                $horaPedido = substr($horaData, 11, 8);
-                $dataAtual = date('Y-m-d');
-            ?> 
-                <div>
+        <div class="container col-md-6 p-4 mb-4 bg-white rounded shadow-lg shadow-right shadow-bottom">
+            
+                <h2 id="tabelaPedidos"><b>Tabela de Pedidos</b></h2>
+                <p><strong>Pedidos do dia</strong></p>
+            <div class="rolagem">
+                <hr>
+                <!-- foreach para chamar pedidos !-->
                 <?php 
-                    if ($dataAtual == $dataPedido) {
+                $clienteRepete = 'cliente repete?';
+                $horarioRepete = 'horario repete?';
+                $count = 0;
+                $countPedido = 0;
+                $valorDia = 0;
+                print date('d/m/Y');
+                foreach ($listaPedidos as $key => $value) {
+                    $dataHora = $value['data_insercao'];
+                    $dataPedido = substr($dataHora, 0, 10);
+                    $horaData = $value['data_insercao'];
+                    $horaPedido = substr($horaData, 11, 8);
+                    $dataAtual = date('Y-m-d');
+                ?> 
+                <div>
+                    <?php 
+                        if ($dataAtual == $dataPedido) {
                               $pedidosDia = $countPedido++;
                               $valorDia += $value['valor'];
                         
@@ -97,43 +98,67 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
 
                             ?>
                 </div>
-                            <dialog id="dialog" class="dialogStyle">
-                                
-                                        <form>
-                                            <label for="dataSelecionada">Selecione uma data:</label>
-                                            <input type="date" id="dataSelecionada" name="dataSelecionada">
-                                            <input type="submit" value="Filtrar">
-                                        </form>
-                                <div class="rolagem">
-                                    <?php 
-                                        if ($dataAtual > $dataPedido) { ?>
-                                            <p class="container d-flex align-items-center justify-content-center"><b>DATA: </b> <?php print $dataPedido; ?></p>
-                                                <p class="bg-warning d-flex justify-content-center"><b>Nome : </b><?php print $value['nome_do_cliente']; ?> ID: <?php print $value['id_cliente']?></p>
-                                                <p><b>Telefone: </b>  </p>
-                                                <p><b>Endereço: </b>  </p>
-                                                <p><b>DATA: </b> <?php print $dataPedido; ?></p>
-                                            
-                                                <p class="bg-primary d-flex justify-content-center"><b>Numero Pedido: </b><?php print $value['id'];?></p>
-                                                <p><b>Produto:</b> <?php print $value['produto']; ?></p>
-                                                <p><b>Observação:</b>                                                  </p>
-                                                <p><b>Para entrega ? </b>  </p>
-                                                <p><b>Hora: </b> <?php print $horaPedido; ?></p>
-                                                <hr>
-                                                <?php
-                                                } 
-                                                ?>
-
-                                    <div class="d-flex  justify-content-center">
-                                            <button id="fecharDialog" class="btn btn-danger">
-                                                Fechar
-                                            </button>
-                                    </div>
-                                </div>
-                            </dialog>
-                <?php     }                     //colocar um dialog aqui com os pedidos de outros dias ?> 
-                
-            
+                <?php     } ?>
         </div>
+            </div>     
+            <!-- INICIO conteudo expansivel !-->
+            <div class="container col-md-6 p-4 mb-4 bg-white rounded shadow-lg shadow-right shadow-bottom">
+                <div class="expansivel" data-inicial="fechado">
+                    <div class="expansivel-header" onclick="toggleExpansao(this)">
+                        <h2>PEDIDOS ANTIGOS</h2>
+                    </div>
+                    <form>
+                        <label for="dataSelecionada">Selecione uma data:</label>
+                        <input type="date" id="dataSelecionada" name="dataSelecionada">
+                        <input type="submit" value="Filtrar">
+                    </form>
+            <?php
+            foreach ($listaPedidos as $key => $value) {
+                    $dataHora = $value['data_insercao'];
+                    $dataPedido = substr($dataHora, 0, 10);
+                    $horaData = $value['data_insercao'];
+                    $horaPedido = substr($horaData, 11, 8);
+                    $dataAtual = date('Y-m-d');
+                
+                        if ($dataAtual > $dataPedido) {
+                              $clienteAntigo = $value['id_cliente'];
+                              $telefone = $_SESSION['endCliente'][$clienteAntigo]['telefone']; 
+                              $rua = $_SESSION['endCliente'][$clienteAntigo]['rua']; 
+                              $numero = $_SESSION['endCliente'][$clienteAntigo]['numero'];
+                              ?>
+
+            
+                    <div class="expansivel-conteudo">
+                        
+                    <div class="rolagem">
+                        <?php 
+                            if ($dataAtual > $dataPedido) { ?>
+                                <p class="container d-flex align-items-center justify-content-center"><b>DATA: </b> <?php print $dataPedido; ?></p>
+                                    <p class="bg-warning d-flex justify-content-center"><b>Nome : </b><?php print $value['nome_do_cliente']; ?> ID: <?php print $value['id_cliente']?></p>
+                                    <p><b>Telefone: </b>  </p>
+                                    <p><b>Endereço: </b>  </p>
+                                    <p><b>DATA: </b> <?php print $dataPedido; ?></p>
+                                
+                                    <p class="bg-primary d-flex justify-content-center"><b>Numero Pedido: </b><?php print $value['id'];?></p>
+                                    <p><b>Produto:</b> <?php print $value['produto']; ?></p>
+                                    <p><b>Observação:</b>                                                  </p>
+                                    <p><b>Para entrega ? </b>  </p>
+                                    <p><b>Hora: </b> <?php print $horaPedido; ?></p>
+                                    <hr>
+                                    <?php
+                                    } 
+                                    ?>
+                    </div>
+                </div> <!-- fim conteudo expansivel !-->
+                <?php } // fim IF data pedido antigo
+            }?> <!-- fim foreach !-->
+                        <div class="d-flex  justify-content-center">
+                            <button id="fecharDialog" class="btn btn-danger">
+                                Fechar
+                            </button>
+                        </div>
+            </div>
+        
         </div>
             <dialog id="dialogListaCliente">
                 <div class="container row">

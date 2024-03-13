@@ -127,7 +127,18 @@ class Comandos
     {
         $query = 'SELECT pedidos.*, clientes.nome AS nome_do_cliente
         FROM pedidos
-        JOIN clientes ON pedidos.id_cliente = clientes.id_cliente';
+        JOIN clientes ON pedidos.id_cliente = clientes.id_cliente order by data_insercao desc';
+        //$query = 'select * from pedidos order by data_insercao desc';
+        $stmt = $this->conexao->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function buscarAntigos()
+    {
+        $query = 'SELECT pedidos.*, clientes.nome AS nome_do_cliente
+        FROM pedidos
+        JOIN clientes ON pedidos.id_cliente = clientes.id_cliente order by nome desc';
         //$query = 'select * from pedidos order by data_insercao desc';
         $stmt = $this->conexao->prepare($query);
         $stmt->execute();

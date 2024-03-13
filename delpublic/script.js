@@ -146,3 +146,8 @@ window.addEventListener('beforeunload', () => {
 });
 
 
+// Troca de Exibição entre ORDENAR POR DATA, e NOME
+
+
+
+

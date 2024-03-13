@@ -192,6 +192,9 @@ switch ($acao) {
 
     case 'verPedidos':
         $listaPedidos = $comandos->buscarPedidos();
+        if ($antigo = 'sim') {
+            $listaAntigos = $comandos->buscarAntigos();    
+        }
         $listaClientes = $comandos->listaUsuarios();
         
         break;

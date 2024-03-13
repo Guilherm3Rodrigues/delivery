@@ -47,7 +47,7 @@ time, mark, audio, video {
 }
 
 .rolagem {
-    max-height: 500px; /* Altura máxima para exibir antes de adicionar a barra de rolagem */
+    max-height: 750px; /* Altura máxima para exibir antes de adicionar a barra de rolagem */
     overflow-y: auto; /* Adiciona uma barra de rolagem vertical quando o conteúdo ultrapassa a altura máxima */
     border: 1px solid #ddd; /* Apenas para visualização */
     padding: 10px; /* Apenas para visualização */
@@ -374,3 +374,25 @@ time, mark, audio, video {
     display: block;
     margin-top: 10px;
 }
+
+
+/* ajuste dos pedidos e clientes */
+
+.bloco {
+    width: 350px;
+    height: 250px;
+    box-shadow: #000;
+    margin: 10px;
+    float: inline-start;       
+    
+}
+
+.limpar {
+    clear: both;
+}
+
+.pedidosClientesDestaque {
+    background-color: #ff7c0c;
+    color: white;
+}
+
