@@ -40,10 +40,14 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
     </nav>
     
     <div class="container">
-        <div class="p-4 mb-4 mt-4 bg-white rounded shadow-lg shadow-right shadow-bottom">
-            
-                <h2 id="tabelaPedidos"><b>Tabela de Pedidos</b></h2>
+        <div role="button" id="tabelaPedidos" class="pointer p-3 mt-4 bg-dark text-light rounded shadow-lg shadow-right shadow-bottom mb-0
+                border border-dark" onclick="expandir()">
+                <h2><b>Tabela de Pedidos</b></h2>
                 <p><strong>Pedidos do dia <?php print date('d/m/Y');?> </strong></p>
+        </div>
+        <div id="pedidosHoje" class="pedidosHoje d-none mb-4 bg-white rounded-bottom shadow-lg shadow-right shadow-bottom
+                border border-dark p-4">
+            
             <div class="rolagem"> 
                 
                 <!-- foreach para chamar pedidos !-->
@@ -128,51 +132,54 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
             </div>     
             
             <!-- INICIO conteudo expansivel !-->
-            <div class="container col-md-6 p-4 mb-4 bg-white rounded shadow-lg shadow-right shadow-bottom">
+            <div class="container p-4 mb-4 mt-4 bg-white rounded shadow-lg shadow-right shadow-bottom rolagem">
                 <div class="expansivel" data-inicial="fechado">
-                    <div class="expansivel-header" onclick="toggleExpansao(this)">
-                        <h2>PEDIDOS ANTIGOS</h2>
+                    <div class="expansivel-header text-center" onclick="toggleExpansao(this)">
+                        <h2><b>PEDIDOS ANTIGOS</b></h2>
                     </div>
-                    <form method="post">
+                    <form method="post" class="p-2">
                         <label for="dataSelecionada">Selecione uma data:</label>
                         <input type="date" id="dataSelecionada" name="dataSelecionada">
                         <input type="submit" value="Filtrar">
                     </form>
-                    <form id="FormOrderName" method="post">
-                        <input type="submit" id="orderName" name="orderName" value='Filtrar por Nome'> 
-                    </form>
-                    <form id="FormOrderName" method="post">
-                        <input type="submit" id="orderData" name="orderData" value='Filtrar por Data'> 
-                    </form>
-            <?php
-            
-            if (isset($_POST['orderName'])) {
-                
-                $lista = $listaAntigos;    
-            } else {
-                unset($_POST['filtrar por Nome']);
-                $lista = $listaPedidos;
-            }
+                    <div class="d-flex block-inline">
+                        <form id="FormOrderName" method="post" class="p-2">
+                            <input type="submit" id="orderName" name="orderName" value='Filtrar por Nome'> 
+                        </form>
+                        <form id="FormOrderData" method="post" class="p-2">
+                            <input type="submit" id="orderData" name="orderData" value='Filtrar por Data'> 
+                        </form>
+                    </div>
 
-            foreach ($lista as $key => $value) {
-                    $dataHora = $value['data_insercao'];
-                    $dataPedido = substr($dataHora, 0, 10);
-                    $horaData = $value['data_insercao'];
-                    $horaPedido = substr($horaData, 11, 8);
-                    $dataAtual = date('Y-m-d');
-
-                    if ($dataAtual > $dataPedido) 
-                    {
-                        $clienteAntigo = $value['id_cliente'];
-                        $telefone = $_SESSION['endCliente'][$clienteAntigo]['telefone']; 
-                        $rua = $_SESSION['endCliente'][$clienteAntigo]['rua']; 
-                        $numero = $_SESSION['endCliente'][$clienteAntigo]['numero'];
-                        ?>
-
-            
-                    <div class="expansivel-conteudo">
+                    <?php
+                    
+                    if (isset($_POST['orderName'])) {
                         
-                    <div class="rolagem">
+                        $lista = $listaAntigos;    
+                    } else {
+                        unset($_POST['orderName']);
+                        $lista = $listaPedidos;
+                    }
+
+                    foreach ($lista as $key => $value) {
+                            $dataHora = $value['data_insercao'];
+                            $dataPedido = substr($dataHora, 0, 10);
+                            $horaData = $value['data_insercao'];
+                            $horaPedido = substr($horaData, 11, 8);
+                            $dataAtual = date('Y-m-d');
+
+                            if ($dataAtual > $dataPedido) 
+                            {
+                                $clienteAntigo = $value['id_cliente'];
+                                $telefone = $_SESSION['endCliente'][$clienteAntigo]['telefone']; 
+                                $rua = $_SESSION['endCliente'][$clienteAntigo]['rua']; 
+                                $numero = $_SESSION['endCliente'][$clienteAntigo]['numero'];
+                                ?>
+
+                
+                <div class="expansivel-conteudo">
+                        
+                    <div>
                         <?php 
                             if ($dataAtual > $dataPedido) { ?>
                                 <p class="container d-flex align-items-center justify-content-center"><b>DATA: </b> <?php print $dataPedido; ?></p>

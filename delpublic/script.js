@@ -79,6 +79,39 @@ function filtrarClientes() {
 }*/
 
 // ============================================================ INICIO EXPANDIR E RETRAIR ==================
+// MEU ESQUEMA, nao GPT
+
+const pedidosHoje = document.getElementById('pedidosHoje');
+const tabelaPedidos = document.getElementById('tabelaPedidos');
+
+function expandir() {
+    
+    const classProcurada = 'd-none';
+    const classProcurada2 = 'rounded';
+    const classProcurada3 = 'rounded-top';
+    const listClass = pedidosHoje.classList;
+    
+    if (listClass.contains(classProcurada)) {
+        pedidosHoje.classList.remove(classProcurada);
+        tabelaPedidos.classList.remove(classProcurada2);
+        tabelaPedidos.classList.add(classProcurada3);
+    } 
+    else 
+    {
+        pedidosHoje.classList.add(classProcurada);
+        tabelaPedidos.classList.add(classProcurada2);
+        tabelaPedidos.classList.remove(classProcurada3);
+    } 
+    
+}
+
+
+
+
+
+
+
+// ============================================================ INICIO EXPANDIR E RETRAIR ==================
 
 document.addEventListener("DOMContentLoaded", function() {
     // Ocultando por padrão
