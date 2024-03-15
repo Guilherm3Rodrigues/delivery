@@ -84,7 +84,7 @@ function filtrarClientes() {
 const pedidosHoje = document.getElementById('pedidosHoje');
 const tabelaPedidos = document.getElementById('tabelaPedidos');
 
-function expandir() {
+function expandirTabelaPedidos() {
     
     const classProcurada = 'd-none';
     const classProcurada2 = 'rounded';
@@ -105,7 +105,24 @@ function expandir() {
     
 }
 
+// ============================================================ ROLAGEM LATERAL GPT ==================
+document.addEventListener('DOMContentLoaded', function () {
+    const productList = document.getElementById('productList'); // Alterado o nome da variável
 
+    document.getElementById('scrollButtonLeft').addEventListener('click', () => {
+        productList.scrollLeft -= 4 * 220; // Alterado para productList
+    });
+
+    document.getElementById('scrollButtonRight').addEventListener('click', () => {
+        productList.scrollLeft += 4 * 220; // Alterado para productList
+    });
+
+    productList.addEventListener('scroll', () => {
+        const scrollLeft = productList.scrollLeft; // Alterado para productList
+        document.getElementById('scrollButtonLeft').style.display = scrollLeft > 0 ? 'block' : 'none';
+        document.getElementById('scrollButtonRight').style.display = scrollLeft < productList.scrollWidth - productList.clientWidth ? 'block' : 'none'; // Alterado para productList
+    });
+});
 
 
 

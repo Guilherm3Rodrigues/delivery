@@ -41,7 +41,7 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
     
     <div class="container">
         <div role="button" id="tabelaPedidos" class="pointer p-3 mt-4 bg-dark text-light rounded shadow-lg shadow-right shadow-bottom mb-0
-                border border-dark" onclick="expandir()">
+                border border-dark" onclick="expandirTabelaPedidos()">
                 <h2><b>Tabela de Pedidos</b></h2>
                 <p><strong>Pedidos do dia <?php print date('d/m/Y');?> </strong></p>
         </div>
@@ -52,8 +52,8 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                 
                 <!-- foreach para chamar pedidos !-->
                 <?php 
-                $clienteRepete = 'cliente repete?';
-                $horarioRepete = 'horario repete?';
+                //$clienteRepete = null;
+                $horarioRepete = null;
                 $count = 0;
                 $countPedido = 0;
                 $valorDia = 0;
@@ -65,6 +65,7 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                     $horaData = $value['data_insercao'];
                     $horaPedido = substr($horaData, 11, 8);
                     $dataAtual = date('Y-m-d');
+                    
                 ?> 
                 <div>
                     <?php 
@@ -78,8 +79,8 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                               $rua = $_SESSION['endCliente'][$cliente]['rua']; 
                               $numero = $_SESSION['endCliente'][$cliente]['numero']; 
                                
-                              if ($horarioRepete != $horaPedido) {    //se o mesmo cliente faz outro pedido no mesmo dia, os pedidos de horarios diferentes ficam separados
-                                 if ($clienteRepete != $cliente) {   // se o cliente faz mais de um pedido, todos os pedidos são agrupados com o cliente requerente
+                             if ($horaPedido !== $horarioRepete) {  // SE 2 CLIENTES FIZEREM O PEDIDO NO MESMO SEGUNDO, VAI DAR RUIM
+                               
                                     $loopPedidos = 0;
                                     echo '<div class="limpar"></div>';
                                     ?>
@@ -92,10 +93,10 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                                     <p class="p-1"><b>DATA: </b> <?php print $dataPedido; ?></p> <!-- É necessario colocar a data aqui? !-->
                                </div>
                             <?php 
-                                $clienteRepete = $cliente;
+                                //$clienteRepete = $cliente;
                                 $horarioRepete = $horaPedido;
                                 }   // fechamento $clienteRepete != $cliente                               
-                            }   //fechamento $horarioRepete != $horaPedido
+                            
 
                             echo '<div class="container containerPedidos m-3">';
                             echo '<div class="bloco  m-1 bg-light p-3 rounded shadow-lg shadow-right shadow-bottom">';
@@ -111,8 +112,8 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                             <?php
                                 echo '</div>';
                                 echo '</div>';
-                                $loopPedidos++;
                                 
+                                $loopPedidos++;
 
                                 if ($loopPedidos >= 3) 
                                 {
@@ -160,6 +161,7 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                         unset($_POST['orderName']);
                         $lista = $listaPedidos;
                     }
+                    $horarioRepeteAntigo = null;
 
                     foreach ($lista as $key => $value) {
                             $dataHora = $value['data_insercao'];
@@ -167,6 +169,7 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                             $horaData = $value['data_insercao'];
                             $horaPedido = substr($horaData, 11, 8);
                             $dataAtual = date('Y-m-d');
+                            $loopPedidos2 = 0;
 
                             if ($dataAtual > $dataPedido) 
                             {
@@ -182,21 +185,49 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                     <div>
                         <?php 
                             if ($dataAtual > $dataPedido) { ?>
-                                <p class="container d-flex align-items-center justify-content-center"><b>DATA: </b> <?php print $dataPedido; ?></p>
-                                    <p class="bg-warning d-flex justify-content-center"><b>Nome : </b><?php print $value['nome_do_cliente']; ?> ID: <?php print $value['id_cliente']?></p>
-                                    <p><b>Telefone: </b>  </p>
-                                    <p><b>Endereço: </b>  </p>
-                                    <p><b>DATA: </b> <?php print $dataPedido; ?></p>
                                 
-                                    <p class="bg-primary d-flex justify-content-center"><b>Numero Pedido: </b><?php print $value['id'];?></p>
-                                    <p><b>Produto:</b> <?php print $value['produto']; ?></p>
-                                    <p><b>Observação:</b>                                                  </p>
-                                    <p><b>Para entrega ? </b>  </p>
-                                    <p><b>Hora: </b> <?php print $horaPedido; ?></p>
-                                    <hr>
-                                    <?php
-                                    } 
-                                    ?>
+                                <?php 
+                                    if ($horaPedido !== $horarioRepeteAntigo) {  // SE 2 CLIENTES FIZEREM O PEDIDO NO MESMO SEGUNDO, VAI DAR RUIM
+                                        echo '<div class="limpar"></div>';
+                                ?>
+
+                                <p class="pedidosClientesDestaque text-left p-3 mt-4 rounded col-md-4"><b>Nome : </b><?php print $value['nome_do_cliente']; ?> <b> ID: </b> <?php print $value['id_cliente']?>  </p>
+
+                                    <div class="d-flex justify-content-center bg-dark text-light rounded shadow-lg shadow-right shadow-bottom">
+                                        <p class="p-1"><b>Telefone: </b> <?php print $telefone; ?>  </p>
+                                        <p class="p-1"><b>Endereço:</b> <?php print $rua ?> Nº <?php print $numero; ?>  </p>
+                                        <p class="p-1"><b>DATA: </b> <?php print $dataPedido; ?></p> <!-- É necessario colocar a data aqui? !-->
+                                    </div>
+
+                                    <?php 
+                                        $horarioRepeteAntigo = $horaPedido;
+                                        } // fechamento horarioPedido ?>
+                                
+                                    <div class="container containerPedidos m-3">
+                                        <div class="bloco  m-1 bg-light p-3 rounded shadow-lg shadow-right shadow-bottom">
+                            
+                                        
+                                        <p class="bg-primary d-flex justify-content-center"><b>Numero Pedido: </b><?php print $value['id'];?></p>
+                                        <p><b>Produto:</b> <?php print $value['produto']; ?></p>
+                                        <p><b>Observação:</b>                                                  </p>
+                                        <p><b>Para entrega ? </b> <?php if ($value['entrega'] > 0) { print 'SIM'; $count++;
+                                                                        } else { print 'NAO'; }; ?>  </p>
+                                        <p><b>Hora: </b> <?php print $horaPedido; ?></p>
+                            
+                            
+                                        </div>
+                                    </div>
+                                <?php    
+                                $loopPedidos2++;
+
+                                if ($loopPedidos2 >= 3) 
+                                {
+                                    echo '<div class="limpar"></div>';
+                                    print '<hr>';
+                                    $loopPedidos2 = 0;
+                                }
+                            }
+                            ?>
                     </div>
                 </div> <!-- fim conteudo expansivel !-->
                 <?php } // fim IF data pedido antigo
