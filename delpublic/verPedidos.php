@@ -40,100 +40,80 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
     </nav>
     
     <div class="container">
-        <div role="button" id="tabelaPedidos" class="pointer p-3 mt-4 bg-dark text-light rounded shadow-lg shadow-right shadow-bottom mb-0
-                border border-dark" onclick="expandirTabelaPedidos()">
-                <h2><b>Tabela de Pedidos</b></h2>
-                <p><strong>Pedidos do dia <?php print date('d/m/Y');?> </strong></p>
-        </div>
-        <div id="pedidosHoje" class="pedidosHoje d-none mb-4 bg-white rounded-bottom shadow-lg shadow-right shadow-bottom
-                border border-dark p-4">
+    <div role="button" id="tabelaPedidos" class="pointer p-3 mt-4 bg-dark text-light rounded shadow-lg shadow-right shadow-bottom mb-0 border border-dark" onclick="expandirTabelaPedidos()">
+        <h2><b>Tabela de Pedidos</b></h2>
+        <p><strong>Pedidos do dia <?php print date('d/m/Y');?></strong></p>
+    </div>
+    <div id="pedidosHoje" class="pedidosHoje d-none mb-4 bg-white rounded-bottom shadow-lg shadow-right shadow-bottom border border-dark p-4">
+        <div class="rolagem row">
+            <?php 
+            //$clienteRepete = null;
+            $horarioRepete = null;
+            $count = 0;
+            $countPedido = 0;
+            $valorDia = 0;
             
-            <div class="rolagem"> 
-                
-                <!-- foreach para chamar pedidos !-->
-                <?php 
-                //$clienteRepete = null;
-                $horarioRepete = null;
-                $count = 0;
-                $countPedido = 0;
-                $valorDia = 0;
-                $loopPedidos = 0;
 
-                foreach ($listaPedidos as $key => $value) {
-                    $dataHora = $value['data_insercao'];
-                    $dataPedido = substr($dataHora, 0, 10);
-                    $horaData = $value['data_insercao'];
-                    $horaPedido = substr($horaData, 11, 8);
-                    $dataAtual = date('Y-m-d');
+            foreach ($listaPedidos as $key => $value) {
+                $dataHora = $value['data_insercao'];
+                $dataPedido = substr($dataHora, 0, 10);
+                $horaData = $value['data_insercao'];
+                $horaPedido = substr($horaData, 11, 8);
+                $dataAtual = date('Y-m-d');
+                
+                if ($dataAtual == $dataPedido) { //chama apenas os pedidos do dia e ignora os pedidos de outros dias
+
+                    $pedidosDia = $countPedido++;
+                    $valorDia += $value['valor'];
                     
-                ?> 
-                <div>
+                    $cliente = $value['id_cliente'];
+                    $telefone = $_SESSION['endCliente'][$cliente]['telefone']; 
+                    $rua = $_SESSION['endCliente'][$cliente]['rua']; 
+                    $numero = $_SESSION['endCliente'][$cliente]['numero']; 
+                    
+                    if ($horaPedido !== $horarioRepete) {  // SE 2 CLIENTES FIZEREM O PEDIDO NO MESMO SEGUNDO, VAI DAR RUIM
+                     
+                        echo '<div class="limpar"></div>';
+                        ?>
+                     
+                        <p class="pedidosClientesDestaque text-left p-3 mt-4 rounded col-md-4"><b>Nome : </b><?php print $value['nome_do_cliente']; ?> ID: <?php print $value['id_cliente']?> </p>
+
+                        <div class="d-flex justify-content-center bg-dark text-light rounded shadow-lg shadow-right shadow-bottom col-md-12">
+                            <p class="p-1"><b>Telefone: </b> <?php print $telefone; ?>  </p>
+                            <p class="p-1"><b>Endereço:</b> <?php print $rua ?> Nº <?php print $numero; ?>  </p>
+                            <p class="p-1"><b>DATA: </b> <?php print $dataPedido; ?></p> <!-- É necessario colocar a data aqui? !-->
+                        </div>
                     <?php 
-                        if ($dataAtual == $dataPedido) { //chama apenas os pedidos do dia e ignora os pedidos de outros dias
+                        //$clienteRepete = $cliente;
+                        $horarioRepete = $horaPedido;
+                    }   // fechamento $clienteRepete != $cliente                               
 
-                              $pedidosDia = $countPedido++;
-                              $valorDia += $value['valor'];
-                              
-                              $cliente = $value['id_cliente'];
-                              $telefone = $_SESSION['endCliente'][$cliente]['telefone']; 
-                              $rua = $_SESSION['endCliente'][$cliente]['rua']; 
-                              $numero = $_SESSION['endCliente'][$cliente]['numero']; 
-                               
-                             if ($horaPedido !== $horarioRepete) {  // SE 2 CLIENTES FIZEREM O PEDIDO NO MESMO SEGUNDO, VAI DAR RUIM
-                               
-                                    $loopPedidos = 0;
-                                    echo '<div class="limpar"></div>';
-                                    ?>
-                                 
-                               <p class="pedidosClientesDestaque text-left p-3 mt-4 rounded col-md-4"><b>Nome : </b><?php print $value['nome_do_cliente']; ?> ID: <?php print $value['id_cliente']?> </p>
-
-                               <div class="d-flex justify-content-center bg-dark text-light rounded shadow-lg shadow-right shadow-bottom">
-                                    <p class="p-1"><b>Telefone: </b> <?php print $telefone; ?>  </p>
-                                    <p class="p-1"><b>Endereço:</b> <?php print $rua ?> Nº <?php print $numero; ?>  </p>
-                                    <p class="p-1"><b>DATA: </b> <?php print $dataPedido; ?></p> <!-- É necessario colocar a data aqui? !-->
-                               </div>
-                            <?php 
-                                //$clienteRepete = $cliente;
-                                $horarioRepete = $horaPedido;
-                                }   // fechamento $clienteRepete != $cliente                               
-                            
-
-                            echo '<div class="container containerPedidos m-3">';
-                            echo '<div class="bloco  m-1 bg-light p-3 rounded shadow-lg shadow-right shadow-bottom">';
-                            
-                            ?>    
-                                <p class="bg-primary d-flex justify-content-center"><b>Numero Pedido: </b><?php print $value['id'];?></p>
-                                <p><b>Produto:</b> <?php print $value['produto']; ?></p>
-                                <p><b>Observação:</b>                                                  </p>
-                                <p><b>Para entrega ? </b> <?php if ($value['entrega'] > 0) { print 'SIM'; $count++;
-                                                                } else { print 'NAO'; }; ?>  </p>
-                                <p><b>Hora: </b> <?php print $horaPedido; ?></p>
-                            
-                            <?php
-                                echo '</div>';
-                                echo '</div>';
-                                
-                                $loopPedidos++;
-
-                                if ($loopPedidos >= 3) 
-                                {
-                                    echo '<div class="limpar"></div>';
-                                    print '<hr>';
-                                    $loopPedidos = 0;
-                                }
-                            }
-                            ?>
-                </div>
-                <?php     } 
+                    echo '<div class="containerPedidos col-md-4 d-flex justify-content-center">';
+                    echo '<div class="bloco bg-light p-3 rounded shadow-lg shadow-right shadow-bottom">';
                     
-                ?>
-                
-                
+                    ?>    
+                        <p class="bg-primary d-flex justify-content-center"><b>Numero Pedido: </b><?php print $value['id'];?></p>
+                        <p><b>Produto:</b> <?php print $value['produto']; ?></p>
+                        <p><b>Observação:</b>                                                  </p>
+                        <p><b>Para entrega ? </b> <?php if ($value['entrega'] > 0) { print 'SIM'; $count++;
+                                                        } else { print 'NAO'; }; ?>  </p>
+                        <p><b>Hora: </b> <?php print $horaPedido; ?></p>
+                    
+                    <?php
+                        echo '</div>';
+                        echo '</div>';
+                        
+                       
+                    }
+                    ?>
+            <?php } ?>
         </div>
-            </div>     
+    </div>
+</div>
+
             
             <!-- INICIO conteudo expansivel !-->
-            <div class="container p-4 mb-4 mt-4 bg-white rounded shadow-lg shadow-right shadow-bottom rolagem">
+            <div class="container p-4 my-4 bg-white rounded shadow-lg shadow-right shadow-bottom rolagem">
                 <div class="expansivel" data-inicial="fechado">
                     <div class="expansivel-header text-center" onclick="toggleExpansao(this)">
                         <h2><b>PEDIDOS ANTIGOS</b></h2>
@@ -169,7 +149,7 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                             $horaData = $value['data_insercao'];
                             $horaPedido = substr($horaData, 11, 8);
                             $dataAtual = date('Y-m-d');
-                            $loopPedidos2 = 0;
+                         
 
                             if ($dataAtual > $dataPedido) 
                             {
@@ -178,11 +158,9 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                                 $rua = $_SESSION['endCliente'][$clienteAntigo]['rua']; 
                                 $numero = $_SESSION['endCliente'][$clienteAntigo]['numero'];
                                 ?>
-
-                
-                <div class="expansivel-conteudo">
                         
                     <div>
+
                         <?php 
                             if ($dataAtual > $dataPedido) { ?>
                                 
@@ -203,40 +181,33 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                                         $horarioRepeteAntigo = $horaPedido;
                                         } // fechamento horarioPedido ?>
                                 
-                                    <div class="container containerPedidos m-3">
-                                        <div class="bloco  m-1 bg-light p-3 rounded shadow-lg shadow-right shadow-bottom">
+                                    <div class="bloco container containerPedidos col-md-4 d-flex justify-content-center">
+                                        <div class="bloco bg-light p-3 rounded shadow-lg shadow-right shadow-bottom">
                             
                                         
-                                        <p class="bg-primary d-flex justify-content-center"><b>Numero Pedido: </b><?php print $value['id'];?></p>
-                                        <p><b>Produto:</b> <?php print $value['produto']; ?></p>
-                                        <p><b>Observação:</b>                                                  </p>
-                                        <p><b>Para entrega ? </b> <?php if ($value['entrega'] > 0) { print 'SIM'; $count++;
-                                                                        } else { print 'NAO'; }; ?>  </p>
-                                        <p><b>Hora: </b> <?php print $horaPedido; ?></p>
-                            
+                                            <p class="bg-primary text-center"><b>Numero Pedido: </b><?php print $value['id'];?></p>
+                                            <p><b>Produto:</b> <?php print $value['produto']; ?></p>
+                                            <p><b>Observação:</b>                                                  </p>
+                                            <p><b>Para entrega ? </b> <?php if ($value['entrega'] > 0) { print 'SIM'; $count++;
+                                                                            } else { print 'NAO'; }; ?>  </p>
+                                            <p><b>Hora: </b> <?php print $horaPedido; ?></p>
+                                
                             
                                         </div>
                                     </div>
                                 <?php    
-                                $loopPedidos2++;
-
-                                if ($loopPedidos2 >= 3) 
-                                {
-                                    echo '<div class="limpar"></div>';
-                                    print '<hr>';
-                                    $loopPedidos2 = 0;
-                                }
+                               
                             }
                             ?>
                     </div>
-                </div> <!-- fim conteudo expansivel !-->
+                 <!-- fim conteudo expansivel !-->
                 <?php } // fim IF data pedido antigo
             }?> <!-- fim foreach !-->
                         <div class="d-flex  justify-content-center">
                             <button id="fecharDialog" class="btn btn-danger">
                                 Fechar
                             </button>
-                        </div>
+                        </div>   
             </div>
         
         </div>
@@ -270,38 +241,38 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                 </div>
             </dialog>
     </div>
+    
+    
+    <div class="bg-white shadow-lg shadow-right shadow-bottom">
+
+                        <h1 class="text-center"><b>Financeiro</b></h1>
+        <div class="d-md-flex justify-content-center">
+            <div class="d-inline-block col-md-3 h-90">
                 
-    <div class="container d-flex align-items-center justify-content-center">
-        
-            <div class="col-md-6 p-4 mb-4 bg-white rounded shadow-lg shadow-right shadow-bottom">
-                
-                <ul class="list-unstyled"><h2 id="motoBoy" class="text-center"><b>Motoboy</b></h2>
-                
-                    <li><b>Numero de entregas:</b> <?php print $count++ ?> </li>
-                    <li><b>Valor a pagar:</b> R$ $valorMotoboy  </li>
-                    
-                </ul>
+                    <div class="p-4 mb-4 bg-white rounded shadow-lg shadow-right shadow-bottom">
+                        
+                        <ul class="list-unstyled"><h2 id="motoBoy" class="text-center"><b>Motoboy</b></h2>
+                        
+                            <li><b><h3>Numero de entregas:</h3></b> <?php print $count++ ?> </li>
+                            <li><b><h3>Valor a pagar:</h3></b> R$ $valorMotoboy  </li>
+                            
+                        </ul>
+                        
+                    </div>
                 
             </div>
 
-            
-        
-        <?php // var_dump($listaPedidos); ?>
-
-        <!-- DIALOG PEDIDOS ANTIGOS!-->
-
-                    
-        
-    </div>
-    <div id="financeiro" class="container d-flex justify-content-center">
-        <div class="col-md-6 p-4 mb-4 bg-white rounded shadow-lg shadow-right shadow-bottom">
-                    <ul class="container text-center list-unstyled"><h1 class="text-center"><b>Financeiro</b></h1>
-                        
-                            <li class="text-xl"><h3>Vendas do Dia:</h3> <?php print $countPedido; ?>  </li>
-                            <li class="text-sm"><h3>Receita Diaria:</h3> R$ <?php print $valorDia ?> </li>
-                            <li class="text-lg"><h3>Valor do Mes:</h3> R$ $valorMes</li>
-                        
-                    </ul>
+            <div id="financeiro" class="d-inline-block ps-5 col-md-3 h-100">
+                <div class=" p-4 mb-4 bg-white rounded shadow-lg shadow-right shadow-bottom">
+                            <ul class="text-center list-unstyled">
+                                
+                                    <li ><h4>Vendas do Dia:</h4> <?php print $countPedido; ?>  </li>
+                                    <li ><h4>Receita Diaria:</h4> R$ <?php print $valorDia ?> </li>
+                                    <li ><h3>Valor do Mes:</h3> R$ $valorMes</li>
+                                
+                            </ul>
+                </div>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>
