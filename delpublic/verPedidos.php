@@ -49,7 +49,7 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
             <?php 
             //$clienteRepete = null;
             $horarioRepete = null;
-            $count = 0;
+            $countEntregas = 0;
             $countPedido = 0;
             $valorDia = 0;
             
@@ -95,7 +95,7 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                         <p class="bg-primary d-flex justify-content-center"><b>Numero Pedido: </b><?php print $value['id'];?></p>
                         <p><b>Produto:</b> <?php print $value['produto']; ?></p>
                         <p><b>Observação:</b>                                                  </p>
-                        <p><b>Para entrega ? </b> <?php if ($value['entrega'] > 0) { print 'SIM'; $count++;
+                        <p><b>Para entrega ? </b> <?php if ($value['entrega'] > 0) { print 'SIM'; $countEntregas++;
                                                         } else { print 'NAO'; }; ?>  </p>
                         <p><b>Hora: </b> <?php print $horaPedido; ?></p>
                     
@@ -188,7 +188,7 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                                             <p class="bg-primary text-center"><b>Numero Pedido: </b><?php print $value['id'];?></p>
                                             <p><b>Produto:</b> <?php print $value['produto']; ?></p>
                                             <p><b>Observação:</b>                                                  </p>
-                                            <p><b>Para entrega ? </b> <?php if ($value['entrega'] > 0) { print 'SIM'; $count++;
+                                            <p><b>Para entrega ? </b> <?php if ($value['entrega'] > 0) { print 'SIM'; $countEntregas++;
                                                                             } else { print 'NAO'; }; ?>  </p>
                                             <p><b>Hora: </b> <?php print $horaPedido; ?></p>
                                 
@@ -252,9 +252,10 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                     <div class="p-4 mb-4 bg-white rounded shadow-lg shadow-right shadow-bottom">
                         
                         <ul class="list-unstyled"><h2 id="motoBoy" class="text-center"><b>Motoboy</b></h2>
-                        
-                            <li><b><h3>Numero de entregas:</h3></b> <?php print $count++ ?> </li>
-                            <li><b><h3>Valor a pagar:</h3></b> R$ $valorMotoboy  </li>
+                            
+                            <li><b><h3>Valor da viagem : R$ <?php print $_SESSION['freteMotoboy']; ?></h3></b></li>
+                            <li><b><h3>Numero de entregas: <?php print $countEntregas ?></h3></b> </li>
+                            <li><b><h3>Valor a pagar: R$ <?php print $_SESSION['freteMotoboy'] * $countEntregas ?> </h3></b> </li>
                             
                         </ul>
                         
@@ -273,6 +274,7 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                             </ul>
                 </div>
             </div>
+            
         </div>
     </div>
     <script src="script.js"></script>

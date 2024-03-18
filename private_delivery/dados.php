@@ -48,6 +48,7 @@ switch ($acao) {
         $admInfo->__set('hor_funcionamento_ini', $_POST['hor_funcionamento_ini']);
         $admInfo->__set('hor_funcionamento_fec', $_POST['hor_funcionamento_fec']);
         $admInfo->__set('frete', $_POST['frete']);
+        $admInfo->__set('freteMotoboy', $_POST['freteMotoboy']);
         $comandosInfo->inserirInfo();
         header('Location: admControl.php?inclusao=2');
         break;
@@ -133,6 +134,7 @@ switch ($acao) {
             $end = strlen($_POST['rua']);
             $num = strlen($_POST['numero']);
             $bairro = strlen($_POST['bairro']);
+            
 
             if (!$_POST['entrega'] == 0) {
                 if ($end < 2 || $bairro < 2 || $num == 0) {

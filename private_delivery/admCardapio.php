@@ -12,6 +12,7 @@ class AdmCardapio
     private $idCliente;  // para identificar quem é o dono do pedido
     private $ordem; //referente a ordem das categorias no cardapio
     private $frete;
+    private $freteMotoboy;
     
     public function __set($atributo, $valor) 
     {
@@ -37,6 +38,7 @@ class AdmInfo
     private $hor_funcionamento_ini;
     private $hor_funcionamento_fec;
     private $frete;
+    private $freteMotoboy;
     
     public function __set($atributo, $valor) 
     {
