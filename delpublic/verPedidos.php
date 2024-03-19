@@ -49,6 +49,7 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
             <?php 
             //$clienteRepete = null;
             $horarioRepete = null;
+            $horarioRepete2 = null;
             $countEntregas = 0;
             $countPedido = 0;
             $valorDia = 0;
@@ -95,8 +96,14 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                         <p class="bg-primary d-flex justify-content-center"><b>Numero Pedido: </b><?php print $value['id'];?></p>
                         <p><b>Produto:</b> <?php print $value['produto']; ?></p>
                         <p><b>Observação:</b>                                                  </p>
-                        <p><b>Para entrega ? </b> <?php if ($value['entrega'] > 0) { print 'SIM'; $countEntregas++;
-                                                        } else { print 'NAO'; }; ?>  </p>
+                        <p><b>Para entrega ? </b> <?php if ($value['entrega'] > 0 && $horaPedido != $horarioRepete2) 
+                                                        { 
+                                                            print 'SIM'; 
+                                                            $countEntregas++ ; 
+                                                            $horarioRepete2 = $horaPedido;
+                                                        } else 
+                                                        { print 'NAO'; }; ?>  
+                        </p>
                         <p><b>Hora: </b> <?php print $horaPedido; ?></p>
                     
                     <?php
