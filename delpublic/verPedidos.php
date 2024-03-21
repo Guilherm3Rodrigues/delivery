@@ -53,16 +53,19 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
             $countEntregas = 0;
             $countPedido = 0;
             $valorDia = 0;
-            
+            $dataAtual = date('Y-m-d');
 
             foreach ($listaPedidos as $key => $value) {
                 $dataHora = $value['data_insercao'];
                 $dataPedido = substr($dataHora, 0, 10);
-                $horaData = $value['data_insercao'];
-                $horaPedido = substr($horaData, 11, 8);
-                $dataAtual = date('Y-m-d');
+              
+                
                 
                 if ($dataAtual == $dataPedido) { //chama apenas os pedidos do dia e ignora os pedidos de outros dias
+
+                    $teste = $value;
+                    $horaData = $value['data_insercao'];
+                    $horaPedido = substr($horaData, 11, 8);
 
                     $pedidosDia = $countPedido++;
                     $valorDia += $value['valor'];
@@ -100,7 +103,7 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                                                         { 
                                                             print 'SIM'; 
                                                             $countEntregas++ ; 
-                                                            $horarioRepete2 = $horaPedido;
+                                                            $horarioRepete2 = $horaPedido; 
                                                         } else 
                                                         { print 'NAO'; }; ?>  
                         </p>
@@ -249,18 +252,22 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
             </dialog>
     </div>
     
+    <?php 
+        var_dump($dataPedido);
+        var_dump($teste);
+    ?>
     
     <div class="bg-white shadow-lg shadow-right shadow-bottom">
 
-                        <h1 class="text-center"><b>Financeiro</b></h1>
+                        <h1 class="text-center mb-4"><b>Financeiro</b></h1>
         <div class="d-md-flex justify-content-center">
             <div class="d-inline-block col-md-3 h-90">
                 
                     <div class="p-4 mb-4 bg-white rounded shadow-lg shadow-right shadow-bottom">
-                        
+                                        
                         <ul class="list-unstyled"><h2 id="motoBoy" class="text-center"><b>Motoboy</b></h2>
                             
-                            <li><b><h3>Valor da viagem : R$ <?php print $_SESSION['freteMotoboy']; ?></h3></b></li>
+                            <li><b><h3>Valor da viagem: R$ <?php print $_SESSION['freteMotoboy']; ?></h3></b></li>
                             <li><b><h3>Numero de entregas: <?php print $countEntregas ?></h3></b> </li>
                             <li><b><h3>Valor a pagar: R$ <?php print $_SESSION['freteMotoboy'] * $countEntregas ?> </h3></b> </li>
                             
