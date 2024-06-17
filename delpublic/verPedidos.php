@@ -75,11 +75,11 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                     $rua = $_SESSION['endCliente'][$cliente]['rua']; 
                     $numero = $_SESSION['endCliente'][$cliente]['numero']; 
                     
-                    if ($horaPedido !== $horarioRepete) {  // SE 2 CLIENTES FIZEREM O PEDIDO NO MESMO SEGUNDO, VAI DAR RUIM
+                    if ($horaPedido !== $horarioRepete && $cliente == $value['id_cliente']) {  // SE 2 CLIENTES FIZEREM O PEDIDO NO MESMO SEGUNDO, VAI DAR RUIM #####
                      
                         echo '<div class="limpar"></div>';
                         ?>
-                     
+                        
                         <p class="pedidosClientesDestaque text-left p-3 mt-4 rounded col-md-4"><b>Nome : </b><?php print $value['nome_do_cliente']; ?> ID: <?php print $value['id_cliente']?> </p>
 
                         <div class="d-flex justify-content-center bg-dark text-light rounded shadow-lg shadow-right shadow-bottom col-md-12">

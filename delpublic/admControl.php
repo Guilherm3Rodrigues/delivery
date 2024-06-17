@@ -113,7 +113,7 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                     <option value="18:00">18:00</option>
                 </select>
 
-                <p style="margin:10px 0 0 !important;"><b>VALOR DO FRETE</b></p>
+                <p style="margin:10px 0 0 !important;"><b>VALOR DO FRETE (CLIENTE)</b></p>
                 <input style="width:200px;" name="frete" type="number" step="0.01" value="<?php print $_SESSION['frete'] ?>" class="form-control" placeholder="EX: 2.50 (2 PONTO 50)">
 
                 <p style="margin:10px 0 0 !important;"><b>Valor por entrega Motoboy</b></p>
