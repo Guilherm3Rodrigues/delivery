@@ -50,6 +50,7 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
             //$clienteRepete = null;
             $horarioRepete = null;
             $horarioRepete2 = null;
+            $clienteRepete = null;
             $countEntregas = 0;
             $countPedido = 0;
             $valorDia = 0;
@@ -59,11 +60,9 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                 $dataHora = $value['data_insercao'];
                 $dataPedido = substr($dataHora, 0, 10);
               
-                
-                
                 if ($dataAtual == $dataPedido) { //chama apenas os pedidos do dia e ignora os pedidos de outros dias
 
-                    $teste = $value;
+                    
                     $horaData = $value['data_insercao'];
                     $horaPedido = substr($horaData, 11, 8);
 
@@ -75,27 +74,31 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                     $rua = $_SESSION['endCliente'][$cliente]['rua']; 
                     $numero = $_SESSION['endCliente'][$cliente]['numero']; 
                     
-                    if ($horaPedido !== $horarioRepete && $cliente == $value['id_cliente']) {  // SE 2 CLIENTES FIZEREM O PEDIDO NO MESMO SEGUNDO, VAI DAR RUIM #####
-                     
-                        echo '<div class="limpar"></div>';
-                        ?>
-                        
-                        <p class="pedidosClientesDestaque text-left p-3 mt-4 rounded col-md-4"><b>Nome : </b><?php print $value['nome_do_cliente']; ?> ID: <?php print $value['id_cliente']?> </p>
+                    if ($horaPedido !== $horarioRepete) {  // SE 2 CLIENTES FIZEREM O PEDIDO NO MESMO SEGUNDO, VAI DAR RUIM #####
 
-                        <div class="d-flex justify-content-center bg-dark text-light rounded shadow-lg shadow-right shadow-bottom col-md-12">
-                            <p class="p-1"><b>Telefone: </b> <?php print $telefone; ?>  </p>
-                            <p class="p-1"><b>Endereço:</b> <?php print $rua ?> Nº <?php print $numero; ?>  </p>
-                            <p class="p-1"><b>DATA: </b> <?php print $dataPedido; ?></p> <!-- É necessario colocar a data aqui? !-->
-                        </div>
-                    <?php 
-                        //$clienteRepete = $cliente;
-                        $horarioRepete = $horaPedido;
-                    }   // fechamento $clienteRepete != $cliente                               
+                        if ($clienteRepete !== $cliente) {  // FAZ A VERIFICAÇÃO ENTRE PEDIDO E CLIENTE
+                        
+                            echo '<div class="limpar"></div>';
+                            ?>
+                            
+                            <p class="pedidosClientesDestaque text-left p-3 mt-4 rounded col-md-4"><b>Nome : </b><?php print $value['nome_do_cliente']; ?> ID: <?php print $value['id_cliente']?> </p>
+
+                            <div class="d-flex justify-content-center bg-dark text-light rounded shadow-lg shadow-right shadow-bottom col-md-12">
+                                <p class="p-1"><b>Telefone: </b> <?php print $telefone; ?>  </p>
+                                <p class="p-1"><b>Endereço:</b> <?php print $rua ?> Nº <?php print $numero; ?>  </p>
+                                <p class="p-1"><b>DATA: </b> <?php print $dataPedido; ?></p> <!-- É necessario colocar a data aqui? !-->
+                            </div>
+                        <?php 
+                            $clienteRepete = $cliente;
+                            $horarioRepete = $horaPedido;
+                        }    // fechamento 
+                    }
+                    
 
                     echo '<div class="containerPedidos col-md-4 d-flex justify-content-center">';
                     echo '<div class="bloco bg-light p-3 rounded shadow-lg shadow-right shadow-bottom">';
                     
-                    ?>    
+                    ?>    <!-- AAAAAAAAAAAAAAA !-->
                         <p class="bg-primary d-flex justify-content-center"><b>Numero Pedido: </b><?php print $value['id'];?></p>
                         <p><b>Produto:</b> <?php print $value['produto']; ?></p>
                         <p><b>Observação:</b>                                                  </p>
@@ -120,7 +123,8 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
         </div>
     </div>
 </div>
-
+            <?php var_dump($listaPedidos)  // CADE O CLIENTE 86 ?
+            ?> 
             
             <!-- INICIO conteudo expansivel !-->
             <div class="container p-4 my-4 bg-white rounded shadow-lg shadow-right shadow-bottom rolagem">
@@ -253,8 +257,8 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
     </div>
     
     <?php 
-        var_dump($dataPedido);
-        var_dump($teste);
+        
+        
     ?>
     
     <div class="bg-white shadow-lg shadow-right shadow-bottom">

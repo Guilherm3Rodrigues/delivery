@@ -204,7 +204,7 @@
                             <input id="nomeCliente" name="nomeCliente" class="row form-control"  value="EX: Cayo Rodrigues" placeholder="EX: Cayo Rodrigues" required></input>
                             
                             <label for="telefone" class="row" require>Telefone</label>
-                            <input type="tel" id="telefoneCliente" name="telefoneCliente" class="row form-control" value="9999-9999" placeholder="EX: 35 9 8899-9749" required></input>
+                            <input type="tel" id="telefoneCliente" name="telefoneCliente" class="row form-control" maxlength="12" value="9999-9999" placeholder="EX: 35 9 8899-9749" required></input>
                 </ul>
                     <div class="container d-flex justify-content-center">
                         <button class="btn btn-primary" onclick="atribuirValor()"><strong>Finalizar</strong></button>
