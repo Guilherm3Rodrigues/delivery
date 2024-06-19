@@ -1,6 +1,8 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+
 class Comandos
 {
     private $conexao;
@@ -21,7 +23,8 @@ class Comandos
         $stmt2->execute();
         $verificar = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
-        if ($verificar) {
+        if ($verificar) 
+        {
             $ordem = $verificar[0]['ordem'];
         } else
         {
