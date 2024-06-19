@@ -83,15 +83,17 @@ class Comandos
 
     public function carregarInfo()
     {
+        
         try {
             $verificar = 'SELECT * FROM info_estabelecimento';
             $stmt = $this->conexao->prepare($verificar);
             $stmt->execute();
-
+            
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             // Tratar erro aqui, como registrar em um arquivo de log
             echo "Erro ao carregar informações: " . $e->getMessage();
+
             return false; // Ou outro valor indicando erro
         }
     }
@@ -116,7 +118,7 @@ class Comandos
 
     public function buscar() // carrega o cardapio
     {
-        $query = 'select id, img, produto, descricao, categoria, valor, ordem from itens_cardapio ORDER BY ordem';
+        $query = 'SELECT * FROM itens_cardapio';
         $stmt = $this->conexao->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -279,5 +281,8 @@ class Comandos
                     return $retorno;
                     }
     }
+    
 
 }
+
+
