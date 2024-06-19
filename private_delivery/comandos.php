@@ -1,6 +1,8 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+
 class Comandos
 {
     private $conexao;
@@ -188,7 +190,7 @@ class Comandos
 
     }
 
-    public function pre_carrinho()
+    public function pre_carrinho() //pré porque nada vai apra o banco de dados ainda
     {
         $query = 'SELECT * FROM itens_cardapio WHERE id = :id';
         $stmt2 = $this->conexao->prepare($query);
