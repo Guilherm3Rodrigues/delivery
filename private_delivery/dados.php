@@ -43,10 +43,45 @@ if ($acao == 'inserir') {
     $admInfo->__set('telefone', $_POST['telefone']);
     $admInfo->__set('rua', $_POST['rua']);
     $admInfo->__set('bairro', $_POST['bairro']);
-    $admInfo->__set('dia_inicial', $_POST['dia_inicial']);
-    $admInfo->__set('dia_final', $_POST['dia_final']);
-    $admInfo->__set('hor_funcionamento_ini', $_POST['hor_funcionamento_ini']);
-    $admInfo->__set('hor_funcionamento_fec', $_POST['hor_funcionamento_fec']);
+
+    if($_POST["horaCustomSegunda"]){
+        $arrayFuncionamento['Mon'] = [$_POST['horaIniciSegunda'], $_POST['horaFimSegunda']];
+    }else{
+        $arrayFuncionamento['Mon'] = [];
+    }
+    if($_POST["horaCustomTerca"]){
+        $arrayFuncionamento['Tue'] = [$_POST['horaIniciTerca'], $_POST['horaFimTerca']];
+    }else{
+        $arrayFuncionamento['Tue'] = [];
+    }
+    if($_POST["horaCustomQuarta"]){
+        $arrayFuncionamento['Wed'] = [$_POST['horaIniciQuarta'], $_POST['horaFimQuarta']];
+    }else{
+        $arrayFuncionamento['Wed'] = [];
+    }
+    if($_POST["horaCustomQuinta"]){
+        $arrayFuncionamento['Thu'] = [$_POST['horaIniciQuinta'], $_POST['horaFimQuinta']];
+    }else{
+        $arrayFuncionamento['Thu'] = [];
+    }
+    if($_POST["horaCustomSexta"]){
+        $arrayFuncionamento['Fri'] = [$_POST['horaIniciSexta'], $_POST['horaFimSexta']];
+    }else{
+        $arrayFuncionamento['Fri'] = [];
+    }
+    if($_POST["horaCustomSabado"]){
+        $arrayFuncionamento['Sat'] = [$_POST['horaIniciSabado'], $_POST['horaFimSabado']];
+    }else{
+        $arrayFuncionamento['Sat'] = [];
+    }
+    if($_POST["horaCustomDomingo"]){
+        $arrayFuncionamento['Sun'] = [$_POST['horaIniciDomingo'], $_POST['horaFimDomingo']];
+    }else{
+        $arrayFuncionamento['Sun'] = [];
+    }
+
+
+    $admInfo->__set('data_funcionamento', json_encode($arrayFuncionamento));
     $admInfo->__set('frete', $_POST['frete']);
 
     $comandosInfo->inserirInfo();
