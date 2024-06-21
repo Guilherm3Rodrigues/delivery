@@ -33,8 +33,9 @@ class AdmInfo
     private $bairro;
     private $dia_inicial;
     private $dia_final;
-    private $hor_funcionamento_ini;
-    private $hor_funcionamento_fec;
+    private $data_funcionamento;
+    private $hor_funcionamento_ini; //defasado
+    private $hor_funcionamento_fec; //defasado
     private $frete;
     
     public function __set($atributo, $valor) 

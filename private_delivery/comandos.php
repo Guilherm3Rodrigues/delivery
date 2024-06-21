@@ -50,8 +50,8 @@ class Comandos
         $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$resultado) {
-            $query = "insert into info_estabelecimento(nome, telefone, rua, bairro, dia_inicial, dia_final, hor_funcionamento_ini, hor_funcionamento_fec, frete)
-            values (:nome, :telefone,:rua, :bairro, :dia_inicial, :dia_final, :hor_funcionamento_ini, :hor_funcionamento_fec, :frete)";
+            $query = "insert into info_estabelecimento(nome, telefone, rua, bairro, dia_inicial, dia_final, data_funcionamento, frete)
+            values (:nome, :telefone,:rua, :bairro, :dia_inicial, :dia_final, data_funcionamento, :frete)";
             $stmt = $this->conexao->prepare($query);
             $stmt->bindValue(':nome', $this->cardapio->__get('nome'));
             $stmt->bindValue(':telefone', $this->cardapio->__get('telefone'));
@@ -59,8 +59,9 @@ class Comandos
             $stmt->bindValue(':bairro', $this->cardapio->__get('bairro'));
             $stmt->bindValue(':dia_inicial', $this->cardapio->__get('dia_inicial'));
             $stmt->bindValue(':dia_final', $this->cardapio->__get('dia_final'));
-            $stmt->bindValue(':hor_funcionamento_ini', $this->cardapio->__get('hor_funcionamento_ini'));
-            $stmt->bindValue(':hor_funcionamento_fec', $this->cardapio->__get('hor_funcionamento_fec'));
+            $stmt->bindValue(':data_funcionamento', $this->cardapio->__get('data_funcionamento'));
+            //$stmt->bindValue(':hor_funcionamento_ini', $this->cardapio->__get('hor_funcionamento_ini'));
+            //$stmt->bindValue(':hor_funcionamento_fec', $this->cardapio->__get('hor_funcionamento_fec'));
             $stmt->bindValue(':frete', $this->cardapio->__get('frete'));
             $stmt->execute();
         } else {
