@@ -125,15 +125,16 @@ class Comandos
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+    
 
     //inativa no momento
-    /*public function buscarPedidos() // carrega o carrinho, PODE SER UTIL PARA ADMs
+    public function buscarPedidos() // carrega o carrinho, PODE SER UTIL PARA ADMs
     {
-        $query = 'select id, produto, valor, numero_pedido from pedidos';
+        $query = 'select * from pedidos2';
         $stmt = $this->conexao->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
-    }*/
+    }
 
 
     public function editar() //PARA ADMINISTRADORES, edita os itens do cardapio

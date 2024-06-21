@@ -88,7 +88,7 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                         <td> Hora de fechamento:</td> 
                         <td><input type="time" id="horaFimQuarta" name="horaFimQuarta" value="00:00"></td>
                     </tr><tr>
-                        <td><input type="checkbox" name='horaCustomQuinta' <?php if (count($horarios["Tru"]) > 0) print "checked"?>>Quinta</checkbox></td>
+                        <td><input type="checkbox" name='horaCustomQuinta' <?php if (count($horarios["Thu"]) > 0) print "checked"?>>Quinta</checkbox></td>
                         <td> Hora de abertura:</td> 
                         <td><input type="time" id="horaInicioQuinta" name="horaInicioQuinta" value="13:00" checked></td>
                         <td> Hora de fechamento:</td> 

@@ -8,7 +8,6 @@ $_SESSION['ultOrdem'] = 0;
 
 $arrayFuncionamento = json_decode($_SESSION['data_funcionamento'], true);
 
-
 $estaAberto = "FECHADO";
 if($arrayFuncionamento[date('D')][0] <= date('H:i')) {
     if($arrayFuncionamento[date('D')][1] >= date('H:i')) {

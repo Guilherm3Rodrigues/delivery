@@ -196,6 +196,17 @@ if ($acao == 'inserir') {
         //$listaPedidos = $comandos->buscarPedidos();
     
 
-} include('Login.php');
+} 
+function listarPedidosBD() {
+    
+   global $comandos;
+   $listaPedidos = $comandos->buscarPedidos();
+    
+
+    return $listaPedidos;
+}
+  
+include('Login.php');
+
 ?>
 <script src="scriptPrivate.js"></script>
