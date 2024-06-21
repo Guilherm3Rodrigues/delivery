@@ -3,17 +3,23 @@ ob_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 $acao = 'recuperar';
+date_default_timezone_set('America/Sao_Paulo');
+
 include('ponteInfo.php');
 $_SESSION['ultOrdem'] = 0;
 
 $arrayFuncionamento = json_decode($_SESSION['data_funcionamento'], true);
-
 $estaAberto = "FECHADO";
+
+
 if($arrayFuncionamento[date('D')][0] <= date('H:i')) {
+
     if($arrayFuncionamento[date('D')][1] >= date('H:i')) {
         $estaAberto = "ABERTO";
     }
 }
+
+
 $horario = $arrayFuncionamento[date('D')][0]." - ".$arrayFuncionamento[date('D')][1];// ajustar string para mostrar o horario
 ?>
 <!DOCTYPE html>
