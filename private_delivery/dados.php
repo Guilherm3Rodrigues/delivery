@@ -43,44 +43,45 @@ if ($acao == 'inserir') {
     $admInfo->__set('telefone', $_POST['telefone']);
     $admInfo->__set('rua', $_POST['rua']);
     $admInfo->__set('bairro', $_POST['bairro']);
+    var_dump($_POST);
 
     if($_POST["horaCustomSegunda"]){
-        $arrayFuncionamento['Mon'] = [$_POST['horaIniciSegunda'], $_POST['horaFimSegunda']];
+        $arrayFuncionamento['Mon'] = [$_POST['horaInicioSegunda'], $_POST['horaFimSegunda']];
     }else{
         $arrayFuncionamento['Mon'] = [];
     }
     if($_POST["horaCustomTerca"]){
-        $arrayFuncionamento['Tue'] = [$_POST['horaIniciTerca'], $_POST['horaFimTerca']];
+        $arrayFuncionamento['Tue'] = [$_POST['horaInicioTerca'], $_POST['horaFimTerca']];
     }else{
         $arrayFuncionamento['Tue'] = [];
     }
     if($_POST["horaCustomQuarta"]){
-        $arrayFuncionamento['Wed'] = [$_POST['horaIniciQuarta'], $_POST['horaFimQuarta']];
+        $arrayFuncionamento['Wed'] = [$_POST['horaInicioQuarta'], $_POST['horaFimQuarta']];
     }else{
         $arrayFuncionamento['Wed'] = [];
     }
     if($_POST["horaCustomQuinta"]){
-        $arrayFuncionamento['Thu'] = [$_POST['horaIniciQuinta'], $_POST['horaFimQuinta']];
+        $arrayFuncionamento['Thu'] = [$_POST['horaInicioQuinta'], $_POST['horaFimQuinta']];
     }else{
         $arrayFuncionamento['Thu'] = [];
     }
     if($_POST["horaCustomSexta"]){
-        $arrayFuncionamento['Fri'] = [$_POST['horaIniciSexta'], $_POST['horaFimSexta']];
+        $arrayFuncionamento['Fri'] = [$_POST['horaInicioSexta'], $_POST['horaFimSexta']];
     }else{
         $arrayFuncionamento['Fri'] = [];
     }
     if($_POST["horaCustomSabado"]){
-        $arrayFuncionamento['Sat'] = [$_POST['horaIniciSabado'], $_POST['horaFimSabado']];
+        $arrayFuncionamento['Sat'] = [$_POST['horaInicioSabado'], $_POST['horaFimSabado']];
     }else{
         $arrayFuncionamento['Sat'] = [];
     }
     if($_POST["horaCustomDomingo"]){
-        $arrayFuncionamento['Sun'] = [$_POST['horaIniciDomingo'], $_POST['horaFimDomingo']];
+        $arrayFuncionamento['Sun'] = [$_POST['horaInicioDomingo'], $_POST['horaFimDomingo']];
     }else{
         $arrayFuncionamento['Sun'] = [];
     }
 
-
+    var_dump($arrayFuncionamento);
     $admInfo->__set('data_funcionamento', json_encode($arrayFuncionamento));
     $admInfo->__set('frete', $_POST['frete']);
 
