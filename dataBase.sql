@@ -1,3 +1,10 @@
+-- --------------------------------------------------------
+-- Servidor:                     127.0.0.1
+-- Versão do servidor:           8.0.30 - MySQL Community Server - GPL
+-- OS do Servidor:               Win64
+-- HeidiSQL Versão:              12.1.0.6537
+-- --------------------------------------------------------
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
@@ -7,6 +14,12 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+
+-- Copiando estrutura do banco de dados para db_delivery
+CREATE DATABASE IF NOT EXISTS `db_delivery` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `db_delivery`;
+
+-- Copiando estrutura para tabela db_delivery.clientes
 CREATE TABLE IF NOT EXISTS `clientes` (
   `id_cliente` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
@@ -18,7 +31,8 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   PRIMARY KEY (`id_cliente`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
-INSERT INTO `clientes` (`id_cliente`, `nome`, `telefone`, `rua`, `numero`, `bairro`, `complemento`) VALUES
+-- Copiando dados para a tabela db_delivery.clientes: ~10 rows (aproximadamente)
+REPLACE INTO `clientes` (`id_cliente`, `nome`, `telefone`, `rua`, `numero`, `bairro`, `complemento`) VALUES
 	(43, 'EX: Cayo Rodrigues', '77', 'JK', '350', 'Centro', 'Proximo a Loterica'),
 	(46, '111', '111', 'testeando1', '11', '321', '123'),
 	(57, 'teste', '5467', NULL, NULL, NULL, NULL),
@@ -51,24 +65,24 @@ INSERT INTO `clientes` (`id_cliente`, `nome`, `telefone`, `rua`, `numero`, `bair
 	(87, 'tempoo 1', '111111111112', '', '', 'Centro', 'Proximo a Loterica'),
 	(88, '19062024', '190620241', '', '', 'Centro', 'Proximo a Loterica');
 
+-- Copiando estrutura para tabela db_delivery.info_estabelecimento
 CREATE TABLE IF NOT EXISTS `info_estabelecimento` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) NOT NULL,
   `telefone` varchar(16) DEFAULT NULL,
   `rua` varchar(50) DEFAULT NULL,
   `bairro` varchar(30) DEFAULT NULL,
-  `dia_inicial` varchar(8) NOT NULL,
-  `dia_final` varchar(8) NOT NULL,
-  `hor_funcionamento_ini` varchar(8) NOT NULL,
-  `hor_funcionamento_fec` varchar(8) NOT NULL,
+  `data_funcionamento` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
   `frete` decimal(5,2) DEFAULT NULL,
   `freteMotoboy` decimal(5,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `info_estabelecimento` (`id`, `nome`, `telefone`, `rua`, `bairro`, `dia_inicial`, `dia_final`, `hor_funcionamento_ini`, `hor_funcionamento_fec`, `frete`, `freteMotoboy`) VALUES
-	(1, 'Bobs', '(35) 9 9944-5697', 'Rua: Exemplo de Rua, Nº 6eOnibuss', 'Vila do Chaves', 'segunda', 'domingo', '09:00', '00:00', 5.50, 3.00);
+-- Copiando dados para a tabela db_delivery.info_estabelecimento: ~1 rows (aproximadamente)
+REPLACE INTO `info_estabelecimento` (`id`, `nome`, `telefone`, `rua`, `bairro`, `data_funcionamento`, `frete`, `freteMotoboy`) VALUES
+	(1, 'Bobs', '(35) 9 9944-5697', 'Rua: Exemplo de Rua, Nº 6eOnibuss', 'Vila do Chaves', '{"Mon":["08:00","18:00"],"Tue":["08:00","18:00"],"Wed":["08:00","18:00"],"Thu":["08:00","18:00"],"Fri":["08:00","18:00"],"Sat":["10:00","16:00"],"Sun":["00:00","00:00"]}\n\n', 5.50, 3.00);
 
+-- Copiando estrutura para tabela db_delivery.itens_cardapio
 CREATE TABLE IF NOT EXISTS `itens_cardapio` (
   `id` int NOT NULL AUTO_INCREMENT,
   `img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
@@ -81,7 +95,8 @@ CREATE TABLE IF NOT EXISTS `itens_cardapio` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
-INSERT INTO `itens_cardapio` (`id`, `img`, `produto`, `descricao`, `valor`, `categoria`, `numero_pedido`, `ordem`) VALUES
+-- Copiando dados para a tabela db_delivery.itens_cardapio: ~8 rows (aproximadamente)
+REPLACE INTO `itens_cardapio` (`id`, `img`, `produto`, `descricao`, `valor`, `categoria`, `numero_pedido`, `ordem`) VALUES
 	(72, NULL, 'Massuda', 'Só massa', 1.00, 'Pizza', 1, 8),
 	(73, NULL, 'Massmolho', 'Massa com molho', 2.00, 'Pizza', 1, 8),
 	(74, NULL, 'Calabresa', 'Massa com molho e Calabresa (no singular)', 3.00, 'Pizza', 1, 8),
@@ -91,6 +106,7 @@ INSERT INTO `itens_cardapio` (`id`, `img`, `produto`, `descricao`, `valor`, `cat
 	(78, NULL, 'X-Pobre', 'Hamburguer (80g), Maionese, Queijo Prado', 8.00, 'Lanches', 1, 10),
 	(79, NULL, 'X-BACON', 'Haburguer (80g), Queijo prado, bacon, molho da casa e cebola caramelizada', 15.00, 'Lanches', 1, 10);
 
+-- Copiando estrutura para tabela db_delivery.pedidos
 CREATE TABLE IF NOT EXISTS `pedidos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `img` varchar(255) DEFAULT NULL,
@@ -107,7 +123,8 @@ CREATE TABLE IF NOT EXISTS `pedidos` (
   CONSTRAINT `fk_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`)
 ) ENGINE=InnoDB AUTO_INCREMENT=180 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `pedidos` (`id`, `img`, `produto`, `descricao`, `valor`, `categoria`, `numero_pedido`, `id_cliente`, `data_insercao`, `entrega`) VALUES
+-- Copiando dados para a tabela db_delivery.pedidos: ~0 rows (aproximadamente)
+REPLACE INTO `pedidos` (`id`, `img`, `produto`, `descricao`, `valor`, `categoria`, `numero_pedido`, `id_cliente`, `data_insercao`, `entrega`) VALUES
 	(1, NULL, 'teste6', 'testando6', 6.00, 'teste6', 1, 64, '2024-03-13 14:24:17', 0.00),
 	(2, NULL, 'teste4', 'testando4', 4.00, 'teste4', 1, 64, '2024-03-13 14:24:17', 0.00),
 	(3, NULL, 'a', 'a', 8.00, 'teste', 1, 64, '2024-03-13 14:24:17', 0.00),
@@ -151,6 +168,7 @@ INSERT INTO `pedidos` (`id`, `img`, `produto`, `descricao`, `valor`, `categoria`
 	(178, NULL, 'X-Pobre', 'Hamburguer (80g), Maionese, Queijo Prado', 8.00, 'Lanches', 1, 87, '2024-06-18 15:24:18', 0.00),
 	(179, NULL, 'teste4', 'testando4', 4.00, 'Teste', 1, 88, '2024-06-19 08:26:46', 0.00);
 
+-- Copiando estrutura para tabela db_delivery.usuarios
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `id_cliente` int NOT NULL AUTO_INCREMENT,
   `nomeProprietario` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
@@ -161,7 +179,8 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   PRIMARY KEY (`id_cliente`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `usuarios` (`id_cliente`, `nomeProprietario`, `telefone`, `loginNome`, `loginSenha`, `acesso`) VALUES
+-- Copiando dados para a tabela db_delivery.usuarios: ~3 rows (aproximadamente)
+REPLACE INTO `usuarios` (`id_cliente`, `nomeProprietario`, `telefone`, `loginNome`, `loginSenha`, `acesso`) VALUES
 	(9, 'Guilherme', '35988999749', 'MaidenEmily', '1532974680,-Delivery', 'Qw3Rt0'),
 	(10, 'Cayo', '066613', 'kayxd', '123456', 'Qw3Rt0'),
 	(11, 'Admin', '54753735', 'admin', 'admin', 'Qw3Rt0');
