@@ -11,8 +11,6 @@ class AdmCardapio
     private $numero_pedido;  // quantos do mesmo pedido a pessoa fez
     private $idCliente;  // para identificar quem é o dono do pedido
     private $ordem; //referente a ordem das categorias no cardapio
-    private $frete;
-    private $freteMotoboy;
     
     public function __set($atributo, $valor) 
     {
@@ -35,10 +33,10 @@ class AdmInfo
     private $bairro;
     private $dia_inicial;
     private $dia_final;
-    private $hor_funcionamento_ini;
-    private $hor_funcionamento_fec;
+    private $data_funcionamento;
+    private $hor_funcionamento_ini; //defasado
+    private $hor_funcionamento_fec; //defasado
     private $frete;
-    private $freteMotoboy;
     
     public function __set($atributo, $valor) 
     {
@@ -61,10 +59,6 @@ class Usuarios
     private $usuario;
     private $senha;
     private $sessao;
-    private $rua;
-    private $numero;
-    private $bairro;
-    private $complemento;
     
     public function __set($atributo, $valor) 
     {

@@ -23,8 +23,7 @@ class Comandos
         $stmt2->execute();
         $verificar = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
-        if ($verificar) 
-        {
+        if ($verificar) {
             $ordem = $verificar[0]['ordem'];
         } else
         {
@@ -51,37 +50,26 @@ class Comandos
         $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$resultado) {
-            $query = "insert into info_estabelecimento(nome, telefone, rua, bairro, dia_inicial, dia_final, hor_funcionamento_ini, hor_funcionamento_fec, frete, freteMotoboy)
-            values (:nome, :telefone,:rua, :bairro, :dia_inicial, :dia_final, :hor_funcionamento_ini, :hor_funcionamento_fec, :frete, :freteMotoboy)";
-
+            $query = "insert into info_estabelecimento(nome, telefone, rua, bairro, data_funcionamento, frete)
+            values (:nome, :telefone,:rua, :bairro, data_funcionamento, :frete)";
             $stmt = $this->conexao->prepare($query);
             $stmt->bindValue(':nome', $this->cardapio->__get('nome'));
             $stmt->bindValue(':telefone', $this->cardapio->__get('telefone'));
             $stmt->bindValue(':rua', $this->cardapio->__get('rua'));
             $stmt->bindValue(':bairro', $this->cardapio->__get('bairro'));
-            $stmt->bindValue(':dia_inicial', $this->cardapio->__get('dia_inicial'));
-            $stmt->bindValue(':dia_final', $this->cardapio->__get('dia_final'));
-            $stmt->bindValue(':hor_funcionamento_ini', $this->cardapio->__get('hor_funcionamento_ini'));
-            $stmt->bindValue(':hor_funcionamento_fec', $this->cardapio->__get('hor_funcionamento_fec'));
+            $stmt->bindValue(':data_funcionamento', $this->cardapio->__get('data_funcionamento'));
             $stmt->bindValue(':frete', $this->cardapio->__get('frete'));
-            $stmt->bindValue(':freteMotoboy', $this->cardapio->__get('freteMotoboy'));
             $stmt->execute();
         } else {
             $query = "update info_estabelecimento set nome = :nome, telefone = :telefone, rua = :rua, bairro = :bairro, 
-            dia_inicial = :dia_inicial, dia_final = :dia_final, hor_funcionamento_ini = :hor_funcionamento_ini, 
-            hor_funcionamento_fec = :hor_funcionamento_fec, frete = :frete, freteMotoboy = :freteMotoboy";
-
+            data_funcionamento = :data_funcionamento, frete = :frete";
             $stmt = $this->conexao->prepare($query);
             $stmt->bindValue(':nome', $this->cardapio->__get('nome'));
             $stmt->bindValue(':telefone', $this->cardapio->__get('telefone'));
             $stmt->bindValue(':rua', $this->cardapio->__get('rua'));
             $stmt->bindValue(':bairro', $this->cardapio->__get('bairro'));
-            $stmt->bindValue(':dia_inicial', $this->cardapio->__get('dia_inicial'));
-            $stmt->bindValue(':dia_final', $this->cardapio->__get('dia_final'));
-            $stmt->bindValue(':hor_funcionamento_ini', $this->cardapio->__get('hor_funcionamento_ini'));
-            $stmt->bindValue(':hor_funcionamento_fec', $this->cardapio->__get('hor_funcionamento_fec'));
+            $stmt->bindValue(':data_funcionamento', $this->cardapio->__get('data_funcionamento'));
             $stmt->bindValue(':frete', $this->cardapio->__get('frete'));
-            $stmt->bindValue(':freteMotoboy', $this->cardapio->__get('freteMotoboy'));
             $stmt->execute();
         }
 
@@ -91,15 +79,17 @@ class Comandos
 
     public function carregarInfo()
     {
+        
         try {
             $verificar = 'SELECT * FROM info_estabelecimento';
             $stmt = $this->conexao->prepare($verificar);
             $stmt->execute();
-
+            
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             // Tratar erro aqui, como registrar em um arquivo de log
             echo "Erro ao carregar informações: " . $e->getMessage();
+
             return false; // Ou outro valor indicando erro
         }
     }
@@ -124,33 +114,20 @@ class Comandos
 
     public function buscar() // carrega o cardapio
     {
-        $query = 'select id, img, produto, descricao, categoria, valor, ordem from itens_cardapio ORDER BY ordem';
+        $query = 'SELECT * FROM itens_cardapio';
         $stmt = $this->conexao->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
-
     
+
+    //inativa no momento
     public function buscarPedidos() // carrega o carrinho, PODE SER UTIL PARA ADMs
     {
-        $query = 'SELECT pedidos.*, clientes.nome AS nome_do_cliente
-        FROM pedidos
-        JOIN clientes ON pedidos.id_cliente = clientes.id_cliente order by data_insercao desc';
-        //$query = 'select * from pedidos order by data_insercao desc';
+        $query = 'select * from pedidos2';
         $stmt = $this->conexao->prepare($query);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function buscarAntigos()
-    {
-        $query = 'SELECT pedidos.*, clientes.nome AS nome_do_cliente
-        FROM pedidos
-        JOIN clientes ON pedidos.id_cliente = clientes.id_cliente order by nome desc';
-        //$query = 'select * from pedidos order by data_insercao desc';
-        $stmt = $this->conexao->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
 
@@ -208,7 +185,7 @@ class Comandos
 
     }
 
-    public function pre_carrinho()
+    public function pre_carrinho() //pré porque nada vai apra o banco de dados ainda
     {
         $query = 'SELECT * FROM itens_cardapio WHERE id = :id';
         $stmt2 = $this->conexao->prepare($query);
@@ -227,7 +204,7 @@ class Comandos
             $_SESSION['itens'][$resultado['id']] = $resultado;
             $_SESSION['itens'][$resultado['id']]['numero_pedido'] = 1;
         }
-        
+        var_dump($_SESSION['itens']);
     }
 
     public function finalizarPedido()  
@@ -244,8 +221,8 @@ class Comandos
             $pedido[$id] = $resultado;
         }
 
-        $query = 'INSERT INTO pedidos (img, produto, descricao, valor, categoria, numero_pedido, id_cliente, entrega)
-        values (:img, :produto, :descricao, :valor, :categoria, :numero_pedido, :idCliente, :entrega)';
+        $query = 'INSERT INTO pedidos (img, produto, descricao, valor, categoria, numero_pedido, id_cliente)
+        values (:img, :produto, :descricao, :valor, :categoria, :numero_pedido, :idCliente)';
         $stmt2 = $this->conexao->prepare($query);
         $stmt2->bindValue(':img', $this->cardapio->__get('img'));
         $stmt2->bindValue(':produto', $this->cardapio->__get('produto'));
@@ -254,7 +231,6 @@ class Comandos
         $stmt2->bindValue(':categoria', $this->cardapio->__get('categoria'));
         $stmt2->bindValue(':numero_pedido', $this->cardapio->__get('numero_pedido'));
         $stmt2->bindValue(':idCliente', $this->cardapio->__get('idCliente'));
-        $stmt2->bindValue(':entrega', $this->cardapio->__get('frete'));
         $stmt2->execute();
     }
     
@@ -274,15 +250,6 @@ class Comandos
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function listaUsuarios()
-    {
-                $verificar = 'select * from clientes';
-                $stmt = $this->conexao->prepare($verificar);
-                $stmt->execute();
-                return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-
     public function cadastroUsuario()
     {
                 $verificar = 'select * from clientes where telefone = :telefoneCliente';
@@ -292,45 +259,15 @@ class Comandos
                 $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 if  ($retorno) {
-                    
-                    $usuario = "UPDATE clientes 
-                                SET nome = :nome, 
-                                    rua = :rua, 
-                                    numero = :numero, 
-                                    bairro = :bairro, 
-                                    complemento = :complemento 
-                                WHERE telefone = :telefoneCliente";
-                    $stmt = $this->conexao->prepare($usuario);
-                    $stmt->bindValue(':nome', $this->cardapio->__get('nome'));
-                    $stmt->bindValue(':telefoneCliente', $this->cardapio->__get('telefone'));
-                    $stmt->bindValue(':rua', $this->cardapio->__get('rua'));
-                    $stmt->bindValue(':numero', $this->cardapio->__get('numero'));
-                    $stmt->bindValue(':bairro', $this->cardapio->__get('bairro'));
-                    $stmt->bindValue(':complemento', $this->cardapio->__get('complemento'));
-                    $stmt->execute();
-                    
-                    //puxando dados após atualizados
-                    $verificar = 'select * from clientes where telefone = :telefoneCliente';
-                    $stmt = $this->conexao->prepare($verificar);
-                    $stmt->bindValue(':telefoneCliente', $this->cardapio->__get('telefone'));
-                    $stmt->execute();
-                    $update = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                        return $update;
-                    
+                        return $retorno;
                     } 
                 else 
                     { //inserindo cliente em db
-                    $usuario = "insert into clientes(nome, telefone, rua, numero, bairro, complemento) values (:nome, :telefone, :rua, :numero, :bairro, :complemento)";
+                    $usuario = "insert into clientes(nome, telefone) values (:nome, :telefone)";
                     $stmt = $this->conexao->prepare($usuario);
                     $stmt->bindValue(':nome', $this->cardapio->__get('nome'));
                     $stmt->bindValue(':telefone', $this->cardapio->__get('telefone'));
-                    $stmt->bindValue(':rua', $this->cardapio->__get('rua'));
-                    $stmt->bindValue(':numero', $this->cardapio->__get('numero'));
-                    $stmt->bindValue(':bairro', $this->cardapio->__get('bairro'));
-                    $stmt->bindValue(':complemento', $this->cardapio->__get('complemento'));
                     $stmt->execute();
-                    
                     //puxando dados após inseridos
                     $verificar = 'select * from clientes where telefone = :telefoneCliente';
                     $stmt = $this->conexao->prepare($verificar);
@@ -341,5 +278,6 @@ class Comandos
                     return $retorno;
                     }
     }
+    
 
 }
