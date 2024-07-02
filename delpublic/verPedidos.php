@@ -115,7 +115,6 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                     <?php
                         echo '</div>';
                         echo '</div>';
-                        
                        
                     }
                     ?>
@@ -123,7 +122,7 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
         </div>
     </div>
 </div>
-            <?php var_dump($listaPedidos)  // CADE O CLIENTE 86 ?
+            <?php //var_dump($listaPedidos)  // CADE O CLIENTE 86 ?
             ?> 
             
             <!-- INICIO conteudo expansivel !-->
