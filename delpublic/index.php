@@ -2,14 +2,15 @@
 ob_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+$acao = 'recuperar';
+date_default_timezone_set('America/Sao_Paulo');
 
-
-$acao = 'recuperar'; //variavel de controle de paginas
-$_SESSION['ultOrdem'] = 0; //Variavel referente a ordem dos produtos no cardapio
-
+include('ponteInfo.php');
+$_SESSION['ultOrdem'] = 0;
 
 $arrayFuncionamento = json_decode($_SESSION['data_funcionamento'], true);
 $estaAberto = "FECHADO";
+
 
 
 if($arrayFuncionamento[date('D')][0] <= date('H:i')) {
@@ -18,12 +19,10 @@ if($arrayFuncionamento[date('D')][0] <= date('H:i')) {
         $estaAberto = "ABERTO";
     }
 }
+
+
 $horario = $arrayFuncionamento[date('D')][0]." - ".$arrayFuncionamento[date('D')][1];// ajustar string para mostrar o horario
-
-include('ponteInfo.php');
 ?>
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <?php $nomeRestaurante = $_SESSION['nome']; ?>
@@ -38,8 +37,9 @@ include('ponteInfo.php');
 </head>
 
 <body class="margin body">
-
-    <?php if (isset($_GET['erro']) && $_GET['erro'] == 1) { ?>
+    
+    <?php 
+    if (isset($_GET['erro']) && $_GET['erro'] == 1) { ?>
 
         <div class="bg-danger pt-2 text-white d-flex justify-content-center">
             <h3>Usuario ou Senha Invalidos</h3>
