@@ -243,13 +243,15 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                                         <?php echo $valor['nome']; ?> ID: <?php echo $valor['id_cliente']; ?></b></p>
                                     <p><b>Telefone: <?php echo $valor['telefone']; ?></b></p>
                                     <p><b>Observação sobre cliente:</b></p>
+                                    <p class= "d-flex justify-content-center"><b class="bg-primary m-2 p-2 rounded text-white ">Editar</b>
+                                    <b class="bg-danger m-2 p-2 rounded text-white">Excluir</b></p>
                                     <hr>
                                 </td>
                             </tr>
                         <?php } ?>
                     </table>
                 </div>
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center" style="position: absolute; top:1;right:5px">
                     <button class="btn btn-danger" id="fecharListaCliente">Fechar</button>
                 </div>
             </dialog>
