@@ -124,7 +124,7 @@ class Comandos
     //inativa no momento
     public function buscarPedidos() // carrega o carrinho, PODE SER UTIL PARA ADMs
     {
-        $query = 'select * from pedidos2';
+        $query = 'select clientes.nome AS id_cliente, clientes.telefone AS telefone, pedidos.numero_pedido AS nunPedido from pedidos,clientes where pedidos.id_cliente = clientes.id_cliente';
         $stmt = $this->conexao->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
