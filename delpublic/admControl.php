@@ -68,51 +68,56 @@ if (!isset($_SESSION['ok']) || $_SESSION['ok'] !== $_SESSION['verifique']) {
                 <input name="bairro" type="text" class="form-control" value="<?php print $_SESSION['bairro'] ?>" placeholder="BAIRRO - CIDADE, Exemplo: Sossego - Piranguinho">
 
                 <p style="margin:10px 0 0 !important;"><b>Dias de Funcionamento</b></p>
-                <select style="width:200px; display:inline-block;" class="form-select" name="dia_inicial" id="dia-inicial">
-                    <option value="segunda">Segunda</option>
-                    <option value="terça">Terça</option>
-                    <option value="quarta">Quarta</option>
-                    <option value="quinta">Quinta</option>
-                    <option value="sexta">Sexta</option>
-                    <option value="sabado">Sábado</option>
-                    <option value="domingo">Domingo</option>
-                </select>
-                à
-                <select style="width:200px; display:inline-block;" class="form-select" name="dia_final" id="dia-final">
-                    <option value="domingo">Domingo</option>
-                    <option value="segunda">Segunda</option>
-                    <option value="terça">Terça</option>
-                    <option value="quarta">Quarta</option>
-                    <option value="quinta">Quinta</option>
-                    <option value="sexta">Sexta</option>
-                    <option value="sabado">Sábado</option>
-                </select>
-
-                <p style="margin:10px 0 0 !important;"><b>Hórario de Funcionamento</b></p>
-                <i>Abertura e Fechamento</i><br />
-                <select style="width:200px; display:inline-block;" class="form-select" name="hor_funcionamento_ini" id="hor_funcionamento_ini">
-                    <option value="09:00">09:00</option>
-                    <option value="10:00">10:00</option>
-                    <option value="11:00">11:00</option>
-                    <option value="12:00">12:00</option>
-                    <option value="13:00">13:00</option>
-                    <option value="14:00">14:00</option>
-                    <option value="15:00">15:00</option>
-                    <option value="16:00">16:00</option>
-                    <option value="17:00">17:00</option>
-                    <option value="18:00">18:00</option>
-                </select>
-                à
-                <select style="width:200px; display:inline-block;" class="form-select" name="hor_funcionamento_fec" id="hor_funcionamento_fec">
-                    <option value="00:00">00:00</option>
-                    <option value="23:00">23:00</option>
-                    <option value="22:00">22:00</option>
-                    <option value="21:00">21:00</option>
-                    <option value="20:00">20:00</option>
-                    <option value="19:00">19:00</option>
-                    <option value="18:00">18:00</option>
-                </select>
-                <p style="margin:10px 0 0 !important;"><b>VALOR DO FRETE (use PONTO para os centavos)</b></p>
+                <table>
+                    <tr>
+                        <td><input type="checkbox" name='horaCustomSegunda' <?php $horarios = json_decode($_SESSION['data_funcionamento'],true); if (count($horarios["Mon"]) > 0) print "checked"?> onclick="ShowHideHorarios(this)" >Segunda</checkbox></td>
+                        <td> Hora de abertura:</td> 
+                        <td><input type="time" id="horaInicioSegunda" name="horaInicioSegunda" <?php print "value=".$horarios["Mon"][0]?>></td>
+                        <td> Hora de fechamento:</td> 
+                        <td><input type="time" id="horaFimSegunda" name="horaFimSegunda" value="00:00"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name='horaCustomTerca' <?php $horarios = json_decode($_SESSION['data_funcionamento'],true); if (count($horarios["Tue"]) > 0) print "checked"?>>Terça</checkbox></td>
+                        <td> Hora de abertura:</td> 
+                        <td><input type="time" id="horaInicioTerca" name="horaInicioTerca" <?php print "value=".$horarios["Tue"][0]?>></td>
+                        <td> Hora de fechamento:</td> 
+                        <td><input type="time" id="horaFimTerca" name="horaFimTerca" value="00:00"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name='horaCustomQuarta' <?php $horarios = json_decode($_SESSION['data_funcionamento'],true); if (count($horarios["Wed"]) > 0) print "checked"?>>Quarta</checkbox></td>
+                        <td> Hora de abertura:</td> 
+                        <td><input type="time" id="horaInicioQuarta" name="horaInicioQuarta" <?php print "value=".$horarios["Wed"][0]?> ></td>
+                        <td> Hora de fechamento:</td> 
+                        <td><input type="time" id="horaFimQuarta" name="horaFimQuarta" value="00:00"></td>
+                    </tr><tr>
+                        <td><input type="checkbox" name='horaCustomQuinta' <?php if (count($horarios["Thu"]) > 0) print "checked"?>>Quinta</checkbox></td>
+                        <td> Hora de abertura:</td> 
+                        <td><input type="time" id="horaInicioQuinta" name="horaInicioQuinta" <?php print "value=".$horarios["Thu"][0]?> checked></td>
+                        <td> Hora de fechamento:</td> 
+                        <td><input type="time" id="horaFimQuinta" name="horaFimQuinta" value="00:00" checked></td>
+                    </tr><tr>
+                        <td><input type="checkbox" name='horaCustomSexta' <?php if (count($horarios["Fri"]) > 0) print "checked"?>>Sexta</checkbox></td>
+                        <td> Hora de abertura:</td> 
+                        <td><input type="time" id="horaInicioSexta" name="horaInicioSexta" <?php print "value=".$horarios["Fri"][0]?>></td>
+                        <td> Hora de fechamento:</td> 
+                        <td><input type="time" id="horaFimSexta" name="horaFimSexta" value="00:00"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name='horaCustomSabado' <?php $horarios = json_decode($_SESSION['data_funcionamento'],true); if (count($horarios["Sat"]) > 0) print "checked"?>>Sabado</checkbox></td>
+                        <td> Hora de abertura:</td> 
+                        <td><input type="time" id="horaInicioSabado" name="horaInicioSabado" <?php print "value=".$horarios["Sat"][0]?>></td>
+                        <td> Hora de fechamento:</td> 
+                        <td><input type="time" id="horaFimSabado" name="horaFimSabado" value="00:00"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name='horaCustomDomingo' <?php $horarios = json_decode($_SESSION['data_funcionamento'],true); if (count($horarios["Sun"]) > 0) print "checked"?>>Domingo</checkbox></td>
+                        <td> Hora de abertura:</td> 
+                        <td><input type="time" id="horaInicioDomingo" name="horaInicioDomingo" <?php print "value=".$horarios["Sun"][0]?>></td> <!-- Erro ao puxar variavel vazia, necessario deixar algum horario !-->
+                        <td> Hora de fechamento:</td> 
+                        <td><input type="time" id="horaFimDomingo" name="horaFimDomingo" <?php print "value=".$horarios["Sun"][1]?>></td>
+                    </tr>
+                </table>
+                
                 <input style="width:200px;" name="frete" type="number" step="0.01" value="<?php print $_SESSION['frete'] ?>" class="form-control" placeholder="EX: 2.50 (2 PONTO 50)">
 
             </div>

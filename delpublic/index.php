@@ -3,10 +3,24 @@ ob_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 $acao = 'recuperar';
+date_default_timezone_set('America/Sao_Paulo');
+
 include('ponteInfo.php');
 $_SESSION['ultOrdem'] = 0;
-$funcionamento = $_SESSION['dia_inicial'] . ' a ' . $_SESSION['dia_final'];
-$horario = $_SESSION['hor_funcionamento_ini'] . ' a ' . $_SESSION['hor_funcionamento_fec'];
+
+$arrayFuncionamento = json_decode($_SESSION['data_funcionamento'], true);
+$estaAberto = "FECHADO";
+
+
+if($arrayFuncionamento[date('D')][0] <= date('H:i')) {
+
+    if($arrayFuncionamento[date('D')][1] >= date('H:i')) {
+        $estaAberto = "ABERTO";
+    }
+}
+
+
+$horario = $arrayFuncionamento[date('D')][0]." - ".$arrayFuncionamento[date('D')][1];// ajustar string para mostrar o horario
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -22,8 +36,9 @@ $horario = $_SESSION['hor_funcionamento_ini'] . ' a ' . $_SESSION['hor_funcionam
 </head>
 
 <body class="margin body">
-
-    <?php if (isset($_GET['erro']) && $_GET['erro'] == 1) { ?>
+    
+    <?php 
+    if (isset($_GET['erro']) && $_GET['erro'] == 1) { ?>
 
         <div class="bg-danger pt-2 text-white d-flex justify-content-center">
             <h3>Usuario ou Senha Invalidos</h3>
@@ -68,9 +83,8 @@ $horario = $_SESSION['hor_funcionamento_ini'] . ' a ' . $_SESSION['hor_funcionam
 
         <div class="text-center" style="height:140px">
 
-            <p class="text-primary"> <?php print $funcionamento  ?></p>
-            <h2 class="text-success"> ABERTO </h2>
-            <p class="text-primary"> DAS <?php print $horario ?></p>
+            <h2  <?php if($estaAberto=="ABERTO") echo "class='text-success bold'"; else echo "class='text-danger bold'"; ?>> <?php print $estaAberto  ?> </h2>
+            <p class="text-primary">ABERTO DAS <?php print_r($horario) ?></p>
 
 
         </div>

@@ -1,6 +1,8 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+
 class Comandos
 {
     private $conexao;
@@ -48,31 +50,25 @@ class Comandos
         $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$resultado) {
-            $query = "insert into info_estabelecimento(nome, telefone, rua, bairro, dia_inicial, dia_final, hor_funcionamento_ini, hor_funcionamento_fec, frete)
-            values (:nome, :telefone,:rua, :bairro, :dia_inicial, :dia_final, :hor_funcionamento_ini, :hor_funcionamento_fec, :frete)";
+            $query = "insert into info_estabelecimento(nome, telefone, rua, bairro, data_funcionamento, frete)
+            values (:nome, :telefone,:rua, :bairro, data_funcionamento, :frete)";
             $stmt = $this->conexao->prepare($query);
             $stmt->bindValue(':nome', $this->cardapio->__get('nome'));
             $stmt->bindValue(':telefone', $this->cardapio->__get('telefone'));
             $stmt->bindValue(':rua', $this->cardapio->__get('rua'));
             $stmt->bindValue(':bairro', $this->cardapio->__get('bairro'));
-            $stmt->bindValue(':dia_inicial', $this->cardapio->__get('dia_inicial'));
-            $stmt->bindValue(':dia_final', $this->cardapio->__get('dia_final'));
-            $stmt->bindValue(':hor_funcionamento_ini', $this->cardapio->__get('hor_funcionamento_ini'));
-            $stmt->bindValue(':hor_funcionamento_fec', $this->cardapio->__get('hor_funcionamento_fec'));
+            $stmt->bindValue(':data_funcionamento', $this->cardapio->__get('data_funcionamento'));
             $stmt->bindValue(':frete', $this->cardapio->__get('frete'));
             $stmt->execute();
         } else {
             $query = "update info_estabelecimento set nome = :nome, telefone = :telefone, rua = :rua, bairro = :bairro, 
-            dia_inicial = :dia_inicial, dia_final = :dia_final, hor_funcionamento_ini = :hor_funcionamento_ini, hor_funcionamento_fec = :hor_funcionamento_fec, frete = :frete";
+            data_funcionamento = :data_funcionamento, frete = :frete";
             $stmt = $this->conexao->prepare($query);
             $stmt->bindValue(':nome', $this->cardapio->__get('nome'));
             $stmt->bindValue(':telefone', $this->cardapio->__get('telefone'));
             $stmt->bindValue(':rua', $this->cardapio->__get('rua'));
             $stmt->bindValue(':bairro', $this->cardapio->__get('bairro'));
-            $stmt->bindValue(':dia_inicial', $this->cardapio->__get('dia_inicial'));
-            $stmt->bindValue(':dia_final', $this->cardapio->__get('dia_final'));
-            $stmt->bindValue(':hor_funcionamento_ini', $this->cardapio->__get('hor_funcionamento_ini'));
-            $stmt->bindValue(':hor_funcionamento_fec', $this->cardapio->__get('hor_funcionamento_fec'));
+            $stmt->bindValue(':data_funcionamento', $this->cardapio->__get('data_funcionamento'));
             $stmt->bindValue(':frete', $this->cardapio->__get('frete'));
             $stmt->execute();
         }
@@ -83,15 +79,17 @@ class Comandos
 
     public function carregarInfo()
     {
+        
         try {
             $verificar = 'SELECT * FROM info_estabelecimento';
             $stmt = $this->conexao->prepare($verificar);
             $stmt->execute();
-
+            
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             // Tratar erro aqui, como registrar em um arquivo de log
             echo "Erro ao carregar informações: " . $e->getMessage();
+
             return false; // Ou outro valor indicando erro
         }
     }
@@ -116,20 +114,21 @@ class Comandos
 
     public function buscar() // carrega o cardapio
     {
-        $query = 'select id, img, produto, descricao, categoria, valor, ordem from itens_cardapio ORDER BY ordem';
+        $query = 'SELECT * FROM itens_cardapio';
         $stmt = $this->conexao->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+    
 
     //inativa no momento
-    /*public function buscarPedidos() // carrega o carrinho, PODE SER UTIL PARA ADMs
+    public function buscarPedidos() // carrega o carrinho, PODE SER UTIL PARA ADMs
     {
-        $query = 'select id, produto, valor, numero_pedido from pedidos';
+        $query = 'select clientes.nome AS id_cliente, clientes.telefone AS telefone, pedidos.numero_pedido AS nunPedido from pedidos,clientes where pedidos.id_cliente = clientes.id_cliente';
         $stmt = $this->conexao->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
-    }*/
+    }
 
 
     public function editar() //PARA ADMINISTRADORES, edita os itens do cardapio
@@ -186,7 +185,7 @@ class Comandos
 
     }
 
-    public function pre_carrinho()
+    public function pre_carrinho() //pré porque nada vai apra o banco de dados ainda
     {
         $query = 'SELECT * FROM itens_cardapio WHERE id = :id';
         $stmt2 = $this->conexao->prepare($query);
@@ -279,5 +278,8 @@ class Comandos
                     return $retorno;
                     }
     }
+    
 
 }
+
+
