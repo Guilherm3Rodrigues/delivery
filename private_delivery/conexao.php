@@ -11,7 +11,7 @@ class Conexao
     private $host = 'localhost';
     private $dbname = 'db_delivery';
     private $user = 'root';
-    private $pass = ''; //root gui colocou
+    private $pass = 'root'; //root gui colocou
 
     public function conectar() 
     {

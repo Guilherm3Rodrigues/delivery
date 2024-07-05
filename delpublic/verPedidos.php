@@ -19,18 +19,75 @@ include('ponteInfo.php');
             self-align: center;
             margin: auto;
         }
+        .testeborda tr:first-child{
+            font-weight: bold;
+            font-size: 20px;
+            border: 2px solid #cc7f0f;
+            background-color: #ff7c0c;
+        }
+        .testeborda tr{
+            border: 1px solid #ccc;
 
-        .testeBorda tr{
-            border-bottom: 2px solid black;
-            border-right: 2px solid black;
         }
 
         .testeBorda td{
             border-right: 1px solid #ccc;
             text-align: center;
         }
+        .testeBorda td input{
+            border: 0px;
+            text-align: center;
+        }
+        .showpedido{
+            border: 2px solid black;
+            self-align: center;
+            margin: auto;
+            padding: 10px;
+            background-color: orange;
+            width: 90vw;
+            height: 70vh;
+            overflow-y: scroll;
+            position: fixed;
+            top: 10vh;
+            left: 5vw;
+        }
 
     </style>
+    <script>
+        function showpedido(id) {
+            console.log(id);
+            let div = document.createElement('div');
+            div.setAttribute('class', 'showPedido');
+            
+            let closebtn = document.createElement('button');
+            closebtn.setAttribute('class', 'closebtn');
+            closebtn.innerHTML = 'X';
+            closebtn.addEventListener('click', () => {
+                div.remove();
+            });
+            div.appendChild(closebtn);
+
+            document.body.appendChild(div);
+            
+            //ajax para mostrar os pedidos
+            var request = new XMLHttpRequest();
+            request.open('GET','ponteInfo.php?acao=buscarNumPedido&id='+ id,true);
+            request.onreadystatechange = function() {
+                if (request.readyState === 4 && request.status === 200) {
+                    //callback(null, request.responseText);
+                    let dados = document.createElement('div'); 
+                    dados.innerHTML=request.responseText;
+                    div.appendChild(dados);
+
+                    console.log(request.responseText);
+                } else if (request.readyState === 4) {
+                    //callback(request.status, null);
+                }
+            }
+            request.send();
+
+        }
+    </script>
 </head>
 <body>
     <?php 
@@ -45,9 +102,8 @@ include('ponteInfo.php');
             <td style="width: 20vw">Nome  </td>
             <td>Telefone </td> 
             <td>Pedido</td> <!-- transfomar em uma acao que abre um janela com os pedidos e junta observação, assim da ate pra cria um resumo do pedido !-->
-            <td style="width: 25vw">Observação:</td><!-- ainda não existe area de observação sobre o pedido para o cliente !-->
-            <td>Para entrega ? </td>
-            <td>Endereço: </td><!-- eu juntaria entrega e endereço no mesmo campo porque se nao for entregar para que um campo de endereco  !-->
+            <td style="max-width: 25vw,width: 10vw">Observação:</td><!-- ainda não existe area de observação sobre o pedido para o cliente !-->
+            <td style="max-width: 30vw,width: 20vw">Endereço: </td><!-- eu juntaria entrega e endereço no mesmo campo porque se nao for entregar para que um campo de endereco  !-->
         </tr>
             <?php 
 
@@ -55,13 +111,13 @@ include('ponteInfo.php');
                 print_r($arrayPedidos[0]->id_cliente);
                 foreach ($arrayPedidos as &$pedido) {
 
-                    print("<tr style='border-bottom : 2px solid black'>");
+                    print("<tr>");
                         print("<td>".$pedido->id_cliente." </td>");
-                        print("<td>.$pedido->telefone.  </td> ");
-                        print("<td>.$pedido->nunPedido.</td>");
-                        print("<td>Observação:</td> ");
-                        print("<td>Para entrega ?</td>");
-                        print("<td>Endereço: </td>");
+                        print("<td><input type='text' value='$pedido->telefone' disabled></td> ");
+                        print("<td><a onclick='showpedido($pedido->nunPedido)'>$pedido->nunPedido</td>");
+                        print("<td>$pedido->observacao</td> ");
+                        if($pedido->paraEntregar)print("<td>$pedido->endereco </td>");
+                        else print("<td>Retirar no local</td>");
                     print("</tr>");
                 }
                 
@@ -114,5 +170,7 @@ include('ponteInfo.php');
         </div>
         
     </div>
+
+
 </body>
 </html>

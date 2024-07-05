@@ -197,7 +197,14 @@ if ($acao == 'inserir') {
         //$listaPedidos = $comandos->buscarPedidos();
     
 
-} 
+} elseif ($acao == "buscarNumPedido") {
+    global $comandos;
+
+    $pedido = $comandos->buscarNumPedido($_GET['id']);
+    
+    print_r($pedido); 
+    
+}
 function listarPedidosBD() {
     
    global $comandos;
