@@ -51,6 +51,27 @@ include('ponteInfo.php');
             top: 10vh;
             left: 5vw;
         }
+        .tabelaDetalhes{
+            border: 2px solid black;
+            self-align: center;
+            margin: auto;
+            padding: 10px;
+            width: 90%;
+        }
+        .tabelaDetalhes tr:first-child{
+            font-weight: bold;
+            font-size: 25px;
+            color: white;
+            background-color: #505ab5;
+            border: 1px solid black;
+            text-align: center;
+        }
+        .tabelaDetalhes td{
+            font-weight: bold;
+            font-size: 20px;
+            border: 1px solid black;
+            text-align: center;
+        }
 
     </style>
     <script>
@@ -75,13 +96,52 @@ include('ponteInfo.php');
             request.onreadystatechange = function() {
                 if (request.readyState === 4 && request.status === 200) {
                     //callback(null, request.responseText);
-                    let dados = document.createElement('div'); 
-                    dados.innerHTML=request.responseText;
-                    div.appendChild(dados);
+                    let tabela = document.createElement('table'); 
+                    tabela.setAttribute('class', 'tabelaDetalhes');
+                    let pedidos = JSON.parse(request.responseText);
+                    let tr = document.createElement('tr');
+                    let td = document.createElement('td');
+                    td.innerHTML = 'PRODUTO';
+                    tr.appendChild(td);
 
-                    console.log(request.responseText);
+                    td = document.createElement('td'); 
+                    td.innerHTML = 'VALOR';
+                    tr.appendChild(td);
+
+                    td = document.createElement('td'); 
+                    td.innerHTML = 'DESCRIÇÃO';
+                    tr.appendChild(td);
+
+                    td = document.createElement('td'); 
+                    td.innerHTML = 'QUANT.';
+                    tr.appendChild(td);
+
+                    tabela.appendChild(tr);
+
+                    pedidos.forEach(pedido => {
+                        let tr = document.createElement('tr');
+                        let td = document.createElement('td');
+                        td.innerHTML = pedido['produto'];
+                        tr.appendChild(td);
+
+                        td = document.createElement('td'); 
+                        td.innerHTML = "R$" + pedido['valor'];
+                        tr.appendChild(td);
+
+                        td = document.createElement('td'); 
+                        td.innerHTML = pedido['descricao'];
+                        tr.appendChild(td);
+
+                        td = document.createElement('td'); 
+                        td.innerHTML = pedido['quantidade'];
+                        tr.appendChild(td);
+
+                        tabela.appendChild(tr);
+                    });
+
+                    div.appendChild(tabela);
                 } else if (request.readyState === 4) {
-                    //callback(request.status, null);
+                    console.log('Erro ao obter a resposta do servidor');
                 }
             }
             request.send();

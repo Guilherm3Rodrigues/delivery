@@ -202,7 +202,7 @@ if ($acao == 'inserir') {
 
     $pedido = $comandos->buscarNumPedido($_GET['id']);
     
-    print_r($pedido); 
+    print_r(json_encode($pedido)); 
     
 }
 function listarPedidosBD() {
@@ -217,4 +217,3 @@ function listarPedidosBD() {
 include('Login.php');
 
 ?>
-<script src="scriptPrivate.js"></script>
