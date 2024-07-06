@@ -147,28 +147,39 @@ include('ponteInfo.php');
             request.send();
 
         }
+
+        function showHidePedAnteriores() {
+            let url = window.location.href.split('?')[1];
+            
+            if (url == 'todasDatas') {
+                window.location.href = window.location.href.split('?')[0];
+            } else {
+                window.location.href = window.location.href + '?todasDatas';
+            }
+        }
+
+
     </script>
 </head>
 <body>
     <?php 
-    include('menuadm.php');
+        include('menuadm.php');
     ?>
-    fora container
+
     <div class="container testeBorda">
         <table class="testeBorda">
         <tr><h2>Tabela de Pedidos</h2>
         <p><strong>Pedidos do dia?</strong></p>
-        <!-- foreach para chamar pedidos !-->
             <td style="width: 20vw">Nome  </td>
             <td>Telefone </td> 
             <td>Pedido</td> <!-- transfomar em uma acao que abre um janela com os pedidos e junta observação, assim da ate pra cria um resumo do pedido !-->
             <td style="max-width: 25vw,width: 10vw">Observação:</td><!-- ainda não existe area de observação sobre o pedido para o cliente !-->
             <td style="max-width: 30vw,width: 20vw">Endereço: </td><!-- eu juntaria entrega e endereço no mesmo campo porque se nao for entregar para que um campo de endereco  !-->
         </tr>
-            <?php 
-
-                $arrayPedidos = listarPedidosBD();
-                print_r($arrayPedidos[0]->id_cliente);
+            <?php
+                $todasDatas = isset($_GET['todasDatas']) ? true : false;
+                $arrayPedidos = listarPedidosBD($todasDatas);
+        
                 foreach ($arrayPedidos as &$pedido) {
 
                     print("<tr>");
@@ -180,15 +191,23 @@ include('ponteInfo.php');
                         else print("<td>Retirar no local</td>");
                     print("</tr>");
                 }
-                
             ?>
         </tr>
         <tr>
             <td>
-                <button class="btn btn-danger">Pedidos Anteriores</button> <!-- Criar dialog com filtro de data? ou criar um filtro de data com todos juntos na pag principal !-->
+                <button class="btn btn-danger" onclick="showHidePedAnteriores()" ><?php
+                
+                if (isset($_GET['todasDatas'])) {
+                    print("Pedidos do dia");
+                } else {
+                    print("Todos os pedidos");
+                }
+                
+                ?></button> <!-- Criar dialog com filtro de data? ou criar um filtro de data com todos juntos na pag principal !-->
             </td>
         </tr>
         </table>
+        
     </div>
     <div class="container testeBorda">
         <table>
@@ -230,7 +249,6 @@ include('ponteInfo.php');
                         <td>Numero de vendas: $numeroVendas  //</td>
                         <td>Valor do Dia: R$ $valorDia  //</td>
                         <td>Valor do Mes: R$ $valorMes</td>
-                    41085200+
                 
                 </td>
                 </tr>

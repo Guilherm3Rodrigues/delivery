@@ -205,10 +205,10 @@ if ($acao == 'inserir') {
     print_r(json_encode($pedido)); 
     
 }
-function listarPedidosBD() {
+function listarPedidosBD($todasDatas) {
     
    global $comandos;
-   $listaPedidos = $comandos->buscarPedidos();
+   $listaPedidos = $comandos->buscarPedidos($todasDatas);
     
 
     return $listaPedidos;
