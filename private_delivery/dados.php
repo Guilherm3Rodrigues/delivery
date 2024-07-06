@@ -213,6 +213,14 @@ function listarPedidosBD() {
 
     return $listaPedidos;
 }
+function listaClientesBD() {
+    
+    global $comandos;
+    $listaPedidos = $comandos->listaClientes();
+     
+ 
+     return $listaPedidos;
+ }
   
 include('Login.php');
 

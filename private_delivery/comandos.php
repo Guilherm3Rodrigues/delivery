@@ -139,6 +139,14 @@ class Comandos
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public function listaClientes(){
+        $query = 'SELECT CONCAT(clientes.rua, " ", clientes.numero," ", clientes.bairro) AS endereco, clientes.telefone AS telefone , clientes.nome AS nome
+        FROM clientes';
+        $stmt = $this->conexao->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
     public function editar() //PARA ADMINISTRADORES, edita os itens do cardapio
     {
         $query = 'update itens_cardapio set categoria = :categoria, descricao = :descricao, produto = :produto, valor = :valor where id = :id';

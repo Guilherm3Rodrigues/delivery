@@ -194,11 +194,20 @@ include('ponteInfo.php');
         <table>
             <tr class="testeBorda"><h2>Lista de Clientes</h2>
             <!-- foreach para chamar todos os clientes que ja fizeram pedido !-->
-                <td>Nome  //</td>
-                <td>Telefone  //</td>
-                <td>numero de pedidos  //</td>
-                <td>Observação:</td>
+                <td>NOME</td>
+                <td>TELEFONE</td>
+                <td>ENDEREÇO</td>
             </tr>
+            <?php 
+                $arrayClientes = listaClientesBD();
+                foreach ($arrayClientes as &$cliente) {
+                    print("<tr>");
+                        print("<td>$cliente->nome</td>");
+                        print("<td>$cliente->telefone</td>");
+                        print("<td>$cliente->endereco</td>");
+                    print("</tr>");
+                }
+            ?>
         </table>
     </div>
     <div class="container testeBorda">
