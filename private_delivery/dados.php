@@ -208,7 +208,10 @@ if ($acao == 'inserir') {
 function listarPedidosBD($todasDatas) {
     
    global $comandos;
-   $listaPedidos = $comandos->buscarPedidos($todasDatas);
+   if(!isset($todasDatas)){
+        $todasDatas = 0;
+   };
+    $listaPedidos = $comandos->buscarPedidos($todasDatas);
     
 
     return $listaPedidos;

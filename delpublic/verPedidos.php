@@ -150,13 +150,23 @@ include('ponteInfo.php');
 
         function showHidePedAnteriores() {
             let url = window.location.href.split('?')[1];
+            let periodo = document.getElementById('periodo').value;
             
-            if (url == 'todasDatas') {
+            if (url) {
                 window.location.href = window.location.href.split('?')[0];
             } else {
-                window.location.href = window.location.href + '?todasDatas';
+                window.location.href = window.location.href + '?todasDatas=' + periodo;
             }
         }
+        function selectValorCorreto() {
+            let url = window.location.href.split('?todasDatas=')[1];
+            
+            if (url) {
+                document.getElementById('periodo').value = url;
+            }
+            
+        }
+        document.addEventListener('DOMContentLoaded', selectValorCorreto);
 
 
     </script>
@@ -194,7 +204,12 @@ include('ponteInfo.php');
             ?>
         </tr>
         <tr>
-            <td>
+            <td colspan="5">
+                <select name="periodo" id="periodo">
+                    <option value="1">1 Mes</option>
+                    <option value="2">2 Meses</option>
+                    <option value="3">3 Meses</option>
+                </select>
                 <button class="btn btn-danger" onclick="showHidePedAnteriores()" ><?php
                 
                 if (isset($_GET['todasDatas'])) {

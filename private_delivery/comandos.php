@@ -128,9 +128,13 @@ class Comandos
             CONCAT(clientes.rua, " ", clientes.numero," ", clientes.bairro) AS endereco, pedidos.paraEntregar AS paraEntregar, pedidos.observacao AS observacao,
             pedidos.data_insercao AS dataPedido
             from pedidos,clientes where pedidos.id_cliente = clientes.id_cliente';
-        if(!$_todasDatas) {
-            $query .= ' AND pedidos.data_insercao = CURDATE() ORDER BY data_insercao ASC';
+        if($_todasDatas > 0) {
+            $query .= ' AND DATE(pedidos.data_insercao)  >= DATE_FORMAT(NOW() - INTERVAL '.$_todasDatas.' MONTH, "%Y-%m-01") ORDER BY data_insercao ASC';
+        }else {
+            $query .= ' AND DATE(pedidos.data_insercao) = CURDATE() ORDER BY data_insercao ASC';
         }
+
+        echo $query;
         $stmt = $this->conexao->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
