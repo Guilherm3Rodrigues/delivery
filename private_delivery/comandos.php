@@ -126,15 +126,15 @@ class Comandos
     {
         $query = 'SELECT clientes.nome AS id_cliente, clientes.telefone AS telefone, pedidos.numero_pedido AS nunPedido,
             CONCAT(clientes.rua, " ", clientes.numero," ", clientes.bairro) AS endereco, pedidos.paraEntregar AS paraEntregar, pedidos.observacao AS observacao,
-            pedidos.data_insercao AS dataPedido
-            from pedidos,clientes where pedidos.id_cliente = clientes.id_cliente';
+            pedidos.data_insercao AS dataPedido, pedidos.status AS status
+            from pedidos,clientes where pedidos.id_cliente = clientes.id ';
         if($_todasDatas > 0) {
             $query .= ' AND DATE(pedidos.data_insercao)  >= DATE_FORMAT(NOW() - INTERVAL '.$_todasDatas.' MONTH, "%Y-%m-01") ORDER BY data_insercao ASC';
         }else {
             $query .= ' AND DATE(pedidos.data_insercao) = CURDATE() ORDER BY data_insercao ASC';
         }
 
-        echo $query;
+
         $stmt = $this->conexao->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -149,8 +149,8 @@ class Comandos
     }
 
     public function listaClientes(){
-        $query = 'SELECT CONCAT(clientes.rua, " ", clientes.numero," ", clientes.bairro) AS endereco, clientes.telefone AS telefone , clientes.nome AS nome
-        FROM clientes';
+        $query = 'SELECT CONCAT(clientes.rua, " ", clientes.numero," ", clientes.bairro) AS endereco, clientes.telefone AS telefone , clientes.nome AS nome,clientes.id AS id   
+        FROM clientes ORDER BY id ASC';
         $stmt = $this->conexao->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);

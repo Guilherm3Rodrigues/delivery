@@ -18,6 +18,8 @@ include('ponteInfo.php');
             border: 2px solid black;
             self-align: center;
             margin: auto;
+            width: 95%;
+            margin: 2%;
         }
         .testeborda tr:first-child{
             font-weight: bold;
@@ -185,6 +187,7 @@ include('ponteInfo.php');
             <td>Pedido</td> <!-- transfomar em uma acao que abre um janela com os pedidos e junta observação, assim da ate pra cria um resumo do pedido !-->
             <td style="max-width: 25vw,width: 10vw">Observação:</td><!-- ainda não existe area de observação sobre o pedido para o cliente !-->
             <td style="max-width: 30vw,width: 20vw">Endereço: </td><!-- eu juntaria entrega e endereço no mesmo campo porque se nao for entregar para que um campo de endereco  !-->
+            <td>Status</td>
         </tr>
             <?php
                 $todasDatas = isset($_GET['todasDatas']) ? true : false;
@@ -199,7 +202,12 @@ include('ponteInfo.php');
                         print("<td>$pedido->observacao</td> ");
                         if($pedido->paraEntregar)print("<td>$pedido->endereco </td>");
                         else print("<td>Retirar no local</td>");
+                        
                     print("</tr>");
+                }
+
+                if (count($arrayPedidos) == 0) {
+                    print("<tr><td colspan='5'>Nenhum pedido encontrado</td></tr>");
                 }
             ?>
         </tr>
@@ -225,20 +233,91 @@ include('ponteInfo.php');
         
     </div>
     <div class="container testeBorda">
+        <script>
+            function editarCliente(id) {
+                console.log(id);
+
+                let nome = document.getElementById('nome' + id);
+                let tel = document.getElementById('tel' + id);
+                let end = document.getElementById('end' + id);
+                let btn = document.getElementById('btn' + id);
+
+                let nomebkp = nome.innerHTML;
+                let telbkp = tel.innerHTML;
+                let endbkp = end.innerHTML;
+
+                nome.setAttribute('contenteditable', 'true');
+                tel.setAttribute('contenteditable', 'true');
+                end.setAttribute('contenteditable', 'true');
+
+                btn.innerHTML = '<button class="btn btn-success" onclick="salvarCliente('+id+')">Salvar</button>';
+                btn.innerHTML += '<button class="btn btn-danger" onclick="cancelarCliente('+id+','+nomebkp+','+telbkp+','+endbkp+')">Cancelar</button>';
+
+            }
+
+            function salvarCliente(id) {
+                let nome = document.getElementById('nome' + id);
+                let tel = document.getElementById('tel' + id);
+                let end = document.getElementById('end' + id);
+                let btn = document.getElementById('btn' + id);
+
+                nome.setAttribute('contenteditable', 'false');
+                tel.setAttribute('contenteditable', 'false');
+                end.setAttribute('contenteditable', 'false');
+
+                btn.innerHTML = '<button class="btn btn-info" onclick="editarCliente('+id+')">Editar</button>';
+                btn.innerHTML += '<button class="btn btn-danger" onclick="removerCliente('+id+')">Remover</button>';
+
+                /// Lancar no Banco de dados !
+            }
+
+            function removerCliente(id) {
+                let btn = document.getElementById('btn' + id);
+
+                let nomebkp = document.getElementById('nome' + id).innerHTML;
+                let telbkp = document.getElementById('tel' + id).innerHTML;
+                let endbkp = document.getElementById('end' + id).innerHTML;
+
+                btn.innerHTML = '<button class="btn btn-" onclick="confirmarExclusao('+id+')">Sim</button>';
+                btn.innerHTML += '<button class="btn btn-content" onclick="cancelarCliente('+id+','+nomebkp+','+telbkp+','+endbkp+')">Não</button>';
+
+            }
+            function cancelarCliente(id,nomebkp,telbkp,endbkp) {
+                let nome = document.getElementById('nome' + id);
+                let tel = document.getElementById('tel' + id);
+                let end = document.getElementById('end' + id);
+                let btn = document.getElementById('btn' + id);
+
+                nome.innerHTML = nomebkp;
+                tel.innerHTML = telbkp;
+                end.innerHTML = endbkp;
+
+                nome.setAttribute('contenteditable', 'false');
+                tel.setAttribute('contenteditable', 'false');
+                end.setAttribute('contenteditable', 'false');
+
+                btn.innerHTML =     '<button class="btn btn-info" onclick="editarCliente('+id+')">Editar</button>';
+                btn.innerHTML +=    '<button class="btn btn-danger" onclick="removerCliente('+id+')">Remover</button>';
+            }
+        </script>
         <table>
             <tr class="testeBorda"><h2>Lista de Clientes</h2>
             <!-- foreach para chamar todos os clientes que ja fizeram pedido !-->
                 <td>NOME</td>
                 <td>TELEFONE</td>
-                <td>ENDEREÇO</td>
+                <td style="max-width: 25vw,width: 15vw">ENDEREÇO</td>
+                <td>#</td>
             </tr>
             <?php 
                 $arrayClientes = listaClientesBD();
                 foreach ($arrayClientes as &$cliente) {
-                    print("<tr>");
-                        print("<td>$cliente->nome</td>");
-                        print("<td>$cliente->telefone</td>");
-                        print("<td>$cliente->endereco</td>");
+                    print("<tr id='cliente$cliente->id'>");
+                        print("<td id='nome$cliente->id'>$cliente->nome</td>");
+                        print("<td id='tel$cliente->id'>$cliente->telefone</td>");
+                        print("<td id='end$cliente->id'>$cliente->endereco</td>");
+                        print("<td id='btn$cliente->id'>
+                            <button class='btn btn-info' onclick='editarCliente($cliente->id) '>Editar</button>
+                            <button class='btn btn-danger' onclick='removerCliente($cliente->id) '>Remover</button></td>");
                     print("</tr>");
                 }
             ?>
