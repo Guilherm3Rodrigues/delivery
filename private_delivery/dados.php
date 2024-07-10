@@ -204,8 +204,25 @@ if ($acao == 'inserir') {
     
     print_r(json_encode($pedido)); 
     
+} elseif ($acao == "financeiroPedidosxSemana") {
+
+    global $comandos;
+
+    $resultado = $comandos->financeiroPedidosxSemana();
+
+    print_r(json_encode($resultado));
+
+} elseif ($acao == "financeiroTopPedidos") {
+
+    global $comandos;
+
+    $resultado = $comandos->financeiroTopPedidos();
+
+    print_r(json_encode($resultado));
+
 }
-function listarPedidosBD() {
+
+function listarPedidosBD($todasDatas) {
     
     global $comandos;
     if(!isset($_GET['start']) && !isset($_GET['end']) ) {

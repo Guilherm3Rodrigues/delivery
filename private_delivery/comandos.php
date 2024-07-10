@@ -305,6 +305,42 @@ class Comandos
     }
     
 
+
+    public function financeiroPedidosxSemana(){
+        // Cria a tabela temporária
+        $sqlCreateTable = 'CREATE TEMPORARY TABLE dias_semana (dia_semana INT)';
+        $stmt = $this->conexao->prepare($sqlCreateTable);
+        $stmt->execute();
+    
+        // Insere os dias da semana na tabela temporária
+        $sqlInsertDays = 'INSERT INTO dias_semana (dia_semana) VALUES (0), (1), (2), (3), (4), (5), (6)';
+        $stmt = $this->conexao->prepare($sqlInsertDays);
+        $stmt->execute();
+    
+        // Consulta principal
+        $sqlSelect = 'SELECT ds.dia_semana, COALESCE(COUNT(p.id), 0) AS total_pedidos
+                      FROM dias_semana ds
+                      LEFT JOIN pedidos p ON ds.dia_semana = WEEKDAY(p.data_insercao)
+                      GROUP BY ds.dia_semana
+                      ORDER BY ds.dia_semana';
+    
+        $stmt = $this->conexao->prepare($sqlSelect);
+        $stmt->execute();
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Modificado para FETCH_ASSOC para retornar um array associativo
+    }
+
+    public function financeiroTopPedidos(){
+        // Consulta principal
+        $sqlSelect = 'SELECT itens_cardapio.produto AS nome, SUM(pedidos_cardapio.quantidade) AS total_pedidos 
+        FROM pedidos_cardapio , itens_cardapio WHERE pedidos_cardapio.id_itensCardapio = itens_cardapio.id GROUP BY pedidos_cardapio.id_itensCardapio, itens_cardapio.produto ORDER BY total_pedidos DESC LIMIT 5;';
+    
+        $stmt = $this->conexao->prepare($sqlSelect);
+        $stmt->execute();
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Modificado para FETCH_ASSOC para retornar um array associativo
+    }
+    
 }
 
 

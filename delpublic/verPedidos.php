@@ -97,7 +97,7 @@ include('ponteInfo.php');
 
             document.body.appendChild(div);
             
-            //ajax para mostrar os pedidos
+            //criar uma requisição para mostrar os pedidos
             var request = new XMLHttpRequest();
             request.open('GET','ponteInfo.php?acao=buscarNumPedido&id='+ id,true);
             request.onreadystatechange = function() {
