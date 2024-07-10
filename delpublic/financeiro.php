@@ -26,7 +26,25 @@ include('ponteInfo.php');
 
             //Pedidos por semana
             criarGraficoPxS();
+
+            //Top 5 mais pedidos
             criarGraficoTopPedidos();
+
+            //Top 5 menos pedidos
+
+            //Frequência de pedidos de um cliente/mes x gasto em media/mês x faixa media de gasto dos clientes
+        
+            //Bedidas mais pedidas x dia de semana
+
+            //categorias mais pedidas x dia de semana
+
+            //Top 5 clientes que mais gastam x frequência de pedidos
+
+            //Top 5 clientes que menos gastam x frequência de pedidos
+
+            //Satifacao do cliente ?? 
+
+
         });
         
         function criarGraficoPxS() {
@@ -38,7 +56,7 @@ include('ponteInfo.php');
                 if (request.readyState === 4 && request.status === 200) {
                      /// OBTENDO DADOS 
                     const dados = JSON.parse(request.responseText);
-    
+                    console.log(dados);
                     // GRAFICO
                     new Chart(ctx, {
                         type: 'bar',
