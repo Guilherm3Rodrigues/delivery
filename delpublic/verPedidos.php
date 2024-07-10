@@ -14,6 +14,9 @@ include('ponteInfo.php');
     <title>Pedidos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <style>
+        button{
+            margin: 1px;
+        }
         .testeBorda{
             border: 2px solid black;
             self-align: center;
@@ -37,9 +40,11 @@ include('ponteInfo.php');
             text-align: center;
         }
         .testeBorda td input{
-            border: 0px;
+            border: 1px solid black;
             text-align: center;
+
         }
+
         .showpedido{
             border: 2px solid black;
             self-align: center;
@@ -152,23 +157,16 @@ include('ponteInfo.php');
 
         function showHidePedAnteriores() {
             let url = window.location.href.split('?')[1];
-            let periodo = document.getElementById('periodo').value;
+            let periodoInicial = document.getElementById('periodoInicial').value;
+            let periodoFinal = document.getElementById('periodoFinal').value;
             
             if (url) {
                 window.location.href = window.location.href.split('?')[0];
             } else {
-                window.location.href = window.location.href + '?todasDatas=' + periodo;
+                window.location.href = window.location.href + '?start=' + periodoInicial + '&end=' + periodoFinal;
             }
         }
-        function selectValorCorreto() {
-            let url = window.location.href.split('?todasDatas=')[1];
-            
-            if (url) {
-                document.getElementById('periodo').value = url;
-            }
-            
-        }
-        document.addEventListener('DOMContentLoaded', selectValorCorreto);
+
 
 
     </script>
@@ -194,7 +192,6 @@ include('ponteInfo.php');
                 $arrayPedidos = listarPedidosBD($todasDatas);
         
                 foreach ($arrayPedidos as &$pedido) {
-
                     print("<tr>");
                         print("<td>".$pedido->id_cliente." </td>");
                         print("<td><input type='text' value='$pedido->telefone' disabled></td> ");
@@ -202,7 +199,7 @@ include('ponteInfo.php');
                         print("<td>$pedido->observacao</td> ");
                         if($pedido->paraEntregar)print("<td>$pedido->endereco </td>");
                         else print("<td>Retirar no local</td>");
-                        
+                        print("<td>$pedido->status</td>");
                     print("</tr>");
                 }
 
@@ -213,11 +210,8 @@ include('ponteInfo.php');
         </tr>
         <tr>
             <td colspan="5">
-                <select name="periodo" id="periodo">
-                    <option value="1">1 Mes</option>
-                    <option value="2">2 Meses</option>
-                    <option value="3">3 Meses</option>
-                </select>
+                <input name="periodoInicial" id="periodoInicial" type="date">
+                <input name="periodoFinal" id="periodoFinal" type="date">
                 <button class="btn btn-danger" onclick="showHidePedAnteriores()" ><?php
                 
                 if (isset($_GET['todasDatas'])) {
@@ -278,11 +272,26 @@ include('ponteInfo.php');
                 let telbkp = document.getElementById('tel' + id).innerHTML;
                 let endbkp = document.getElementById('end' + id).innerHTML;
 
-                btn.innerHTML = '<button class="btn btn-" onclick="confirmarExclusao('+id+')">Sim</button>';
-                btn.innerHTML += '<button class="btn btn-content" onclick="cancelarCliente('+id+','+nomebkp+','+telbkp+','+endbkp+')">Não</button>';
+                btn.innerHTML = `remover cliente?<br>`;	
+                btn.innerHTML += `<button class="btn btn-" onclick="confirmarExclusao('${id}')">Sim</button>`;	
+                btn.innerHTML += `<button class="btn btn-content" onclick="cancelarRemocaoCliente('${id}')">Não</button>`;
 
             }
+
+            function confirmarExclusao(id) {
+                let tr = document.getElementById('cliente' + id);
+
+                tr.remove();
+
+            }
+
+            function cancelarRemocaoCliente(id) {
+                let btn = document.getElementById('btn' + id);
+                btn.innerHTML = `<button class="btn btn-info" onclick="editarCliente('${id}')">Editar</button>`;
+                btn.innerHTML += `<button class="btn btn-danger" onclick="removerCliente('${id}')">Remover</button>`;
+            }
             function cancelarCliente(id,nomebkp,telbkp,endbkp) {
+                
                 let nome = document.getElementById('nome' + id);
                 let tel = document.getElementById('tel' + id);
                 let end = document.getElementById('end' + id);
@@ -296,9 +305,10 @@ include('ponteInfo.php');
                 tel.setAttribute('contenteditable', 'false');
                 end.setAttribute('contenteditable', 'false');
 
-                btn.innerHTML =     '<button class="btn btn-info" onclick="editarCliente('+id+')">Editar</button>';
-                btn.innerHTML +=    '<button class="btn btn-danger" onclick="removerCliente('+id+')">Remover</button>';
+                btn.innerHTML ='<button class="btn btn-info" onclick="editarCliente('+id+')">Editar</button>';
+                btn.innerHTML +='<button class="btn btn-danger" onclick="removerCliente('+id+')">Remover</button>';
             }
+            
         </script>
         <table>
             <tr class="testeBorda"><h2>Lista de Clientes</h2>

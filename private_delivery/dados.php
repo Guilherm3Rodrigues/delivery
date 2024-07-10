@@ -205,13 +205,13 @@ if ($acao == 'inserir') {
     print_r(json_encode($pedido)); 
     
 }
-function listarPedidosBD($todasDatas) {
+function listarPedidosBD() {
     
-   global $comandos;
-   if(!isset($todasDatas)){
-        $todasDatas = 0;
-   };
-    $listaPedidos = $comandos->buscarPedidos($todasDatas);
+    global $comandos;
+    if(!isset($_GET['start']) && !isset($_GET['end']) ) {
+        $start = 0;
+    };
+    $listaPedidos = $comandos->buscarPedidos($start);
     
 
     return $listaPedidos;
@@ -222,7 +222,7 @@ function listaClientesBD() {
     $listaPedidos = $comandos->listaClientes();
      
  
-     return $listaPedidos;
+    return $listaPedidos;
  }
   
 include('Login.php');

@@ -122,14 +122,14 @@ class Comandos
     
 
     //inativa no momento
-    public function buscarPedidos($_todasDatas) // carrega o carrinho, PODE SER UTIL PARA ADMs
+    public function buscarPedidos($start,$end) // carrega o carrinho, PODE SER UTIL PARA ADMs
     {
         $query = 'SELECT clientes.nome AS id_cliente, clientes.telefone AS telefone, pedidos.numero_pedido AS nunPedido,
             CONCAT(clientes.rua, " ", clientes.numero," ", clientes.bairro) AS endereco, pedidos.paraEntregar AS paraEntregar, pedidos.observacao AS observacao,
             pedidos.data_insercao AS dataPedido, pedidos.status AS status
             from pedidos,clientes where pedidos.id_cliente = clientes.id ';
-        if($_todasDatas > 0) {
-            $query .= ' AND DATE(pedidos.data_insercao)  >= DATE_FORMAT(NOW() - INTERVAL '.$_todasDatas.' MONTH, "%Y-%m-01") ORDER BY data_insercao ASC';
+        if($start != 0) {
+            $query .= ' AND DATE(pedidos.data_insercao)  >= DATE_FORMAT($start,$end,"%Y-%m-%d") ORDER BY data_insercao ASC';
         }else {
             $query .= ' AND DATE(pedidos.data_insercao) = CURDATE() ORDER BY data_insercao ASC';
         }
