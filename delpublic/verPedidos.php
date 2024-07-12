@@ -19,7 +19,7 @@ include('ponteInfo.php');
         }
         .testeBorda{
             border: 2px solid black;
-            self-align: center;
+            align-self: center;
             margin: auto;
             width: 95%;
             margin: 2%;
@@ -47,7 +47,7 @@ include('ponteInfo.php');
 
         .showpedido{
             border: 2px solid black;
-            self-align: center;
+            align-self: center;
             margin: auto;
             padding: 10px;
             background-color: orange;
@@ -60,7 +60,7 @@ include('ponteInfo.php');
         }
         .tabelaDetalhes{
             border: 2px solid black;
-            self-align: center;
+            align-self: center;
             margin: auto;
             padding: 10px;
             width: 90%;
@@ -183,8 +183,8 @@ include('ponteInfo.php');
             <td style="width: 20vw">Nome  </td>
             <td>Telefone </td> 
             <td>Pedido</td> <!-- transfomar em uma acao que abre um janela com os pedidos e junta observação, assim da ate pra cria um resumo do pedido !-->
-            <td style="max-width: 25vw,width: 10vw">Observação:</td><!-- ainda não existe area de observação sobre o pedido para o cliente !-->
-            <td style="max-width: 30vw,width: 20vw">Endereço: </td><!-- eu juntaria entrega e endereço no mesmo campo porque se nao for entregar para que um campo de endereco  !-->
+            <td style="max-width: 25vw; width: 10vw">Observação:</td><!-- ainda não existe area de observação sobre o pedido para o cliente !-->
+            <td style="max-width: 30vw; width: 20vw">Endereço: </td><!-- eu juntaria entrega e endereço no mesmo campo porque se nao for entregar para que um campo de endereco  !-->
             <td>Status</td>
         </tr>
             <?php
@@ -315,7 +315,7 @@ include('ponteInfo.php');
             <!-- foreach para chamar todos os clientes que ja fizeram pedido !-->
                 <td>NOME</td>
                 <td>TELEFONE</td>
-                <td style="max-width: 25vw,width: 15vw">ENDEREÇO</td>
+                <td style="max-width: 25vw; width: 15vw">ENDEREÇO</td>
                 <td>#</td>
             </tr>
             <?php 
