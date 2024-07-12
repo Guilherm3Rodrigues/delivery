@@ -137,9 +137,11 @@ switch ($acao) {
             
 
             if (!$_POST['entrega'] == 0) {
-                if ($end < 2 || $bairro < 2 || $num == 0) {
+                if ($end < 2 || $bairro < 2 || $num == 0) 
+                {
                     header('location: carrinho.php?acao=recuperarPedidos&&erro=1');
-                } else 
+                } 
+                else 
                 {
                 $usuarios->__set('rua', $_POST['rua']);
                 $usuarios->__set('numero', $_POST['numero']);
@@ -165,7 +167,8 @@ switch ($acao) {
             } 
             else
             {
-
+                //var_dump($_SESSION['itens']);
+                //var_dump($_POST);
                 $usuarios->__set('rua', $_POST['rua']);
                 $usuarios->__set('numero', $_POST['numero']);
                 $usuarios->__set('bairro', $_POST['bairro']);
@@ -174,7 +177,7 @@ switch ($acao) {
                 $usuarios->__set('telefone', $_POST['telefoneCliente']);
 
                 $cliente = $comandosUsuarios->cadastroUsuario();
-
+                var_dump($cliente);
                 foreach ($_SESSION['itens'] as $key => $value) {
                     $admCardapio->__set('id', $value['id']);
                     $admCardapio->__set('produto', $value['produto']);
@@ -182,8 +185,10 @@ switch ($acao) {
                     $admCardapio->__set('valor', $value['valor']);
                     $admCardapio->__set('categoria', $value['categoria']);
                     $admCardapio->__set('numero_pedido', $value['numero_pedido']);
-                    $admCardapio->__set('idCliente', $cliente[0]['id_cliente']);
+                    $admCardapio->__set('idCliente', $cliente[0]['id']);
                     $admCardapio->__set('frete', $frete);
+                    $admCardapio->__set('status', 'Pedido Recebido');
+                    
                     $comandos->finalizarPedido();
                 }
             }
