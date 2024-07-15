@@ -222,13 +222,19 @@ if ($acao == 'inserir') {
 
 }
 
-function listarPedidosBD($todasDatas) {
+function listarPedidosBD() {
     
     global $comandos;
-    if(!isset($_GET['start']) && !isset($_GET['end']) ) {
+    if(isset($_GET['start']) && isset($_GET['end']) ) {
+        $start = $_GET['start'];
+        $end = $_GET['end'];
+    }
+    else{
         $start = 0;
+        $end = 0;
     };
-    $listaPedidos = $comandos->buscarPedidos($start);
+
+    $listaPedidos = $comandos->buscarPedidos($start,$end);
     
 
     return $listaPedidos;
