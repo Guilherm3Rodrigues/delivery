@@ -304,6 +304,16 @@ if ($acao == 'inserir') # --------------------- Inclusão de itens no cardápio 
 }
 
 
+function listarCategoriasBD() {
+    
+    global $comandos;
+    
+    $listaPedidos = $comandos->listarCategorias();
+
+
+    return $listaPedidos;
+}
+
 function listarPedidosBD() {
     
     global $comandos;

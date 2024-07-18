@@ -303,8 +303,18 @@ class Comandos
                     }
     }
     
+    function listarCategorias() {
 
+        $verificar = 'SELECT * FROM categoria WHERE categoria.id > 0 ORDER BY nome ASC';
+        $stmt = $this->conexao->prepare($verificar);
+        $stmt->execute();
 
+        $lista = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $lista;
+    }
+
+    // GRAFICOS  ----------------------------------------------------------------------------------------///
     public function financeiroPedidosxSemana(){
         // Cria a tabela temporária
         $sqlCreateTable = 'CREATE TEMPORARY TABLE dias_semana (dia_semana INT)';
@@ -326,7 +336,7 @@ class Comandos
         $stmt = $this->conexao->prepare($sqlSelect);
         $stmt->execute();
         
-        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Modificado para FETCH_ASSOC para retornar um array associativo
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); 
     }
 
     public function financeiroTopPedidos(){
