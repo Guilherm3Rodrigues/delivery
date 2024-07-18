@@ -194,7 +194,7 @@ include('ponteInfo.php');
                 foreach ($arrayPedidos as &$pedido) {
                     print("<tr>");
                         print("<td>".$pedido->id_cliente." </td>");
-                        print("<td><input type='text' value='$pedido->telefone' disabled></td> ");
+                        print("<td>$pedido->telefone</td> ");
                         print("<td><a onclick='showpedido($pedido->nunPedido)'>$pedido->nunPedido</td>");
                         print("<td>$pedido->observacao</td> ");
                         if($pedido->paraEntregar)print("<td>$pedido->endereco </td>");
@@ -209,18 +209,11 @@ include('ponteInfo.php');
             ?>
         </tr>
         <tr>
-            <td colspan="5">
-                <input name="periodoInicial" id="periodoInicial" type="date">
-                <input name="periodoFinal" id="periodoFinal" type="date">
-                <button class="btn btn-danger" onclick="showHidePedAnteriores()" ><?php
-                
-                if (isset($_GET['todasDatas'])) {
-                    print("Pedidos do dia");
-                } else {
-                    print("Todos os pedidos");
-                }
-                
-                ?></button> <!-- Criar dialog com filtro de data? ou criar um filtro de data com todos juntos na pag principal !-->
+            <td colspan="6">
+                inicio: <input name="periodoInicial" id="periodoInicial" type="date">
+                Fim: <input name="periodoFinal" id="periodoFinal" type="date">
+                <button id="btnBuscarPeriodo" class="btn btn-danger" onclick="showHidePedAnteriores()" >Buscar Periodo</button>
+                <button id="btnBuscarDia" class="btn btn-danger" onclick="window.location.href='verPedidos.php'" >Listar Dia</button>
             </td>
         </tr>
         </table>

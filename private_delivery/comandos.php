@@ -129,11 +129,10 @@ class Comandos
             pedidos.data_insercao AS dataPedido, pedidos.status AS status
             from pedidos,clientes where pedidos.id_cliente = clientes.id ';
         if($start != 0) {
-            $query .= ' AND DATE(pedidos.data_insercao)  >= DATE_FORMAT($start,$end,"%Y-%m-%d") ORDER BY data_insercao ASC';
+            $query .= 'AND DATE(pedidos.data_insercao) >= DATE("'.$start.'") AND DATE(pedidos.data_insercao) <= DATE("'.$end.'") ORDER BY data_insercao ASC';
         }else {
-            $query .= ' AND DATE(pedidos.data_insercao) = CURDATE() ORDER BY data_insercao ASC';
+            $query .= 'AND DATE(pedidos.data_insercao) = CURDATE() ORDER BY data_insercao ASC';
         }
-
 
         $stmt = $this->conexao->prepare($query);
         $stmt->execute();

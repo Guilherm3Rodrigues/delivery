@@ -26,7 +26,79 @@ if (strpos($index, 'index.php') !== false || strpos($index, 'cardapio.php') !== 
     $_SESSION = array_merge($_SESSION, $info);
 }
 
-if ($acao == 'inserir') {
+switch ($acao) {
+    case 'inserir': 
+        $admCardapio->__set('categoria', $_POST['categoria']);
+        $admCardapio->__set('produto', $_POST['produto']);
+        $admCardapio->__set('descricao', $_POST['descricao']);
+        $admCardapio->__set('valor', $_POST['valor']);
+        $admCardapio->__set('ordem', $_POST['ordem']);
+
+        $comandos->inserir();
+        header('Location: admControl.php?inclusao=1#ordemEAdd');
+        break;
+    case 'inserirInfo': 
+        $admInfo->__set('nome', $_POST['nome']);
+        $admInfo->__set('telefone', $_POST['telefone']);
+        $admInfo->__set('rua', $_POST['rua']);
+        $admInfo->__set('bairro', $_POST['bairro']);
+        var_dump($_POST);
+
+        if($_POST["horaCustomSegunda"]){
+            $arrayFuncionamento['Mon'] = [$_POST['horaInicioSegunda'], $_POST['horaFimSegunda']];
+        }else{
+            $arrayFuncionamento['Mon'] = [];
+        }
+        if($_POST["horaCustomTerca"]){
+            $arrayFuncionamento['Tue'] = [$_POST['horaInicioTerca'], $_POST['horaFimTerca']];
+        }else{
+            $arrayFuncionamento['Tue'] = [];
+        }
+        if($_POST["horaCustomQuarta"]){
+            $arrayFuncionamento['Wed'] = [$_POST['horaInicioQuarta'], $_POST['horaFimQuarta']];
+        }else{
+            $arrayFuncionamento['Wed'] = [];
+        }
+        if($_POST["horaCustomQuinta"]){
+            $arrayFuncionamento['Thu'] = [$_POST['horaInicioQuinta'], $_POST['horaFimQuinta']];
+        }else{
+            $arrayFuncionamento['Thu'] = [];
+        }
+        if($_POST["horaCustomSexta"]){
+            $arrayFuncionamento['Fri'] = [$_POST['horaInicioSexta'], $_POST['horaFimSexta']];
+        }else{
+            $arrayFuncionamento['Fri'] = [];
+        }
+        if($_POST["horaCustomSabado"]){
+            $arrayFuncionamento['Sat'] = [$_POST['horaInicioSabado'], $_POST['horaFimSabado']];
+        }else{
+            $arrayFuncionamento['Sat'] = [];
+        }
+        if($_POST["horaCustomDomingo"]){
+            $arrayFuncionamento['Sun'] = [$_POST['horaInicioDomingo'], $_POST['horaFimDomingo']];
+        }else{
+            $arrayFuncionamento['Sun'] = [];
+        }
+
+        var_dump($arrayFuncionamento);
+        $admInfo->__set('data_funcionamento', json_encode($arrayFuncionamento));
+        $admInfo->__set('frete', $_POST['frete']);
+
+        $comandosInfo->inserirInfo();
+
+        header('Location: admControl.php?inclusao=2');
+        break;
+    case 'atualizarInfo': # --------- Atualizar informações ESTABELECIMENTO ---------------- #
+        
+        break;
+    default:
+        # code...
+        break;
+}
+
+
+if ($acao == 'inserir') # --------------------- Inclusão de itens no cardápio ------------------------ #
+{
     
     $admCardapio->__set('categoria', $_POST['categoria']);
     $admCardapio->__set('produto', $_POST['produto']);
@@ -38,7 +110,8 @@ if ($acao == 'inserir') {
 
     header('Location: admControl.php?inclusao=1#ordemEAdd');
 
-} else if ($acao == 'inserirInfo') {
+} elseif ($acao == 'inserirInfo') # ----------- Adicionar informações ESTABELECIMENTO ---------------- #
+{
     $admInfo->__set('nome', $_POST['nome']);
     $admInfo->__set('telefone', $_POST['telefone']);
     $admInfo->__set('rua', $_POST['rua']);
@@ -89,7 +162,8 @@ if ($acao == 'inserir') {
 
     header('Location: admControl.php?inclusao=2');
 
-} else  if (isset($_POST['id_remover']) && $_POST['id_remover'] != null && $_SERVER["REQUEST_METHOD"] == "POST") {
+} else  if (isset($_POST['id_remover']) && $_POST['id_remover'] != null && $_SERVER["REQUEST_METHOD"] == "POST") 
+{
     $admCardapio->__set('id', $_POST['id_remover']);
     $comandos->remover();
 
@@ -195,7 +269,14 @@ if ($acao == 'inserir') {
         include('whats.php');
     } 
         //$listaPedidos = $comandos->buscarPedidos();
-    
+}elseif ($acao == "buscarPedidos") {
+    // Chamada da função para buscar pedidos
+    $listaPedidos = buscarPedidos($pdo, $start, $end);
+
+    // Retornar os resultados como JSON
+    header('Content-Type: application/json');
+    echo json_encode($listaPedidos);
+
 
 } elseif ($acao == "buscarNumPedido") {
     global $comandos;
@@ -222,20 +303,15 @@ if ($acao == 'inserir') {
 
 }
 
+
 function listarPedidosBD() {
     
     global $comandos;
-    if(isset($_GET['start']) && isset($_GET['end']) ) {
-        $start = $_GET['start'];
-        $end = $_GET['end'];
-    }
-    else{
-        $start = 0;
-        $end = 0;
-    };
+    $start = isset($_GET['start']) && !empty($_GET['start']) ? $_GET['start'] : 0;
+    $end = isset($_GET['end']) && !empty($_GET['end']) ? $_GET['end'] : 0;
 
     $listaPedidos = $comandos->buscarPedidos($start,$end);
-    
+
 
     return $listaPedidos;
 }
