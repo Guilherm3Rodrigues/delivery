@@ -145,6 +145,14 @@ $_SESSION['freteFinal'] = 0;
                     
                     <dialog id="dialogObservacoes" class="dialogStyle">
 
+                    <form action="">
+                        <label for="observacao">Observações:</label>
+
+                        <textarea type="text" id="observacao" name="observacao" placeholder="Exemplo: Sem cebola, tamanho M, etc"></textarea>
+
+
+                    </form>
+
                         <button class="btn btn-danger" onclick="fecharDialog()">Confirmar Compra</button> <?php  ?>
                     </dialog>
                 </div>
