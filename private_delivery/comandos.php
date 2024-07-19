@@ -244,8 +244,8 @@ class Comandos
             $pedido[$id] = $resultado;
         }
 
-        $query = 'INSERT INTO pedidos ( valor, numero_pedido, id_cliente, paraEntregar)
-        values ( :valor, :numero_pedido, :idCliente, :entrega)';
+        $query = 'INSERT INTO pedidos ( valor, numero_pedido, id_cliente, paraEntregar, status) 
+        values ( :valor, :numero_pedido, :idCliente, :entrega, "pedido Recebido")'; // maneira do 'status' é temporaria, pensar em algo melhor dps
         $stmt2 = $this->conexao->prepare($query);
         //$stmt2->bindValue(':img', $this->cardapio->__get('img'));
         //$stmt2->bindValue(':produto', $this->cardapio->__get('produto'));

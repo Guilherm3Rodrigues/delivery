@@ -141,9 +141,12 @@ $_SESSION['freteFinal'] = 0;
                 </div>
 
                 <div class="col-sm justify-content-end d-flex align-items-center">
+                    <button class="btn btn-danger" onclick="abrirDialogObservacoes()">COMPRAR</button> <?php  ?>
+                    
+                    <dialog id="dialogObservacoes" class="dialogStyle">
 
-                    <button class="btn btn-danger" onclick="add(<?php print $produto->id ?>)">COMPRAR</button> <?php  ?>
-
+                        <button class="btn btn-danger" onclick="fecharDialog()">Confirmar Compra</button> <?php  ?>
+                    </dialog>
                 </div>
                 
                 <hr>

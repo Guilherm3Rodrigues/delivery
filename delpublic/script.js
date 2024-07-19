@@ -3,6 +3,11 @@ function abrirDialog() {
     dialog.showModal();
 }
 
+function abrirDialogObservacoes() {
+    const dialog = document.getElementById('dialogObservacoes');
+    dialog.showModal();
+}
+
 function abrirDialogEditar() {
     const dialog = document.getElementById('dialog');
     dialog.showModal();
@@ -10,6 +15,9 @@ function abrirDialogEditar() {
 
 function fecharDialog() {
     const dialog = document.getElementById('dialog');
+    const dialogObs = document.getElementById('dialogObservacoes');
+    
+    dialogObs.close();
     dialog.close();
 }
 

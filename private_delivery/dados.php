@@ -149,6 +149,8 @@ switch ($acao) {
                 $usuarios->__set('complemento', $_POST['complemento']);
                 $usuarios->__set('nome', $_POST['nomeCliente']);
                 $usuarios->__set('telefone', $_POST['telefoneCliente']);
+                
+                
 
                 $cliente = $comandosUsuarios->cadastroUsuario();
 
@@ -159,7 +161,7 @@ switch ($acao) {
                     $admCardapio->__set('valor', $value['valor']);
                     $admCardapio->__set('categoria', $value['categoria']);
                     $admCardapio->__set('numero_pedido', $value['numero_pedido']);
-                    $admCardapio->__set('idCliente', $cliente[0]['id_cliente']);
+                    $admCardapio->__set('idCliente', $cliente[0]['id']);
                     $admCardapio->__set('frete', $frete);
                     $comandos->finalizarPedido();
                 }
