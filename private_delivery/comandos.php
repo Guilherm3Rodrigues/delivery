@@ -129,11 +129,10 @@ class Comandos
             pedidos.data_insercao AS dataPedido, pedidos.status AS status
             from pedidos,clientes where pedidos.id_cliente = clientes.id ';
         if($start != 0) {
-            $query .= ' AND DATE(pedidos.data_insercao)  >= DATE_FORMAT($start,$end,"%Y-%m-%d") ORDER BY data_insercao ASC';
+            $query .= 'AND DATE(pedidos.data_insercao) >= DATE("'.$start.'") AND DATE(pedidos.data_insercao) <= DATE("'.$end.'") ORDER BY data_insercao ASC';
         }else {
-            $query .= ' AND DATE(pedidos.data_insercao) = CURDATE() ORDER BY data_insercao ASC';
+            $query .= 'AND DATE(pedidos.data_insercao) = CURDATE() ORDER BY data_insercao ASC';
         }
-
 
         $stmt = $this->conexao->prepare($query);
         $stmt->execute();
@@ -304,8 +303,18 @@ class Comandos
                     }
     }
     
+    function listarCategorias() {
 
+        $verificar = 'SELECT * FROM categoria WHERE categoria.id > 0 ORDER BY nome ASC';
+        $stmt = $this->conexao->prepare($verificar);
+        $stmt->execute();
 
+        $lista = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $lista;
+    }
+
+    // GRAFICOS  ----------------------------------------------------------------------------------------///
     public function financeiroPedidosxSemana(){
         // Cria a tabela temporária
         $sqlCreateTable = 'CREATE TEMPORARY TABLE dias_semana (dia_semana INT)';
@@ -327,7 +336,7 @@ class Comandos
         $stmt = $this->conexao->prepare($sqlSelect);
         $stmt->execute();
         
-        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Modificado para FETCH_ASSOC para retornar um array associativo
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); 
     }
 
     public function financeiroTopPedidos(){
