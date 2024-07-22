@@ -26,75 +26,11 @@ if (strpos($index, 'index.php') !== false || strpos($index, 'cardapio.php') !== 
     $_SESSION = array_merge($_SESSION, $info);
 }
 
-switch ($acao) {
-    case 'inserir': 
-        $admCardapio->__set('categoria', $_POST['categoria']);
-        $admCardapio->__set('produto', $_POST['produto']);
-        $admCardapio->__set('descricao', $_POST['descricao']);
-        $admCardapio->__set('valor', $_POST['valor']);
-        $admCardapio->__set('ordem', $_POST['ordem']);
-
-        $comandos->inserir();
-        header('Location: admControl.php?inclusao=1#ordemEAdd');
-        break;
-    case 'inserirInfo': 
-        $admInfo->__set('nome', $_POST['nome']);
-        $admInfo->__set('telefone', $_POST['telefone']);
-        $admInfo->__set('rua', $_POST['rua']);
-        $admInfo->__set('bairro', $_POST['bairro']);
-        var_dump($_POST);
-
-        if($_POST["horaCustomSegunda"]){
-            $arrayFuncionamento['Mon'] = [$_POST['horaInicioSegunda'], $_POST['horaFimSegunda']];
-        }else{
-            $arrayFuncionamento['Mon'] = [];
-        }
-        if($_POST["horaCustomTerca"]){
-            $arrayFuncionamento['Tue'] = [$_POST['horaInicioTerca'], $_POST['horaFimTerca']];
-        }else{
-            $arrayFuncionamento['Tue'] = [];
-        }
-        if($_POST["horaCustomQuarta"]){
-            $arrayFuncionamento['Wed'] = [$_POST['horaInicioQuarta'], $_POST['horaFimQuarta']];
-        }else{
-            $arrayFuncionamento['Wed'] = [];
-        }
-        if($_POST["horaCustomQuinta"]){
-            $arrayFuncionamento['Thu'] = [$_POST['horaInicioQuinta'], $_POST['horaFimQuinta']];
-        }else{
-            $arrayFuncionamento['Thu'] = [];
-        }
-        if($_POST["horaCustomSexta"]){
-            $arrayFuncionamento['Fri'] = [$_POST['horaInicioSexta'], $_POST['horaFimSexta']];
-        }else{
-            $arrayFuncionamento['Fri'] = [];
-        }
-        if($_POST["horaCustomSabado"]){
-            $arrayFuncionamento['Sat'] = [$_POST['horaInicioSabado'], $_POST['horaFimSabado']];
-        }else{
-            $arrayFuncionamento['Sat'] = [];
-        }
-        if($_POST["horaCustomDomingo"]){
-            $arrayFuncionamento['Sun'] = [$_POST['horaInicioDomingo'], $_POST['horaFimDomingo']];
-        }else{
-            $arrayFuncionamento['Sun'] = [];
-        }
-
-        var_dump($arrayFuncionamento);
-        $admInfo->__set('data_funcionamento', json_encode($arrayFuncionamento));
-        $admInfo->__set('frete', $_POST['frete']);
-
-        $comandosInfo->inserirInfo();
-
-        header('Location: admControl.php?inclusao=2');
-        break;
-    case 'atualizarInfo': # --------- Atualizar informações ESTABELECIMENTO ---------------- #
-        
-        break;
-    default:
-        # code...
-        break;
-}
+$funcoes = [
+    'inserir' => function () {
+        print("php é foda");
+    },
+];
 
 
 if ($acao == 'inserir') # --------------------- Inclusão de itens no cardápio ------------------------ #
@@ -117,42 +53,17 @@ if ($acao == 'inserir') # --------------------- Inclusão de itens no cardápio 
     $admInfo->__set('rua', $_POST['rua']);
     $admInfo->__set('bairro', $_POST['bairro']);
     var_dump($_POST);
+    $semana = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    $semanaFull = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'];
 
-    if($_POST["horaCustomSegunda"]){
-        $arrayFuncionamento['Mon'] = [$_POST['horaInicioSegunda'], $_POST['horaFimSegunda']];
-    }else{
-        $arrayFuncionamento['Mon'] = [];
+    for ($i=0; $i < 6; $i++) { 
+        if($_POST["horaCustom".$semanaFull[$i]]){
+            $arrayFuncionamento[$semana[$i]] = [$_POST['horaInicio'.$semanaFull[$i]], $_POST['horaFim'.$semanaFull[$i]]];
+        }else{
+            $arrayFuncionamento[$semana[$i]] = [];
+        }
     }
-    if($_POST["horaCustomTerca"]){
-        $arrayFuncionamento['Tue'] = [$_POST['horaInicioTerca'], $_POST['horaFimTerca']];
-    }else{
-        $arrayFuncionamento['Tue'] = [];
-    }
-    if($_POST["horaCustomQuarta"]){
-        $arrayFuncionamento['Wed'] = [$_POST['horaInicioQuarta'], $_POST['horaFimQuarta']];
-    }else{
-        $arrayFuncionamento['Wed'] = [];
-    }
-    if($_POST["horaCustomQuinta"]){
-        $arrayFuncionamento['Thu'] = [$_POST['horaInicioQuinta'], $_POST['horaFimQuinta']];
-    }else{
-        $arrayFuncionamento['Thu'] = [];
-    }
-    if($_POST["horaCustomSexta"]){
-        $arrayFuncionamento['Fri'] = [$_POST['horaInicioSexta'], $_POST['horaFimSexta']];
-    }else{
-        $arrayFuncionamento['Fri'] = [];
-    }
-    if($_POST["horaCustomSabado"]){
-        $arrayFuncionamento['Sat'] = [$_POST['horaInicioSabado'], $_POST['horaFimSabado']];
-    }else{
-        $arrayFuncionamento['Sat'] = [];
-    }
-    if($_POST["horaCustomDomingo"]){
-        $arrayFuncionamento['Sun'] = [$_POST['horaInicioDomingo'], $_POST['horaFimDomingo']];
-    }else{
-        $arrayFuncionamento['Sun'] = [];
-    }
+    
 
     var_dump($arrayFuncionamento);
     $admInfo->__set('data_funcionamento', json_encode($arrayFuncionamento));
@@ -284,6 +195,12 @@ if ($acao == 'inserir') # --------------------- Inclusão de itens no cardápio 
     $pedido = $comandos->buscarNumPedido($_GET['id']);
     
     print_r(json_encode($pedido)); 
+
+} elseif ($acao == "listarCategorias") {
+    global $comandos;           
+
+    $listaCategorias = $comandos->listarCategoriabyID($_GET['id']);
+    print_r(json_encode($listaCategorias));
     
 } elseif ($acao == "financeiroPedidosxSemana") {
 

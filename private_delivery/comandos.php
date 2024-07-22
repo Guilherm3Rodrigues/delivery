@@ -313,7 +313,16 @@ class Comandos
 
         return $lista;
     }
+    function listarCategoriabyID($id) {
 
+        $verificar = 'SELECT * FROM itens_cardapio WHERE itens_cardapio.id_categoria = '.$id;
+        $stmt = $this->conexao->prepare($verificar);
+        $stmt->execute();
+
+        $lista = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $lista;
+    }
     // GRAFICOS  ----------------------------------------------------------------------------------------///
     public function financeiroPedidosxSemana(){
         // Cria a tabela temporária

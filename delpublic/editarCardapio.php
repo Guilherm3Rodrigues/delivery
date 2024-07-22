@@ -17,6 +17,49 @@ include('ponteInfo.php');
         
 
     </style>
+    <script>
+        function editarCategoria() {
+            let idCategoria = document.getElementById('categorias').value;
+
+            //criar uma requisição para mostrar os pedidos
+            var request = new XMLHttpRequest();
+            request.open('GET','ponteInfo.php?acao=listarCategorias&id='+ idCategoria,true);
+            request.onreadystatechange = function() {
+                if (request.readyState === 4 && request.status === 200) {
+                    //console.log(request.responseText);
+                    let listaProdutos = JSON.parse(request.responseText);
+                    
+                    listaProdutos.forEach((item) => {gerardados(item)});
+                    
+                } else if (request.readyState === 4) {
+                    console.log('Erro ao obter a resposta do servidor');
+                }
+            }
+            request.send();
+        }
+
+
+        function gerardados(dados){
+            const divProdutos = document.getElementById('listaProdutos');
+
+            let linha = document.createElement('div');
+            linha.setAttribute('class', 'dados');
+            linha.id = 'dados'+dados.id;
+
+            linha.innerHTML =  dados.produto + ' - ' + dados.descricao + ' - ' + dados.categoria + ' - ' + dados.estoque;
+
+            divProdutos.appendChild(linha);
+
+        }
+
+        /// Renomear categoria
+        function renomeaCategoria() {
+            const idCategoria = document.getElementById('categorias');
+            let opcaoSelecionada = idCategoria.options[idCategoria.selectedIndex];
+
+            window.prompt("Digite o novo nome da Categoria:", opcaoSelecionada.text);
+        }
+    </script>
     
 </head>
 <body>
@@ -35,9 +78,12 @@ include('ponteInfo.php');
             ?>
         
         </select>
-        <button id="editarCategoria">EDITAR</button>
+        <button id="editarCategoria" onclick="editarCategoria()">EDITAR</button>
         <button id="removerCategoria">CANCELAR</button>
-        <button id="renomeaCategoria">RENOMEAR</button>
+        <button id="renomeaCategoria" onclick="renomeaCategoria()">RENOMEAR</button>
+    </div>
+    <div id="listaProdutos">
+
     </div>
 
 </body>
